@@ -12,6 +12,7 @@
  *
  *= require bootstrap.min
  *= require style
+ *= require font-awesome
  */
 
  .offset-1 {

@@ -1,0 +1,2 @@
+class CPayMProductPrice < ApplicationRecord
+end

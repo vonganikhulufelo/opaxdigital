@@ -1,0 +1,2 @@
+class SPayMProductPrice < ApplicationRecord
+end

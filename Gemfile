@@ -30,7 +30,7 @@ gem 'rails_12factor', group: :production
 gem 'sorcery'
 gem 'select2-rails'
 gem "jquery-turbolinks"
-gem 'font-awesome-sass', '~> 5.8.1'
+gem "font-awesome-rails"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

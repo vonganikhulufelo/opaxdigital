@@ -7,7 +7,7 @@
     <div class="wrapper-page">
 
             <div class="text-center">
-                <a  class="logo-lg"><i class="fas fa-cogs"></i><span> OPAX DIGITAL</span> </a>
+                <a  class="logo-lg"><i class="fa fa-cogs"></i><span> OPAX DIGITAL</span> </a>
             </div>
 
             <%= form_tag login_path, :class => 'form-horizontal m-t-20' do %>
@@ -16,7 +16,7 @@
                     <div class="col-12">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
                             <%= email_field_tag :email, params[:email], class: 'form-control',id: "inputEmail", placeholder: "Email", required: "required",autofocus: "autofocus"  %>
                         </div>
@@ -27,7 +27,7 @@
                     <div class="col-12">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
                             </div>
                             <%= password_field_tag :password,nil, class: 'form-control',id: "inputPassword", placeholder: "Password", required:"required"%>
                         </div>

@@ -1,0 +1,2 @@
+class CPayMDistrict < ApplicationRecord
+end

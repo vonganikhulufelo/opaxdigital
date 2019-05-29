@@ -1,0 +1,2 @@
+class SupplierPaymentTerm < ApplicationRecord
+end

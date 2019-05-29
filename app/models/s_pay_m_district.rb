@@ -1,0 +1,2 @@
+class SPayMDistrict < ApplicationRecord
+end
