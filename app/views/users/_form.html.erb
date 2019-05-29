@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">User Details</div>
+      <div class="card-body">
+          <%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= form.text_field :name, class: "form-control", placeholder: "Enter name", id: "name"%>
+      <label for="name">Name</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= form.text_field :address, class: "form-control", placeholder: "Enter address", id: "address"%>
+      <label for="address">Address</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= form.text_field :contact, class: "form-control", placeholder: "Enter contact", id: "contact"%>
+      <label for="contact">Contact</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= form.text_field :email, class: "form-control", placeholder: "Enter email", id: "email"%>
+      <label for="email">Email</label>
+    </div>
+  </div>
+  <% if controller.action_name == "edit" %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <% end %>
+
+  <div class="form-group">
+      <%= form.select(:role, ['Basic'], {:include_blank => true}, { :class => 'form-control form-control-lg m-t-md selectpicker' }) %>
+  </div>
+
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= form.password_field :password, class: "form-control", placeholder: "Enter password", id: "password"%>
+      <label for="password">Password</label>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= form.password_field :password_confirmation, class: "form-control", placeholder: "Enter password confirmation", id: "password_confirmation"%>
+      <label for="password_confirmation">Password confirmation</label>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Submit', class: "btn btn-primary btn-block" %>
+  </div>
+<% end %>
+          
+      </div>
+    </div>
+  </div>
