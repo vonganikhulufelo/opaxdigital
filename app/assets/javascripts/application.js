@@ -17,17 +17,6 @@
 //= require jquery.turbolinks
 //= require activestorage
 //= require turbolinks
-//= require jquery.min
-//= require bootstrap.bundle.min
-//= require jquery.easing.min
-//= require sb-admin.min
-//= require dataTables
-//= require jquery-3.2.1.min
-//= require select2
-//= require sb-admin
-//= require jquery.dataTables.min
-//= require  dataTables.bootstrap4.min
-//= require select2.min
 
 $(document).on('turbolinks:load', function() {
 
