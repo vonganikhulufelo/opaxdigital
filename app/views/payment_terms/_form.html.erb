@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title">Payment Term</h4>
+                <div class="col-sm-6">
+              <%= form_with(model: @payment_term, local: false) do |form| %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Description</label>
+                    <div class="col-9">
+                         <%= form.text_field :paymentterm_description, class: "form-control", placeholder: "Enter Description", id: "Description", required: :true%></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Threshold</label>
+                    <div class="col-9">
+                         <%= form.text_field :paymentterm_threshold, class: "form-control", placeholder: "Enter Threshold", id: "Threshold", required: :true%></div>
+                </div>
+                  <%= form.hidden_field :user_id, value: current_user.user_id %>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                        <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

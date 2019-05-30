@@ -1,0 +1,131 @@
+<div class="row">
+<div class="col-md-6">
+<h2><i class="fas fa-user-lock"></i> Customer Sales Orders
+<% if current_user.role != "Basic" %>
+<%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_sales_order_path %>
+<% end %>
+</h2>
+<div><% if @sales.present? %>Updated at <%= @sales.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<br>
+<script>
+var resizefunc = [];
+</script>
+
+<div class="row">
+<div class="col-md-12">
+    <div class="card-box">
+        <h4 class="header-title m-t-0 m-b-30"></h4>
+
+        <ul class="nav nav-tabs tabs-bordered">
+        <li class="nav-item">
+                <a href="#home1-b1" data-toggle="tab" aria-expanded="true" class="nav-link active">
+                    <p class=""><strong>All sales </strong> <span class="badge badge-secondary"><%= @sales.count %></span></p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#home-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                <p class=""><strong>Step 1 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '1').count %></span></p>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+        <div class="tab-pane fade show active" id="home1-b1">
+                 <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                <th colspan="2"></th>
+                <th>Customer Name</th>
+                <th>Zone</th>
+                <th>Order Date</th>
+                <th>Payment</th>
+                <th>Delivery Date</th>
+                <th>Delivery Note</th>
+                <th>Delivery Note Attached</th>
+                <th>Invoiced</th>
+                <th>Puma</th>
+                <th>Status</th>
+                <th>Recon Status</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <% @sales.each do |sale| %>
+                <tr>
+                <% if sale.status == '5' %>
+                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Completed</div></td>
+                <% else %>
+                <td>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-danger btn-rounded w-md dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
+                        <div class="dropdown-menu">
+                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
+                            <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, sale, method: :delete,class: "dropdown-item" %>
+                            
+                        </div>
+                    </div></td>
+                <% end %>
+                   <td><%= link_to sale.updated_at, sales_order_path(sale.id) %> </td>
+                <td><%= sale.zone %></td>
+                <td><%= sale.order_date %></td>
+                <td><%= sale.payment %></td>
+                <td><%= sale.delivery_date_on_delivery %></td>
+                <td><%= sale.delivery_note_reference %></td>
+                <td><%= sale.delivery_note_reference %></td>
+                <td><%= sale.invoice %></td>
+                <td><%= sale.puma_reference %></td>
+                <td><%= sale.status %></td>
+                <td><%= sale.recon %></td>
+
+                </tr>
+                <% end %>
+            </tbody>
+              </table> </div>
+         
+            <div class="tab-pane " id="profile-b1">
+                <table id="responsive-datatable1" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                  <th>Status</th>
+                <th>Order Date</th>
+                <th>Internal Reference</th>
+                <th>PO Reference</th>
+                <th>Vendor Reference</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <% @sales.where(status: '2').each do |sale| %>
+                <tr>
+                    <td><div class="btn-group">
+                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
+                        <div class="dropdown-menu">
+                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
+                        <%= link_to '<i class="fas fa-edit"></i>'.html_safe, step3_path(sale), data: { turbolinks: false },class: "dropdown-item" %>
+                            <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                            
+                        </div>
+                    </div>
+                    </td>
+                    <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td><%= sale.system__internal_reference %></td>
+                    <td><%= sale.internal_po_reference %></td>
+                    <td><%= sale.vendor_reference %></td>
+                    
+                </tr>
+                <% end %>
+            </tbody>
+              </table>
+               </div>
+        </div>
+    </div>
+</div> <!-- end col -->
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    // Responsive Datatable
+    $('#responsive-datatable').DataTable({
+        "scrollX": true
+    });
+    } );
+</script>

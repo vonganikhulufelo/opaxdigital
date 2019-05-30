@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Paymentterm description:</strong>
+  <%= @payment_term.PaymentTerm_Description %>
+</p>
+
+<p>
+  <strong>Paymentterm threshold:</strong>
+  <%= @payment_term.PaymentTerm_Threshold %>
+</p>
+
+<%= link_to 'Edit', edit_payment_term_path(@payment_term) %> |
+<%= link_to 'Back', payment_terms_path %>

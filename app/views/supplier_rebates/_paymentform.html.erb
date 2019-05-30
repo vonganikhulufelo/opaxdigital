@@ -1,0 +1,29 @@
+  <div class="container bg_dark">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Payment Terms</div>
+      <div class="card-body">
+           <%= form_tag(payment_path, method: "post", class: "form m-b-sm", id: "performance-period-filter-form", remote: false) do %>
+              <div class="form-group">
+                <%= select_tag "MagisterialDistrict_Zone", options_from_collection_for_select(MagisterialDistrict.all, "MagisterialDistrict_Zone", "MagisterialDistrict_Zone"),{ class: 'form-control form-control-lg m-t-md selectpicker', include_blank: true, required: "required"} %>
+                
+             
+            </div>
+              <div class="form-group">
+               <%= select_tag "MagisterialDistrict_District", options_from_collection_for_select( MagisterialDistrict.all, "MagisterialDistrict_District", "MagisterialDistrict_District"),{ class: 'form-control form-control-lg m-t-md selectpicker', include_blank: true, required: "required"}  %>
+             </div>
+
+            <div class="form-group">
+              <%= hidden_field_tag 'user_id', current_user.id, placeholder: 'Enter user id...' %>
+            </div>
+
+            <div class="form-group">
+              <%= text_field_tag 'supplier_id', nil, placeholder: 'Enter payment...' %>
+              
+            </div>
+
+            <div class="actions">
+            <%= submit_tag 'Submit', class: "btn btn-primary btn-block" %>
+            </div>
+          <% end %>
+      </div>
+    </div>

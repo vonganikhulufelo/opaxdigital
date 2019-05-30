@@ -1,0 +1,162 @@
+      <div class="row">
+<div class="col-sm-8">
+<h2><i class="fas fa-table"></i> Vendor Rabate</h2>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<br>
+      <div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title"></h4>
+               <div class="col-sm-6">
+              <%= form_tag(rebate_path, method: "post", class: "form m-b-sm", remote: false) do %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Vendor</label>
+                    <div class="col-9">
+                      <%= select_tag "supplier_id", options_from_collection_for_select( @suppliers, "id", "supplier_name",params[:suplier_id]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', include_blank: true, required: "required"}  %></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-3 col-form-label">Payment</label>
+                    <div class="col-9">
+                        <%= select_tag "payment_term_id", options_from_collection_for_select( @payment_terms, "id", "paymentterm_description", params[:payment_id]),{ class: ' form-control-lg m-t-md selectpicker form-control', include_blank: true, required: "required"}  %></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Zone</label>
+                    <div class="col-9">
+                         <%= select_tag "magistrial_district_id", options_from_collection_for_select( @magisterial_districts, "id", "zonedistrict", params[:zone_id]),{include_blank: true, class: 'form-control form-control-lg m-t-md selectpicker zone_id', required: "required"} %></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Product</label>
+                    <div class="col-9">
+                    <% if params[:product_id] == 'n' %>
+                       <%= select_tag "product_discription_id", options_from_collection_for_select( @product_descriptions, "id", "productdescription_product", @product_id),{ class: 'form-control form-control-lg m-t-md selectpicker product_id', include_blank: true, required: "required"}  %></div>
+                    <% else %>
+                     <%= select_tag "product_discription_id", options_for_select( [[@product_description.productdescription_product,@product_description.id ]]),{ class: 'form-control form-control-lg m-t-md selectpicker product_id', required: "required"}  %></div>
+                    
+                    <% end %>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Product Price</label>
+                    <div class="col-9">
+                      <% if @product %>
+                        <%= text_field_tag 'product_price', @product.product_price_price, placeholder: 'Enter product price...', class: "form-control price", readonly: true, required: "required" %>
+                      <% else %>
+                          <%= text_field_tag 'product_price', nil, placeholder: 'Enter product price...', class: "form-control price", readonly: true, required: "required" %>
+                      <% end %>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Claw Back Margin</label>
+                    <div class="col-9">
+                     <% if @product %>
+                        <%= text_field_tag 'claw_margin', @product.claw_margin, placeholder: 'Claw back margin', class: "form-control claw_margin" %>
+                      <% else %>
+                      <%= text_field_tag 'claw_margin', nil, placeholder: 'Claw back margin', class: "form-control claw_margin" %>
+                      <% end %>
+                      </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Rebate</label>
+                    <div class="col-9">
+                     <% if @product %>
+                      <%= text_field_tag 'rebate',@product.product_rebate, placeholder: 'Enter rebate...', class: "form-control rebate", required: "required", :autocomplete => :off %>
+                      <% else %>
+                      <%= text_field_tag 'rebate',nil, placeholder: 'Enter rebate...', class: "form-control rebate", required: "required", :autocomplete => :off %>
+                      <% end %> 
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Net Price</label>
+                    <div class="col-9">
+                     <% if @product %>
+                        <%= text_field_tag 'net_price', @product.net_price, placeholder: 'Enter puchase price...', class: "form-control net",readonly: true %>
+                      <% else %>
+                      <%= text_field_tag 'net_price', nil, placeholder: 'Enter puchase price...', class: "form-control net",readonly: true %>
+                      <% end %>
+                      </div>
+                </div>
+                
+               
+                 <%= hidden_field_tag 'product_id', params[:product_id], placeholder: 'Enter puchase price...', class: "form-control",readonly: true %>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                         <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+            <% end %>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+  $(document).ready(function () {     
+    $('.product_id').click(function () {
+      var getprice_id = $( ".zone_id" ).val();
+      var product_id = $( ".product_id" ).val();
+
+      var link = '/product/' + product_id + '/getprices/'+ getprice_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.price){
+          $(".price").val(data.price);
+          if($(".rebate").val()){
+            (".net").val(data.price - (-$( ".rebate" ).val()))
+          }else{
+          $(".net").val(data.price);
+          }
+        }else{
+          $(".net").val("");
+          $(".rebate").val("");
+          $(".price").val(data.price);
+        }
+      });
+
+    });
+  });
+
+  $( ".rebate" ).keyup(function() {
+    var p = $( ".price" ).val();
+     var net = p - ((-$( ".claw_margin" ).val()) + (-$( ".rebate" ).val()));
+    if(p){
+    if(claw_margin){
+        $(".net").val(net);
+      }else{
+        $(".net").val(net);
+      }
+    }
+  });
+
+  $( ".claw_margin" ).keyup(function() {
+    var p = $( ".price" ).val();
+    var rebate = $( ".rebate" ).val();
+    var net = p - ((-$( ".claw_margin" ).val()) + (-$( ".rebate" ).val()));
+    if(p){
+      if(rebate){
+        $(".net").val(net);
+      }else{
+        $(".net").val(net);
+      }
+    }
+  });
+
+  $(document).ready(function () {     
+    $('.sub_rebate').click(function () {
+      var getprice_id = $( ".zone_id" ).val();
+      var product_id = $( ".product_id" ).val();
+      var p = $( ".price" ).val();
+      var link = '/product/' + product_id + '/getprices/'+ getprice_id
+
+      $.getJSON(link, function (data) {
+    
+      });
+
+    });
+  });
+</script>

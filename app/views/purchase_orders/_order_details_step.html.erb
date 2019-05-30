@@ -1,0 +1,130 @@
+<div id="invoice-wrap" class="bg-dark">
+    <%#= f.error_notification %>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3 class="page-header">INVOICE<small class="pull-right">Date: <%= Time.now %><span class="invoice_header_date"></span></small></h3>
+      </div><!-- /.col -->
+    </div>
+
+    <div class="row invoice-info">
+      <div class="col-xs-4 invoice-col">
+        Vendor
+        <address>
+          <%#= f.input_field :company, class: "form-control", id: "1" %>
+          <%= select_tag "supplier_name", options_from_collection_for_select( Supplier.all, "id", "supplier_name"),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_name', include_blank: true, required: "required"}  %>
+          <% hidden_field_tag :supplier_id %>
+          <input class="form-control" id= "2"  placeholder="address line 1" />
+          <input class="form-control" id= "3"  placeholder="address line 2" />
+          <input class="form-control" id= "4"  placeholder="phone number" />
+        </address>
+      </div><!-- /.col -->
+      <div class="col-xs-4 invoice-col">
+        <form class="form-horizontal">
+
+          <div class="form-group">
+            <div class="col-xs-4"><label>Invoice #</label></div>
+            <div class="col-xs-8 invoice_num"><span id="invoice_number"><%= text_field_tag 'system__internal_reference',system_reference, class: "form-control price", readonly: true, required: "required" %></span></div>
+          </div>
+          <div class="col-xs-12"></div>
+          <div class="form-group">
+            <div class="col-xs-4"><%#= f.label :date, required: false %></div>
+            <div class="col-xs-8"><%#= f.input_field :date, class: "form-control datepicker", as: :string, id: "invoice_date" %></div>
+          </div>
+
+          <div class="col-xs-12"></div>
+          <div class="form-group">
+            <div class="col-xs-4"><%#= f.label :currency, required: false %></div>
+            <div class="col-xs-8"><%#= f.input_field :currency, id:"invoice_currency", class: "form-control" %></div>
+          </div>
+
+
+          <div class="col-xs-12"></div>
+          <div class="form-group">
+            <div class="col-xs-5 invoice_space"><label>Amount due</label></div>
+            <div class="col-xs-7 invoice_space bold" style="text-align:right; padding-top:7px"><span class="due">875.00</span><span class="subtotal_currency"></span></div>
+          </div>
+        </form>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <div class="row">
+      <div class="col-xs-12 table-responsive">
+        <hr>
+        <table class="table table-hover" id="items">
+      
+          <thead>
+              <th class="item-name">Zone</th>
+              <th class="unit">Product</th>
+              <th class="quantity">Zone Price</th>
+              <th class="quantity">Net Price</th>
+              <th class="quantity">Order Quantity</th>
+              <th class="units">Order Value</th>
+              <th class="no_print">Actions</th>
+          </thead>
+      
+          <tbody>
+            <tr class="item-row">
+              <td class="zone_id">
+                <%= select_tag "zone", options_from_collection_for_select( @new_purchases, "id", "zone", params[:supplier_name]),{include_blank: true, class: 'form-control form-control-lg m-t-md selectpicker zone_id', required: "required"} %>
+              </td>
+              <td class="product_id">
+                <%= select_tag "product", options_from_collection_for_select( @new_purchases, "id", "product", @product_id),{ class: 'form-control form-control-lg m-t-md selectpicker product_id', include_blank: true, required: "required"}  %>
+              </td>
+              <td class="price"><span class="">
+                <%= text_field_tag 'product_price_price', nil, placeholder: 'Enter product price...', class: "form-control price", readonly: true, required: "required" %></span><span class="subtotal_currency"></span>
+              </td>
+              <td class="net"><span class="">
+                <%= text_field_tag 'net_price', nil, placeholder: 'Net Price...', class: "form-control net",readonly: true %>
+              </td>
+              <td class="order_qty"><span class="">
+                <%= text_field_tag 'order_qty', nil, class: "form-control order_qty", required: "required" %>
+              </td>
+              <td class="order_value"><span class="">
+                <%= text_field_tag 'order_value', nil, placeholder: 'Order Value', class: "form-control order_value", readonly: true, required: "required" %>
+              </td>
+              <td class="delete_td"><a class="delete" href="javascript:;" title="Remove row"><span class="ti-close"></span></a></td>
+            </tr>
+            
+            <%= hidden_field_tag 'id', params[:id], class: "form-control order_qty", required: "required" %>
+
+            <tr id="hiderow">
+              <td colspan="6"><a id="addrow" class="btn btn-success btn-sm" href="javascript:;" title="Add a row"><span class="ti-plus"></span>  Add a row</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-6">
+        <div class="table-responsive">
+          <table class="table table-hover" id="totals">
+            <tr>
+              <th style="width:50%">Subtotal:</th>
+              <td><span id="subtotal">875.00</span><span class="subtotal_currency"></span></td>
+            </tr>
+            <tr>
+              <th>Tax:</th>
+              <td><input id="9" class="form-control" value="0.00" /></td>
+            </tr>
+            <tr>
+              <th>Total:</th>
+              <td class="balance"><span class="due" id="invoice_total">875.00</span><span class="subtotal_currency"></span></td>
+              <%#=f.hidden_field :amount, id: "invoice_total1" %>
+            </tr>
+          </table>
+        </div>
+      </div><!-- /.col -->    
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 pull-left">
+        <a class="btn btn-info btn-sm" id="invoice_button" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
+        <%#= f.button :submit, 'Submit Payment', class: 'btn btn-warning btn-sm', id: "submit_invoice" %>    
+      </div>
+    </div>
+
+    <div id="terms">
+      <h5>Terms</h5>
+      <textarea id="10">Payment terms: net 30. Interest accrued at 1.5% per month thereafter.</textarea>
+    </div>

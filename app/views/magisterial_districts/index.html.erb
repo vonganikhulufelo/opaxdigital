@@ -1,0 +1,152 @@
+<div class="row">
+<div class="col-md-6">
+<h2><i class="fas fa-table"></i> Zones
+<% if current_user.role != "Basic" %>
+<%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_magisterial_district_path, data: { turbolinks: false } %>
+<% end %>
+</h2>
+<div><% if @magisterial_districts.present? %>Updated at <%= @magisterial_districts.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
+</div>
+<div class="col-md-6">
+<% if current_user.role != "Basic" %>
+<%= form_tag import_magisterial_districts_path, multipart: true,class: "d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" do %>
+ <div class="input-group">
+  <%= file_field_tag :file, class: "" %>
+  <button class="btn btn-primary" type="submit">
+    <i class="fas fa-file-upload"></i>
+  </button>
+  </div>
+  <% end %>
+<% end %>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<br>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                  <% if current_user.role != "Basic" %>
+                    <th colspan="2"></th>
+                    <% end %>
+                    <th>Zone</th>
+                    <th>Date</th>
+                    <th>District</th>
+                    <th>Code</th>
+                    <th>Province</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-dark">
+                  <% @magisterial_districts.each do |magisterial_district| %>
+                  <tr class="bg-dark">
+                  <% if current_user.role != "Basic" %>
+                    <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, magisterial_district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_magisterial_district_path(magisterial_district) %></td>
+                    <% end %>
+                    <td><%= link_to magisterial_district.magisterialdistrict_zone, magisterial_district %></td>
+                    <td>
+                    <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#mag<%= magisterial_district.id %>"><div class="history"><%= magisterial_district.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+        
+        <div class="modal fade" id="mag<%= magisterial_district.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container">
+      <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr  class="bg-dark">
+            <th>Created Date</th>
+            <th>Zone</th>
+            <th>District</th>
+            <th>Code</th>
+            <th>Province</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% Log.where(uid: magisterial_district.uid).order("created_at DESC").map do | r |%>
+            <tr class="bg-dark">
+              <td><%= r.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= r.description.split('$')[1].to_s %></td>
+              <td><%= r.description.split('$')[2].to_s %></td>
+              <td><%= r.description.split('$')[3].to_s %></td>
+              <td><%= r.description.split('$')[4].to_s %></td>
+              <td><%= r.username %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+  </div>
+  </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+                    </td>
+                    <td><%= magisterial_district.magisterialdistrict_district %></td>
+                    <td><%= magisterial_district.magisterialdistrict_code %></td>
+                    <td><%= magisterial_district.magisterialdistrict_province %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> <!-- end row -->
+
+
+
+
+
+<script>
+var resizefunc = [];
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+// Default Datatable
+$('#datatable').DataTable();
+
+//Buttons examples
+var table = $('#datatable-buttons').DataTable({
+    lengthChange: false,
+    buttons: ['copy', 'excel', 'pdf']
+});
+
+// Key Tables
+
+$('#key-table').DataTable({
+    keys: true
+});
+
+// Responsive Datatable
+$('#responsive-datatable').DataTable({
+  "paging": true
+});
+
+// Multi Selection Datatable
+$('#selection-datatable').DataTable({
+    select: {
+        style: 'multi'
+    }
+});
+
+table.buttons().container()
+        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+} );
+
+</script>

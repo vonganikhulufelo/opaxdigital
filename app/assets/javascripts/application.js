@@ -11,9 +11,43 @@
 // about supported directives.
 //
 //= require jquery3
+//= require shieldui.min
+//= require tree.min
 //= require rails-ujs
+//= require jquery.turbolinks
 //= require activestorage
 //= require turbolinks
-//= require jquery.turbolinks
 //= require jquery.min
 //= require bootstrap.bundle.min
+//= require jquery.easing.min
+//= require sb-admin.min
+//= require dataTables
+//= require jquery-3.2.1.min
+//= require select2
+//= require sb-admin
+//= require jquery.dataTables.min
+//= require  dataTables.bootstrap4.min
+//= require select2.min
+
+$(document).on('turbolinks:load', function() {
+
+    $('form').on('click', '.remove_record', function(event) {
+      $(this).prev('input[type=hidden]').val('1');
+      $(this).closest('tr').hide();
+      return event.preventDefault();
+    });
+  
+    $('form').on('click', '.add_fields', function(event) {
+      var regexp, time;
+      time = new Date().getTime();
+      regexp = new RegExp($(this).data('id'), 'g');
+      $('.fields').append($(this).data('fields').replace(regexp, time));
+      return event.preventDefault();
+    });
+    
+  });
+
+  
+
+
+

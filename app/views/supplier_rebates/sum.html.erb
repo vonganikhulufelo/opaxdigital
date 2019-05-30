@@ -1,0 +1,743 @@
+#old
+<p id="notice"><%= notice %></p>
+<h2><i class="fas fa-calculator"></i> Supplier Rebate</h2>
+<div class="card mb-3 bg-dark">
+<div class="card-header bg-dark">
+<table width="100%" cellspacing="0">
+<thead class="col-md-10">
+<tr class="col-md-10">
+<th><h5>Supplier</h5></th>
+<th><h5>Date</h5>
+<th><h5>Price</h5>
+<th><h5>Rebate</h5>
+<th><h5>Net</h5>
+</tr>
+</thead>
+</table>
+          <div class="card-body bg-dark">
+ <% @suppliers.each do |supplier| %>
+  <div class="supplier">
+  <% if current_user.role != "Basic" %>
+    <%= link_to '<i class="fas fa-plus"></i>'.html_safe, new_supplier_path, data: { turbolinks: false } %>
+    <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_supplier_path(supplier.id), data: { turbolinks: false } %>
+    <% end %>
+    <a href="#supplier<%= supplier.id %>" data-toggle="collapse"><i class="fas fa-arrow-alt-circle-down"></i><%= supplier.supplier_name %></a>
+    <div class="modal fade" id="addpaymemet<%= supplier.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container bg_dark">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Payment Terms</div>
+      <div class="card-body">
+           <%= form_tag(payment_path, method: "post", class: "form m-b-sm", id: "performance-period-filter-form", remote: false) do %>
+              <div class="form-group">
+                <%= select_tag "PaymentTerm_Description", options_from_collection_for_select(PaymentTerm.all, "id", "paymentterm_description", SupplierPaymentTerm.where(supplier_id: supplier.id).select(:payment_term_id).map(&:payment_term_id)),{multiple: true, include_blank: true, class: 'form-control form-control-lg m-t-md selectpicker js-searchable', required: "required"} %>
+                
+             
+            </div>
+
+            <div class="form-group">
+              <%= hidden_field_tag  'user_id', current_user.id, placeholder: 'Enter user id...' %>
+            </div>
+
+            <div class="form-group">
+              <%= hidden_field_tag 'supplier_id', supplier.id, placeholder: 'Enter payment...' %>
+              
+            </div>
+
+            <div class="actions">
+            <%= submit_tag 'Submit', class: "btn btn-primary btn-block" %>
+            </div>
+          <% end %>
+          
+      </div>
+    </div>
+  </div></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="payment col-md-12 offset-mf-1">
+  <div id="supplier<%= supplier.id %>" class="collapse payment">
+   <% supplier.supplier_payment_terms.each do |payment_term| %>
+    <% if current_user.role != "Basic" %>
+   <%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,'n','n','n'), data: { turbolinks: false } %>
+   <% end %>
+    <a href="#payment<%= payment_term.id %>" data-toggle="collapse"><i class="fas fa-arrow-alt-circle-down"></i> <%= payment_term.payment_term_description %></a>
+   <div class="modal fade" id="zone<%= payment_term.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">  <div class="container bg_dark">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Payment Terms</div>
+      <div class="card-body">
+           <%= form_tag(zone_path, method: "post", class: "form m-b-sm", id: "performance-period-filter-form", remote: false) do %>
+              <div class="form-group">
+                <%= select_tag "MagisterialDistrict_Zone", options_from_collection_for_select(MagisterialDistrict.all, "id", "magisterialdistrict_zone"),{ class: 'form-control form-control-lg m-t-md selectpicker', include_blank: true, required: "required"} %>
+                
+             
+            </div>
+              <div class="form-group">
+               <%= select_tag "MagisterialDistrict_District", options_from_collection_for_select( MagisterialDistrict.all, "magisterialdistrict_district", "magisterialdistrict_district"),{ class: 'form-control form-control-lg m-t-md selectpicker', include_blank: true, required: "required"}  %>
+             </div>
+
+            <div class="form-group">
+              <%= hidden_field_tag 'supplier_payment_term_id', payment_term.id, placeholder: 'Enter payment...' %>
+              
+            </div>
+
+            <div class="actions">
+            <%= submit_tag 'Submit', class: "btn btn-primary btn-block" %>
+            </div>
+          <% end %>
+          
+      </div>
+    </div>
+  </div></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="modal fade" id="#zone<%= payment_term.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 offset-mf-1">
+  <div id="payment<%= payment_term.id %>" class="collapse district">
+<% payment_term.s_pay_m_districts.each do |magistrial_district| %>
+ <% if current_user.role != "Basic" %>
+<%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,'n','n'), data: { turbolinks: false } %>
+ <% end %>
+ <a href="#price1<%= magistrial_district.id %>" class="" data-toggle="collapse">  <i class="fas fa-arrow-alt-circle-down"></i><%= magistrial_district.magisterialdistrict_zone %>
+                                                                    <%= magistrial_district.magisterialdistrict_district %></a>
+<div class="modal fade" id="price<%= magistrial_district.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Rebate</div>
+      <div class="card-body">
+          
+      </div>
+    </div>
+  </div></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="col-md-12 offset-mf-1">
+  <div id="price1<%= magistrial_district.id %>" class="collapse product">
+  <% magistrial_district.s_pay_m_product_prices.each do |product_price| %>
+ 
+  <div class="col-md-12 offset-mf-1">
+  <div class="row">
+  <div class="col-md-1">
+   <% if current_user.role != "Basic" %>
+  <%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.id,'n'), data: { turbolinks: false } %>
+ <% end %>
+  </div>
+  <div class="col-md-2">
+                <%= product_price.product_pescription_product %>
+                </div>
+                <div class="col-md-3">
+                 <a class='<i class="fas fa-plus"></i> history'.html_safe href="#" data-toggle="modal" data-target="#price12<%= product_price.id %>"><div class="history"><%= product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+        
+        <div class="modal fade" id="price12<%= product_price.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Supplier Rebate History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container">
+      <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr  class="bg-dark">
+            <th>Date</th>
+            <th>Price</th>
+            <th>Rebate</th>
+            <th>Net</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% Log.where(uid: product_price.uid).map do | r |%>
+            <tr class="bg-dark">
+              <td scope="row"><%= r.description.split('$')[0].to_s %></td>
+              <td class="blue"><%= r.description.split('$')[1].to_s %></td>
+              <td><%= r.description.split('$')[2].to_s %></td>
+              <td><%= r.description.split('$')[3].to_s %></td>
+              <td><%= r.user %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+  </div>
+  </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+                </div>
+                <div class="blue col-md-2">
+                <%= product_price.product_price_price %>
+                </div>
+                <div class="col-md-2">
+                <%= product_price.product_rebate %>
+                </div>
+                <div class="col-md-2">
+                <%= product_price.net_price %>
+                </div>
+                </div>
+                </div>
+  <% end %>
+  </div>
+  </div>
+
+<% end%>
+  </div>
+  </div>
+   <% end %>
+  </div>
+  </div>
+  </div>
+<% end %>
+
+          </div>
+        </div>
+
+
+
+
+#new
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+  <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+</head>
+
+<div class="row">
+<div class="col-md-12">
+<h2>
+  <i class="fas fa-users-cog"></i> Vendor Rebates 
+  <% if current_user.role != "Basic" %>
+  <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_supplier_path %>
+  <% end %>
+</h2>
+<div><% if @supplier_rebates.present? %>Updated at <%= @supplier_rebates.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<br>
+
+<div class="card mb-3 bg-dark">
+<div class="card-body bg-dark">
+<div class="">
+<div class="sui-treeview">
+  <ul id="treeview">
+    <% @suppliers.each do |supplier| %>
+      <li data-icon-cls="treeview-icon icon-folder" data-expanded="false">
+        <% if current_user.role != "Basic" %>
+        <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_supplier_path(supplier.id), data: { turbolinks: false } %>
+        <% end %>
+        <a href="#supplier<%= supplier.id %>" data-toggle="collapse"> | <%= supplier.supplier_name %></a>
+        <ul>
+        <% supplier.supplier_payment_terms.each do |payment_term| %>
+          <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
+          <% if current_user.role != "Basic" %>
+          <%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,'n','n','n'), data: { turbolinks: false } %>
+          <% end %>
+          <a href="#payment<%= payment_term.id %>" data-toggle="collapse"> | <%= payment_term.payment_term_description %></a>
+          <ul>
+          <% payment_term.s_pay_m_districts.each do |magistrial_district| %>
+          <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
+            <% if current_user.role != "Basic" %>
+            <%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,'n','n'), data: { turbolinks: false } %>
+            <% end %>
+            <a href="#price1<%= magistrial_district.id %>" class="" data-toggle="collapse"> | </i><%= magistrial_district.magisterialdistrict_zone %>
+            <%= magistrial_district.magisterialdistrict_district %></a>
+            <ul>
+             
+            <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
+              <div class="card-box table-responsive">
+              <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+              <tr>
+              <% if current_user.role != "Basic" %>
+              <th colspan="1"></th>
+              <% end %>
+              <th>Product</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Rebate</th>
+              <th>Net</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% magistrial_district.s_pay_m_product_prices.each do |product_price| %>
+              <tr>
+              <% if current_user.role != "Basic" %>
+              <td><%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.id,'n'), data: { turbolinks: false } %></td>
+              <% end %>
+              <td>
+                <%= product_price.product_pescription_product %>
+              </td>
+              <td>
+                <a class='<i class="fas fa-pen"></i> history'.html_safe href="#" data-toggle="modal" data-target="#price12<%= product_price.id %>"><div class="history"><%= product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+                  <div class="modal fade" id="price12<%= product_price.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content bg-dark">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Supplier Rebate History</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  </button>
+                  </div>
+                  <div class="modal-body"><div class="container">
+                  <div class="card-body">
+                  <table class="table">
+                  <thead>
+                  <tr  class="bg-dark">
+                  <th>Date</th>
+                  <th>Price</th>
+                  <th>Rebate</th>
+                  <th>Net</th>
+                  <th>User</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% Log.where(uid: product_price.uid).map do | r |%>
+                  <tr class="bg-dark">
+                  <td><%= r.description.split('$')[0].to_s %></td>
+                  <td><%= r.description.split('$')[1].to_s %></td>
+                  <td><%= r.description.split('$')[2].to_s %></td>
+                  <td><%= r.description.split('$')[3].to_s %></td>
+                  <td><%= r.username %></td>
+                  </tr>
+                  <% end %>
+                  </tbody>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+              </td>
+              <td><%= product_price.product_price_price %></td>
+              <td><%= product_price.product_rebate %></td>
+              <td><%= product_price.net_price %></td>
+              </tr>
+              <% end %>
+              </tbody>
+              </table>
+              </div>
+            </li>
+            </ul>
+          </li>
+          <% end %>
+          </ul>
+          </li>
+        <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>  
+</div>
+</div>
+</div>
+</div>
+</html>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#treeview").shieldTreeView();
+    });
+</script>
+
+
+
+<ul id="treeview">
+    <% @suppliers.each do |supplier| %>
+      <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
+      </li>
+    <% end %>
+  </ul>  
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#treeview").shieldTreeView();
+    });
+</script>
+
+<div id="basicTree">
+<ul>
+<li>Minton
+<ul>
+<li data-jstree='{"opened":true}'>Assets
+<ul>
+<li data-jstree='{"type":"file"}'>Css</li>
+<li data-jstree='{"opened":true}'>Plugins
+    <ul>
+        <li data-jstree='{"selected":true,"type":"file"}'>Plugin one</li>
+        <li data-jstree='{"type":"file"}'>Plugin two</li>
+    </ul>
+</li>
+</ul>
+</li>
+<li data-jstree='{"opened":true}'>Email Template
+<ul>
+<li data-jstree='{"type":"file"}'>Email one</li>
+<li data-jstree='{"type":"file"}'>Email two</li>
+</ul>
+</li>
+<li data-jstree='{"icon":"mdi mdi-view-dashboard"}'>Dashboard</li>
+<li data-jstree='{"icon":"mdi mdi-format-float-right"}'>Typography</li>
+<li data-jstree='{"opened":true}'>User Interface
+<ul>
+<li data-jstree='{"type":"file"}'>Buttons</li>
+<li data-jstree='{"type":"file"}'>Cards</li>
+</ul>
+</li>
+<li data-jstree='{"icon":"mdi mdi-foursquare"}'>Forms</li>
+<li data-jstree='{"icon":"mdi mdi-format-list-bulleted"}'>Tables</li>
+</ul>
+</li>
+<li data-jstree='{"type":"file"}'>Frontend</li>
+</ul>
+</div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    // Basic
+    $('#basicTree').jstree({
+        'core' : {
+            'themes' : {
+                'responsive': false
+            }
+        },
+        'types' : {
+            'default' : {
+                'icon' : 'fa fa-folder'
+            },
+            'file' : {
+                'icon' : 'fa fa-file'
+            }
+        },
+        'plugins' : ['types']
+    });
+</script>
+
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+</div>
+<div class="modal-body">
+    <h4>Text in a modal</h4>
+    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+    <hr>
+    <h4>Overflowing text to show scroll behavior</h4>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--  Modal content for the above example -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+</div>
+<div class="modal-body">
+    ...
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal-dialog modal-sm">
+<div class="modal-content">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+</div>
+<div class="modal-body">
+    ...
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- sample modal content -->
+<div id="CenterModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CenterModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" id="CenterModalLabel">Modal Heading</h4>
+</div>
+<div class="modal-body">
+    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="button-list">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#myModal">Standard Modal</button>
+<!-- Large modal -->
+<button type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+<!-- Small modal -->
+<button  type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+<!-- Center modal -->
+<button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#CenterModal">Center Modal</button>
+
+</div>
+</div>
+</div>
+</div>
+
+@price_look = Zone.joins(:product_prices).select('zones.zone_description as zone_description, product_prices.productprice_zone_class as productprice_zone, product_prices.productprice_price as product_price, product_prices.productdescription_product as product_description, product_prices.updated_at as date')
+    .group('zone_id, zones.zone_description, product_prices.productprice_zone_class, product_prices.productprice_price, product_prices.productdescription_product, product_prices.updated_at')
+
+<table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+     <thead>
+     <tr>
+      <th>Date</th>
+      <th>Zone</th>
+      <th>District</th>
+      <th>Code</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @price_look.each do |price_look| %>
+      <tr>
+      <td><%= price_look.date %></td>
+      <td><%= price_look.zone_description %></td>
+      <td><%= price_look.zone_description %></td>
+      <td><%= price_look.productprice_zone %></td>
+      <td><%= price_look.product_price %></td>
+      <td><%= price_look.product_description %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+
+
+
+
+        <div class="card-box table-responsive">
+              <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+              <tr>
+              <% if current_user.role != "Basic" %>
+              <th colspan="1"></th>
+              <% end %>
+              <th>Product</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Rebate</th>
+              <th>Net</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% magistrial_district.s_pay_m_product_prices.each do |product_price| %>
+              <tr>
+              <% if current_user.role != "Basic" %>
+              <td><%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.id,'n'), data: { turbolinks: false } %></td>
+              <% end %>
+              <td>
+                <%= product_price.product_pescription_product %>
+              </td>
+              <td>
+                <a class='<i class="fas fa-pen"></i> history'.html_safe href="#" data-toggle="modal" data-target="#price12<%= product_price.id %>"><div class="history"><%= product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+                  <div class="modal fade" id="price12<%= product_price.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content bg-dark">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Supplier Rebate History</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  </button>
+                  </div>
+                  <div class="modal-body"><div class="container">
+                  <div class="card-body">
+                  <table class="table">
+                  <thead>
+                  <tr  class="bg-dark">
+                  <th>Date</th>
+                  <th>Price</th>
+                  <th>Rebate</th>
+                  <th>Net</th>
+                  <th>User</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% Log.where(uid: product_price.uid).map do | r |%>
+                  <tr>
+                  <td><%= r.description.split('$')[0].to_s %></td>
+                  <td><%= r.description.split('$')[1].to_s %></td>
+                  <td><%= r.description.split('$')[2].to_s %></td>
+                  <td><%= r.description.split('$')[3].to_s %></td>
+                  <td><%= r.user %></td>
+                  </tr>
+                  <% end %>
+                  </tbody>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+              </td>
+              <td><%= product_price.product_price_price %></td>
+              <td><%= product_price.product_rebate %></td>
+              <td><%= product_price.net_price %></td>
+              </tr>
+              <% end %>
+              </tbody>
+              </table>
+              </div>
+
+
+
+
+
+
+<script type="text/javascript" src="//coderthemes.com/minton/plugins/jstree/jstree.min.js"></script>
+<script type="text/javascript" src="//coderthemes.com/minton/dark/assets/pages/jquery.tree.js"></script>
+<script type="text/javascript" src="//coderthemes.com/minton/dark/assets/js/jquery.core.js"></script>
+<script type="text/javascript" src="//coderthemes.com/minton/dark/assets/pages/jquery.tree.js"></script>
+
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/popper.min.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/detect.js"></script>
+
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/fastclick.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/jquery.slimscroll.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/waves.js"></script>
+
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/wow.min.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/jquery.nicescroll.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/dark/assets/js/jquery.scrollTo.min.js"></script>
+<script type="text/javascript" src="https://coderthemes.com/minton/plugins/switchery/switchery.min.js"></script>
+
+<div class="row">
+<div class="col-md-6">
+<div class="card-box">
+<h4 class="text-dark header-title m-t-0 m-b-30">Basic Tree</h4>
+
+<div id="basicTree">
+<ul>
+<li>Minton
+<ul>
+  <li data-jstree='{"opened":true}'>Assets
+      <ul>
+          <li data-jstree='{"type":"file"}'>Css</li>
+          <li data-jstree='{"opened":true}'>Plugins
+              <ul>
+                  <li data-jstree='{"selected":true,"type":"file"}'>Plugin one</li>
+                  <li data-jstree='{"type":"file"}'>Plugin two</li>
+              </ul>
+          </li>
+      </ul>
+  </li>
+  <li data-jstree='{"opened":true}'>Email Template
+      <ul>
+          <li data-jstree='{"type":"file"}'>Email one</li>
+          <li data-jstree='{"type":"file"}'>Email two</li>
+      </ul>
+  </li>
+  <li data-jstree='{"icon":"mdi mdi-view-dashboard"}'>Dashboard</li>
+  <li data-jstree='{"icon":"mdi mdi-format-float-right"}'>Typography</li>
+  <li data-jstree='{"opened":true}'>User Interface
+      <ul>
+          <li data-jstree='{"type":"file"}'>Buttons</li>
+          <li data-jstree='{"type":"file"}'>Cards</li>
+      </ul>
+  </li>
+  <li data-jstree='{"icon":"mdi mdi-foursquare"}'>Forms</li>
+  <li data-jstree='{"icon":"mdi mdi-format-list-bulleted"}'>Tables</li>
+</ul>
+</li>
+<li data-jstree='{"type":"file"}'>Frontend</li>
+</ul>
+</div>
+</div>
+</div><!-- end col -->
+</div>

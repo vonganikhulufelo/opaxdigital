@@ -1,0 +1,54 @@
+  <div class="row">
+    <div class="col-md-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title"></h4>
+
+            <%= form_with(model: customer, local: true) do |form| %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Customer Name</label>
+                    <div class="col-9">
+                        <%= form.text_field :customer_name, class: "form-control", placeholder: "Enter Customer Name", id: "Customer_Name",required: :true%> </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-3 col-form-label">Customer Location</label>
+                    <div class="col-9">
+                        <%= form.text_field :location, class: "form-control", placeholder: "Enter Customer Location", id: "location"%> </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Customer Address</label>
+                    <div class="col-9">
+                         <%= form.text_field :customer_address, class: "form-control", placeholder: "Enter Customer Address", id: "Customer_Address"%> </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Customer Contact</label>
+                    <div class="col-9">
+                         <%= form.text_field :customer_contact, class: "form-control", placeholder: "Enter Customer Contact", id: "Customer_Contact"%></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Customer Email</label>
+                    <div class="col-9">
+                        <%= form.text_field :customer_email, class: "form-control", placeholder: "Enter Customer Email", id: "Customer_Email"%>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Payment Term</label>
+                    <div class="col-9">
+                      <% if controller.action_name == "edit" %>
+                        <%= select_tag "paymentterm_description", options_from_collection_for_select(PaymentTerm.all, "id", "paymentterm_description", CustomerPaymentTerm.where(customer_id: @customer.id).select(:payment_term_id).map(&:payment_term_id)),{multiple: true, include_blank: true, class: 'select2 select2-multiple', required: "required"} %>
+                      <% else %>
+                        <%= select_tag "paymentterm_description", options_from_collection_for_select(PaymentTerm.all , "id", "paymentterm_description"),{multiple: true, include_blank: true, class: 'form-control select2 select2-multiple', required: "required"} %>
+                      <% end %>
+                    </div>
+                </div>
+                  <%= form.hidden_field :user_id, value: current_user.user_id %>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                       <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+</div>

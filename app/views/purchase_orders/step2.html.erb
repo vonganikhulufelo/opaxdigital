@@ -1,0 +1,41 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title">Purchase Order(Step 02)</h4>
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+             <%= form_tag(step22_path(@purchase_order.id), method: :put, multipart: true) do %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Vendor Reference</label>
+                    <div class="col-9">
+                       <%= text_field_tag 'vendor_reference', @purchase_order.vendor_reference, placeholder: 'Please input vendor reference...', class: "form-control", required: "required" %> </div>
+                </div>
+                <%= hidden_field_tag :id, value: params[:id] %>
+                 <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Vendor Documentation</label>
+                    <div class="col-9">
+                       <%= file_field_tag 'vendor_documentation' %>
+                       <br>
+                       <br>
+                       <%= text_field_tag 'vendor_reference', @purchase_order.vendor_documentation, readonly: true, placeholder: 'Vendor Documentation File Path...' %>
+                   </div>
+                    </div>
+                <% if !@purchase_order.vendor_reference.present? && !@purchase_order.vendor_documentation.present?%>
+                <%= hidden_field_tag :status,'2' %>
+                <% end %>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="loat-right">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                        <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-6">
+                
+                </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

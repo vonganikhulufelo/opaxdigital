@@ -1,0 +1,141 @@
+<div class="row">
+<div class="col-md-6">
+<h2><i class="fas fa-users"></i> Customers
+<% if current_user.role != "Basic" %>
+<%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_customer_path, data: { turbolinks: false } %>
+<% end %>
+</h2>
+<div><% if @customers.present? %>Updated at <%= @customers.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
+</div>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<br>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                  <% if current_user.role != "Basic" %>
+                    <th colspan="2"></th>
+                    <% end %>
+                    <th>Updated At</th>
+                    <th>Customer name</th>
+                    <th>Customer location</th>
+                    <th>Customer address</th>
+                    <th>Customer contact</th>
+                    <th>Customer email</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-dark">
+      <% @customers.each do |customer| %>
+      <tr class="bg-dark">
+      <% if current_user.role != "Basic" %>
+        <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_customer_path(customer), data: { turbolinks: false } %></td>
+        <% end %>
+        <td>
+          <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#payment<%= customer.id %>"><div class="history"><%= customer.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+        
+        <div class="modal fade" id="payment<%= customer.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container">
+      <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr  class="bg-dark">
+            <th>Created_at</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% Log.where(uid: customer.uid).order("created_at DESC").map do | r |%>
+            <tr class="bg-dark">
+              <td><%= r.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= r.description.split('$')[0].to_s %></td>
+              <td><%= r.description.split('$')[1].to_s %></td>
+              <td><%= r.description.split('$')[2].to_s %></td>
+              <td><%= r.description.split('$')[3].to_s %></td>
+              <td><%= r.username %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+  </div>
+  </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+        </td>
+        <td><%= customer.customer_name %></td>
+        <td><%= customer.location %></td>
+        <td><%= customer.customer_address %></td>
+        <td><%= customer.customer_contact %></td>
+        <td><%= customer.customer_email %></td>
+      </tr>
+    <% end %>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div> <!-- end row -->
+
+
+
+
+
+<script>
+var resizefunc = [];
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+// Default Datatable
+$('#datatable').DataTable();
+
+//Buttons examples
+var table = $('#datatable-buttons').DataTable({
+    lengthChange: false,
+    buttons: ['copy', 'excel', 'pdf']
+});
+
+// Key Tables
+
+$('#key-table').DataTable({
+    keys: true
+});
+
+// Responsive Datatable
+$('#responsive-datatable').DataTable();
+
+// Multi Selection Datatable
+$('#selection-datatable').DataTable({
+    select: {
+        style: 'multi'
+    }
+});
+
+table.buttons().container()
+        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+} );
+
+</script>

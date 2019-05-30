@@ -1,0 +1,294 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title">New Sales Order</h4>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+            <%= form_with(model: @sales_order, local: true) do |f| %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Delivery Date</label>
+                    <div class="col-9">
+                        <%= f.date_field :delivery_date_on_delivery, class: "form-control order_value", required: true%>
+                      </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Delivery Note</label>
+                    <div class="col-9">
+                        <%= f.text_field :delivery_note_reference, class: "form-control delivery_note_reference", required: true%>
+                      </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Delivery Attachment</label>
+                    <div class="col-9">
+                        <%= f.text_field :delivery_attachment, class: "form-control delivery_attachment", required: true%>
+                      </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Invoice</label>
+                    <div class="col-9">
+                        <%= f.text_field :invoice, class: "form-control invoice", required: true%>
+                      </div>
+                </div>
+
+                <table class='table table-bordered table-bordered dt-responsive nowrap'>
+                  <thead>
+
+                  
+                    <tr>
+                      <th>Product</th>
+                      <th>Purchase Price</th>
+                      <th>Delivery Quantity</th>
+                      <th>Delivery Value</th>
+                      <th>Delivered Date</th>
+                    </tr>
+                  </thead>
+                  <tbody class='fields'>
+                    <%= f.fields_for :sales_order_products do |builder| %>
+                     
+                        <tr>
+                        <td>
+                        <div class="form-group row">
+                            <div>
+                               <%= builder.text_field :product_name, class: "form-control", readonly: true  %> </div>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="form-group row">
+                            <div>
+                                <%= builder.text_field :order_rate, class: "form-control", readonly: true  %>
+                                </div>
+                        </div>
+                        </td>
+                        </td>
+                        <td>
+                            <div class="form-group row">
+                            <div>
+                                <%= builder.text_field :delivery_quantity, class: "form-control" %>
+                                </div>
+                        </div>
+                        </td>
+                        
+                        <td>
+                            <div class="form-group row">
+                            <div>
+                              <%= builder.text_field :delivery_value, class: "form-control", readonly: true  %></div>
+                        </div>
+                        </td>
+                         <td>
+                            <div class="form-group row">
+                            <div>
+                                 <%= f.date_field :delivered_date, class: "form-control delivered_date", required: true%>
+                                </div>
+                        </div>
+                        </td>
+                        </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="loat-right">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                        <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-6">
+                
+                </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+</div>
+
+
+ <script>
+  $(document).ready(function () {     
+    $('.supplier').click(function () {
+      var supplier_id = $( ".supplier" ).val();
+      var link ='/payment/' + supplier_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.payments){
+          
+          jQuery.each( data.payments, function( i, val ) {
+             $('.payment').append($('<option>', { 
+                value: val.id,
+                text : val.payment_term_description
+            }));
+          });
+
+                    
+        }else{
+          $(".net").val("");
+          $(".rebate").val("");
+          $(".price").val(data.price);
+          $(".supplier_id option").remove();
+        }
+      });
+
+    });
+  });
+
+    $(document).ready(function () {     
+    $('.payment').click(function () {
+      var zone_id = $( ".payment" ).val();
+      var link = '/zone/' + zone_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.zones){
+          
+          jQuery.each( data.zones, function( i, val ) {
+             $('.zone').append($('<option>', { 
+                value: val.id,
+                text : val.magisterialdistrict_zone + " " + val.magisterialdistrict_district
+            }));
+          });
+
+                    
+        }else{
+          $(".net").val("");
+          $(".rebate").val("");
+          $(".price").val(data.price);
+          $(".supplier_id option").remove();
+        }
+      });
+
+    });
+  });
+
+  $(document).ready(function () {     
+    $('.zone').click(function () {
+      var product_id = $( ".zone" ).val();
+      var link = '/product_name/' + product_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.products){
+          
+          jQuery.each( data.products, function( i, val ) {
+             $('.product').append($('<option>', { 
+                value: val.id,
+                text : val.product_pescription_product
+            }));
+          });
+
+                    
+        }else{
+          $(".net").val("");
+          $(".rebate").val("");
+          $(".price").val(data.price);
+          $(".supplier_id option").remove();
+        }
+      });
+
+    });
+  });
+
+   $(document).ready(function () {     
+    $('.zone option').click(function () {
+      var product_id = $( ".zone" ).val();
+      var link = '/product_name/' + product_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.products){
+          
+          jQuery.each( data.products, function( i, val ) {
+             $('.product').append($('<option>', { 
+                value: val.id,
+                text : val.product_pescription_product
+            }));
+          });
+
+                    
+        }else{
+          $(".net").val("");
+          $(".rebate").val("");
+          $(".price").val(data.price);
+          $(".supplier_id option").remove();
+        }
+      });
+
+    });
+  });
+
+
+$(function(){
+	$(document).ready(function(){
+    $(document).on('click', '.fields .product', function(){
+      var id = $(this).attr('id').split('_')[6];
+      var product_id = $( '#sales_order_sales_order_products_attributes_' + id + '_product_id' ).val();
+      var link = '/product_price/' + product_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.products){
+        $('#sales_order_sales_order_products_attributes_' + id + '_order_rate').val(data.products.product_price_price);
+        $('#sales_order_sales_order_products_attributes_' + id + '_product_name').val(data.products.product_pescription_product); 
+        $('#sales_order_sales_order_products_attributes_' + id + '_purchase_price').val(data.products.net_price);          
+        }else{
+          $("net").val("");
+          $("rebate").val("");
+          $("price").val(data.price);
+          $("supplier_id option").remove();
+        }
+      });
+
+          
+		});
+	});
+});
+
+$(function(){
+	$(document).ready(function(){
+    $(document).on('click', '.add_product', function(){
+      var product_id = $( ".zone" ).val();
+      var link = '/product_name/' + product_id
+
+      $.getJSON(link, function (data) {
+        
+        
+        if(data.products){
+          
+          jQuery.each( data.products, function( i, val ) {
+             $('.fields select:last').append($('<option>', { 
+                value: val.id,
+                text : val.product_pescription_product
+            }));
+          });
+
+                    
+        }else{
+          $(".net").val("");
+          $(".rebate").val("");
+          $(".price").val(data.price);
+          $(".supplier_id option").remove();
+        }
+      });
+		});
+	});
+});
+
+$(function(){
+	$(document).ready(function(){
+    $(document).on('keyup', '.fields input:text', function(){
+      var id = $(this).attr('id').split('_')[6];
+      var p = $( '#sales_order_sales_order_products_attributes_' + id + '_order_rate' ).val();
+      var net = p * ($( '#sales_order_sales_order_products_attributes_' + id + '_delivery_quantity').val())
+      $('#sales_order_sales_order_products_attributes_' + id + '_delivery_value').val(net);
+		});
+	});
+});
+
+</script>
+

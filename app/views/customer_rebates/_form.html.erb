@@ -1,0 +1,52 @@
+<%= form_with(model: customer_rebate, local: true) do |form| %>
+  <% if customer_rebate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(customer_rebate.errors.count, "error") %> prohibited this customer_rebate from being saved:</h2>
+
+      <ul>
+      <% customer_rebate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :CustomerRebates_Rebate %>
+    <%= form.text_field :CustomerRebates_Rebate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CustomerRebates_Net_Price %>
+    <%= form.text_field :CustomerRebates_Net_Price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.text_field :customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_price_id %>
+    <%= form.text_field :product_price_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :magisterial_district_id %>
+    <%= form.text_field :magisterial_district_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_description_id %>
+    <%= form.text_field :product_description_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

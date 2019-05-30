@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title"></h4>
+                <div class="col-sm-6">
+              <%= form_with(model: @magisterial_district, local: true) do |form| %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Zone</label>
+                    <div class="col-9">
+                        <%= form.text_field :magisterialdistrict_zone, class: "form-control", placeholder: "Enter zone", id: "zone",required: :true %> </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-3 col-form-label">District</label>
+                    <div class="col-9">
+                        <%= form.text_field :magisterialdistrict_district, class: "form-control", placeholder: "Enter district", id: "district",required: :true%> </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Code</label>
+                    <div class="col-9">
+                         <%= form.text_field :magisterialdistrict_code, class: "form-control", placeholder: "Enter code", id: "code",required: :true%></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Province</label>
+                    <div class="col-9">
+                        <%= form.select(:magisterialdistrict_province, ['Gauteng', 'Limpopo','Western Cape','KwaZulu Natal','Eastern Cape','Free State','Mpumalanga','Northern Cape','North West','#N/A'], {:include_blank => true}, { :class => 'form-control form-control-lg m-t-md selectpicker',required: :true }) %>
+                        </div>
+                </div>
+                  <%= form.hidden_field :user_id, value: current_user.user_id %>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                        <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+

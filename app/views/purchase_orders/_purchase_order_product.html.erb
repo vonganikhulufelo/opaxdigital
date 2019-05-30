@@ -1,0 +1,43 @@
+<tr>
+  <td>
+    <%= f.hidden_field :_destroy, as: :hidden %>
+    <%= link_to 'Delete', '#', class: 'remove_record' %>
+  </td>
+  <td>
+  <div class="form-group row">
+      <div>
+            <%#= select_tag "product", options_from_collection_for_select(SPayMProductPrice.all, "id", "product_pescription_product"),{ class: 'form-control form-control-lg m-t-md selectpicker product', include_blank: true, required: "required"}  %>
+      <%= f.select :product_id, options_for_select("yes"), {include_blank: true}, { :class => 'form-control form-control-lg m-t-md selectpicker product' } %>
+      </div>
+  </div>
+  </td>
+  <td>
+  <div class="form-group row">
+      <div>
+          <%#= text_field_tag 'product_price_price', nil, placeholder: 'Enter product price...', class: "form-control price", readonly: true, required: "required" %>
+          <%= f.text_field :purchase_price, class: "form-control", readonly: true  %>
+          </div>
+  </div>
+  </td>
+  </td>
+  <td>
+    <div class="form-group row">
+      <div>
+          <%= f.text_field :order_quantity, class: "form-control" %>
+          </div>
+           <%= f.hidden_field :product_name %>
+           <%= f.hidden_field :zone_price %>
+  </div>
+  </td>
+  <td>
+    <div class="form-group row">
+      <div>
+          <%= f.text_field :order_value, class: "form-control", readonly: true  %></div>
+  </div>
+  </td>
+  <td></td>
+  <td></td>
+</tr>
+
+
+   
