@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_150229) do
+ActiveRecord::Schema.define(version: 2019_05_30_102509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 2019_05_29_150229) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.string "description"
+    t.string "uid"
+    t.string "username"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "magisterial_districts", force: :cascade do |t|
@@ -306,6 +316,7 @@ ActiveRecord::Schema.define(version: 2019_05_29_150229) do
   add_foreign_key "customer_payment_terms", "customers"
   add_foreign_key "customer_payment_terms", "payment_terms"
   add_foreign_key "customers", "users"
+  add_foreign_key "logs", "users"
   add_foreign_key "magisterial_districts", "users"
   add_foreign_key "magisterial_districts", "zones"
   add_foreign_key "payment_terms", "users"
