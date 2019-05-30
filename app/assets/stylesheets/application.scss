@@ -22,9 +22,11 @@
 *= require style
 *= require main
 *= require select.bootstrap4.min
+
  */
  
- 
+@import "font-awesome-sprockets";
+@import "font-awesome";
  
  .offset-1 {
  margin-left: .05%;
