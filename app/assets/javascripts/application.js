@@ -18,7 +18,6 @@
 //= require activestorage
 //= require turbolinks
 //= require select2.min
-//= require dataTables
 
 $(document).on('turbolinks:load', function() {
 
