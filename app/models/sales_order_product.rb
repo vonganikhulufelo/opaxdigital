@@ -1,3 +1,3 @@
 class SalesOrderProduct < ApplicationRecord
-  belongs_to :sales_order
+  belongs_to :sales_order, optional: true
 end

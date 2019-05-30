@@ -10,6 +10,7 @@ class CreateSalesOrderProducts < ActiveRecord::Migration[5.2]
       t.integer :delivery_quantity, precision: 38
       t.decimal :delivery_rate, precision: 38, scale: 4, default: "0.0000"
       t.decimal :delivery_value, precision: 38, scale: 4, default: "0.0000"
+      t.references :sales_order, foreign_key: true
 
       t.timestamps
     end

@@ -223,8 +223,10 @@ ActiveRecord::Schema.define(version: 2019_05_30_102509) do
     t.integer "delivery_quantity"
     t.decimal "delivery_rate", precision: 38, scale: 4, default: "0.0"
     t.decimal "delivery_value", precision: 38, scale: 4, default: "0.0"
+    t.bigint "sales_order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sales_order_id"], name: "index_sales_order_products_on_sales_order_id"
   end
 
   create_table "sales_orders", force: :cascade do |t|
@@ -331,6 +333,7 @@ ActiveRecord::Schema.define(version: 2019_05_30_102509) do
   add_foreign_key "s_pay_m_product_prices", "product_descriptions"
   add_foreign_key "s_pay_m_product_prices", "product_prices"
   add_foreign_key "s_pay_m_product_prices", "s_pay_m_districts"
+  add_foreign_key "sales_order_products", "sales_orders"
   add_foreign_key "sales_orders", "users"
   add_foreign_key "supplier_payment_terms", "payment_terms"
   add_foreign_key "supplier_payment_terms", "suppliers"
