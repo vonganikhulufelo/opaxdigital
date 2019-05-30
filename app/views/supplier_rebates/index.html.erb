@@ -27,7 +27,7 @@
      <ul id="treeview">
     <% @suppliers.each do |supplier| %>
       <li data-icon-cls="treeview-icon icon-folder" data-expanded="false">
-      <div class="dropdown-divider"></div>
+      
         <% if current_user.role != "Basic" %>
         <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_supplier_path(supplier.id), data: { turbolinks: false } %>
         <% end %>
@@ -130,6 +130,7 @@
           </li>
           <% end %>
         </ul>
+      <div class="dropdown-divider"></div>
     </li>
     <% end %>
   </ul>

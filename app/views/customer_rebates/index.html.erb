@@ -26,7 +26,6 @@
 <ul id="treeview">
    <% @customers.each do |customer| %>
       <li data-icon-cls="treeview-icon icon-folder" data-expanded="false">
-      <div class="dropdown-divider"></div>
       <% if current_user.role != "Basic" %>
       <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_customer_path(customer.id) %>
       <% end %>
@@ -152,6 +151,7 @@
           </li>
         <% end %>  
       </ul>
+      <div class="dropdown-divider"></div>
   </li>
 <% end %>
 </ul>
