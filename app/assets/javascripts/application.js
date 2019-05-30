@@ -18,6 +18,8 @@
 //= require activestorage
 //= require turbolinks
 //= require select2.min
+//= require popper.min
+//= require bootstrap.min
 
 $(document).on('turbolinks:load', function() {
 
