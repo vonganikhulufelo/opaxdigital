@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_30_102509) do
+ActiveRecord::Schema.define(version: 2019_05_30_122034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2019_05_30_102509) do
     t.bigint "zone_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "zonedistrict"
     t.index ["user_id"], name: "index_magisterial_districts_on_user_id"
     t.index ["zone_id"], name: "index_magisterial_districts_on_zone_id"
   end
