@@ -1,0 +1,143 @@
+<!-- Top Bar Start -->
+<div class="topbar">
+
+<!-- LOGO -->
+<div class="topbar-left">
+<div class="text-center">
+    <a href="#" class="logo"><i class="fas fa-cogs"></i><span> OPAX DIGITAL</span></a>
+</div>
+</div>
+
+ <!-- Button mobile view to collapse sidebar menu -->
+<nav class="navbar-custom">
+
+    <ul class="list-inline float-right mb-0">
+
+        <li class="list-inline-item notification-list hide-phone">
+            <a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
+                <i class="mdi mdi-crop-free noti-icon"></i>
+            </a>
+        </li>
+
+        <li class="list-inline-item notification-list">
+            <a class="nav-link right-bar-toggle waves-light waves-effect" href="#">
+                <i class="mdi mdi-dots-horizontal noti-icon"></i>
+            </a>
+        </li>
+
+        <li class="list-inline-item dropdown notification-list">
+            
+            <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" aria-labelledby="Preview">
+                <!-- item-->
+                <div class="dropdown-item noti-title">
+                    <h5 class="font-16"><span class="badge badge-danger float-right">5</span>Notification</h5>
+                </div>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-success"><i class="mdi mdi-comment-account"></i></div>
+                    <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-info"><i class="mdi mdi-account"></i></div>
+                    <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-danger"><i class="mdi mdi-airplane"></i></div>
+                    <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>
+                </a>
+
+                <!-- All-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
+                    View All
+                </a>
+
+            </div>
+        </li>
+
+        <li class="list-inline-item dropdown notification-list">
+            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="false" aria-expanded="false">
+                <%= image_tag "profile.jpg", class: "rounded-circle" %>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
+                <!-- item-->
+                <div class="dropdown-item noti-title">
+                    <h5 class="text-overflow"><small>Welcome ! <%= current_user.name%></small> </h5>
+                </div>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="mdi mdi-account"></i> <span>Profile</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="mdi mdi-settings"></i> <span>Settings</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
+                </a>
+
+                <!-- item-->
+                <%= link_to 'Logout ', logout_path, class: "dropdown-item notify-item" %>
+
+            </div>
+        </li>
+
+    </ul>
+
+</nav>
+
+</div>
+<!-- Top Bar End -->
+
+<!-- ========== Left Sidebar Start ========== -->
+
+<div class="left side-menu">
+<div class="sidebar-inner slimscrollleft">
+<!--- Divider -->
+<div id="sidebar-menu">
+<% if logged_in? %>
+    <!-- Sidebar -->
+    <ul>
+      <li class="title">Vendor</li>
+      <li>
+        <a><%= link_to '<i class="fas fa-users"></i> Vendor'.html_safe, suppliers_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+        <a><%= link_to '<i class="fas fa-users-cog"></i> Vendor Rebates'.html_safe, supplier_rebates_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+        <a><%= link_to '<i class="fas fa-user-lock"></i> Vendor Purchase Order'.html_safe, purchase_orders_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+      </li>
+      
+       <div class="dropdown-divider"></div>
+
+      <li class="title">Customer</li>
+      <li>
+        <a><%= link_to '<i class="fas fa-users"></i> Customer'.html_safe, customers_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+        <a><%= link_to '<i class="fas fa-users-cog"></i> Customer Rebates'.html_safe, customer_rebates_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+        <a><%= link_to '<i class="fas fa-user-lock"></i> Customer Sales Order'.html_safe, sales_orders_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+      </li>
+
+       <div class="dropdown-divider"></div>
+
+      <li class="title">Parameters</li>
+      <li>
+        <a><%= link_to '<i class="fas fa-table"></i> Zones'.html_safe, magisterial_districts_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+          <a><%= link_to '<i class="fas fa-table"></i> Products'.html_safe, product_descriptions_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+          <a><%= link_to '<i class="fas fa-table"></i> Prices'.html_safe, product_prices_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+          <a><%= link_to '<i class="fas fa-table"></i> Payment Terms'.html_safe, payment_terms_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+          <a><%= link_to '<i class="fas fa-table"></i> Price Look-Up'.html_safe, price_lookup_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %></a>
+      </li>
+    </ul>
+    <% end %>
+<div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+<!-- Left Sidebar End -->

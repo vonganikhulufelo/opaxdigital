@@ -31,6 +31,7 @@ gem 'sorcery'
 gem 'select2-rails'
 gem "jquery-turbolinks"
 gem "font-awesome-rails"
+gem 'jquery-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
