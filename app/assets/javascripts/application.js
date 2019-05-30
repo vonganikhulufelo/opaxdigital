@@ -16,3 +16,4 @@
 //= require turbolinks
 //= require jquery.turbolinks
 //= require jquery.min
+//= require bootstrap.bundle.min
