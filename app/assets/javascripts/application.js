@@ -37,6 +37,29 @@ $(document).on('turbolinks:load', function() {
     
   });
 
+$(document).ready(function(){
+  $('.back').click(function(){
+      parent.history.back();
+      return false;
+  });
+})
+
+$(document).ready(function() {
+    
+  $('.js-searchable').select2({
+    allowClear: true,
+    width: 300,
+    placeholder: "Select a state"
+    // If you are using Bootstrap, please add　`theme: "bootstrap"` too.
+  });
+
+  $(".js-example-placeholder-single").select2({
+    placeholder: "Select a state",
+    allowClear: true
+  });
+
+  $('.select2').select2();
+})
   
 
 
