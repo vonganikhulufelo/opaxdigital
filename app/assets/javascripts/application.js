@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery3
 //= require shieldui.min
 //= require tree.min
 //= require rails-ujs
@@ -18,6 +18,7 @@
 //= require activestorage
 //= require turbolinks
 //= require select2.min
+//= require dataTables
 
 $(document).on('turbolinks:load', function() {
 
