@@ -17,6 +17,7 @@
 //= require jquery.turbolinks
 //= require activestorage
 //= require turbolinks
+//= require select2.min
 
 $(document).on('turbolinks:load', function() {
 
