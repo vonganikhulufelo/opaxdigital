@@ -34,6 +34,7 @@ gem 'font-awesome-sass', '~> 5.8.1'
 gem 'jquery-rails'
 gem "jquery-turbolinks"
 gem 'carrierwave', '~> 1.0'
+gem 'jquery-datatables'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

@@ -15,11 +15,14 @@
 //= require tree.min
 //= require rails-ujs
 //= require jquery.turbolinks
+//= require datatables
 //= require activestorage
 //= require turbolinks
+//= require datatables
 //= require select2.min
 //= require popper.min
 //= require bootstrap.min
+//= require datatables
 
 $(document).on('turbolinks:load', function() {
 
