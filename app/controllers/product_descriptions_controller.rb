@@ -43,7 +43,7 @@ class ProductDescriptionsController < ApplicationController
     @product_description1 = ProductDescription.find_by(productdescription_product: params[:product_description][:productdescription_product], user_id: current_user.user_id)
 
     respond_to do |format|
-      if !@product_description
+      if !@product_description1
         if @product_description.save
             @product_description.update(uid: 'pd_' + @product_description.id.to_s)
             @description = @product_description.productdescription_product.to_s
