@@ -26,7 +26,7 @@ class PaymentTermsController < ApplicationController
   # POST /payment_terms.json
   def create
     @payment_term = PaymentTerm.new(payment_term_params)
-
+    if !PaymentTerm.find_by(paymentterm_description: params[:payment_term][:paymentterm_description],paymentterm_threshold: params[:payment_term][:paymentterm_threshold])
     respond_to do |format|
       if @payment_term.save
         @uuip = @payment_term.update(uid: 'pt_' + @payment_term.id.to_s)
@@ -39,6 +39,9 @@ class PaymentTermsController < ApplicationController
         format.json { render json: @payment_term.errors, status: :unprocessable_entity }
       end
     end
+  else
+    redirect_to payment_terms_url, notice: 'Payment term already exist.'
+  end
   end
 
   # PATCH/PUT /payment_terms/1
