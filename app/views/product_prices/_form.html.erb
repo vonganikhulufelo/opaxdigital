@@ -22,7 +22,7 @@
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Product</label>
                     <div class="col-9">
-                        <%= select_tag "product_discription_id", options_from_collection_for_select( ProductDescription.all, "id", "productdescription_product"),{ class: 'form-control form-control-lg m-t-md selectpicker', include_blank: true, required: "required"}  %></div>
+                        <%= select_tag "product_discription_id", options_from_collection_for_select( ProductDescription.where(user_id: current_user.user_id), "id", "productdescription_product"),{ class: 'form-control form-control-lg m-t-md selectpicker', include_blank: true, required: "required"}  %></div>
                 </div>
                   <%= hidden_field_tag :user_id, value: current_user.user_id %>
                 <div class="form-group mb-0 justify-content-end row">

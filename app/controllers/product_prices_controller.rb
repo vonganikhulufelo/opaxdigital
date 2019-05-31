@@ -86,8 +86,8 @@ end
   # POST $product_prices
   # POST $product_prices.json
   def create
-   @check_product = ProductPrice.find_by(product_description_id: params[:product_description_id], zone_id: params[:zone_id])
-    if !@check_product
+   @check_product = ProductPrice.find_by(zone_id: params[:zone_id],product_description_id: params[:product_discription_id])
+    if !@check_product.present?
       @product_description = ProductDescription.find(params[:product_discription_id])
       @zone = Zone.find(params[:zone_id])
       @product_price = ProductPrice.new(user_id: current_user.user_id,product_description_id: params[:product_discription_id], productprice_month_id: params[:month_id], zone_id: params[:zone_id], productprice_price: params[:productprice_price],productdescription_product: @product_description.productdescription_product,productprice_zone_class: @zone.zone_description)
@@ -110,7 +110,7 @@ end
         @zone = Zone.find(params[:zone_id])
   
         if @check_product.update(product_description_id: params[:product_discription_id], productprice_month_id: params[:month_id], zone_id: params[:zone_id], productprice_price: params[:productprice_price],productdescription_product: @product_description.productdescription_product,productprice_zone_class: @zone.zone_description)
-          @description = params[:month_id] + '$' + @zone.zone_description + '$' + @product_description.productdescription_product.to_s + '$' + params[:productprice_price].to_s
+          @description = params[:month_id].strftime("%Y/%m/%d").to_s + '$' + @zone.zone_description.to_s + '$' + @product_description.productdescription_product.to_s + '$' + params[:productprice_price].to_s
           Log.create!(description:@description, username: current_user.name, uid: @check_product.uid,user_id: current_user.user_id)
           @product_price1 = ProductPrice.find(@check_product.id)
           @supplier_price = SPayMProductPrice.where(product_price_id: @check_product.id)
@@ -141,7 +141,7 @@ end
           format.json { render json: @product_price.errors, status: :unprocessable_entity }
         end
       end
-      redirect_to product_prices_url
+      
     end
   end
 
