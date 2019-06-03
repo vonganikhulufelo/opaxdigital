@@ -24,9 +24,10 @@
 <br>
 
 <div class="row">
+
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <table id='responsive-datatable' class="table table-hover m-0 table-centered dt-responsive nowrap w-100" cellspacing="0" id="tickets-table">
                 <thead>
                 <tr>
                   <% if current_user.role != "Basic" %>
@@ -114,18 +115,12 @@
 var resizefunc = [];
 </script>
 
-
 <script type="text/javascript">
 $(document).on('turbolinks:load',function () {
 
 
 // Responsive Datatable
-$('#responsive-datatable').DataTable({
-  "paging": true,
-  "select": true,
-  "pageLength": 10,
-  "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-});
+$('#responsive-datatable').DataTable();
 
 } );
 
