@@ -24,11 +24,14 @@ class CustomerRebatesController < ApplicationController
       @product = CPayMProductPrice.find(params[:id])
       @product_description = ProductDescription.find(params[:product_id])
     end
+
+
+
   end
 
   def crebate
       @customer = Customer.find(params[:customer_id])
-      @supplier_price = SPayMProductPrice.find(params[:supplier_id].split("/")[1])
+      @supplier_price = SPayMProductPrice.find(params[:supplier_id].split("/")[1]) 
       @supplier= Supplier.find(params[:supplier_id].split("/")[0])
       @payment_term = PaymentTerm.find(params[:payment_term_id])
       @spayment_term = @customer.customer_payment_terms.find_by(payment_term_id: @payment_term.id)
@@ -59,7 +62,6 @@ class CustomerRebatesController < ApplicationController
         @description1 = @c_pay_m_product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @c_pay_m_product_price.product_price_price.to_s + "$" + @c_pay_m_product_price.product_rebate.to_s+ "$" + @c_pay_m_product_price.net_price.to_s
         Log.create!(user_id: current_user.user_id, description: @description1, username: current_user.name, uid: 'rb_' + @c_pay_m_product_price.id.to_s)
       end
-
     redirect_to customer_rebates_path
   end
 

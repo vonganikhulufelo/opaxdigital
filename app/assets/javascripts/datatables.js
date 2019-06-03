@@ -28,7 +28,7 @@
 
 $.extend( $.fn.dataTable.defaults, {
   responsive: true,
-  pagingType: 'full',
+  pagingType: 'first_last_numbers',
   //dom:
   //  "<'row'<'col-sm-4 text-left'f><'right-action col-sm-8 text-right'<'buttons'B> <'select-info'> >>" +
   //  "<'row'<'dttb col-12 px-0'tr>>" +
