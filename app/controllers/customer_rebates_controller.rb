@@ -23,9 +23,10 @@ class CustomerRebatesController < ApplicationController
     if params[:id] != 'n'
       @product = CPayMProductPrice.find(params[:id])
       @product_description = ProductDescription.find(params[:product_id])
+      @supplier_value = @product.supplier_id.to_s + '/' + + @product.id.to_s + "/" + @product.s_zone.to_s
+      @supplier_text = @product.s_name.to_s + ' ' + @product.s_payment.to_s + " " + @product.s_net_price.to_s + " " + @product.s_zone.to_s
+
     end
-
-
 
   end
 

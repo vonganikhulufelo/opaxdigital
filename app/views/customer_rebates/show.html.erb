@@ -37,7 +37,7 @@
                      <% if params[:product_id] == 'n'%>
                         <%= select_tag "product_discription_id", options_from_collection_for_select( @product_descriptions, "id", "productdescription_product", params[:product_id]),{ class: 'form-control form-control-lg m-t-md selectpicker product_id', include_blank: true, required: "required"}  %>
                     <% else %>
-                        <%= select_tag "product_discription_id", options_for_select( [[@product_description.productdescription_product,@product_description.id]]),{ class: 'form-control form-control-lg m-t-md selectpicker product_id'}  %>
+                        <%= select_tag "product_discription_id", options_for_select( [[@product_description.productdescription_product,@product_description.id]]),{ class: 'form-control form-control-lg m-t-md selectpicker'}  %>
                     <% end %>
                     </div>
                 </div>
@@ -62,6 +62,11 @@
                     <div class="col-9">
                       <%= text_field_tag 'net_price', @product.net_price, placeholder: 'Enter net price...', class: "form-control net",readonly: true %></div>
                 </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Supplier</label>
+                    <div class="col-9">
+                       <%= select_tag "supplier_id", options_for_select([[@supplier_text, @supplier_value]]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', required: "required"}  %></div>
+                </div>
                 <% else %>
                  <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Product Price</label>
@@ -83,12 +88,12 @@
                     <div class="col-9">
                       <%= text_field_tag 'net_price', nil, placeholder: 'Enter net price...', class: "form-control net",readonly: true %></div>
                 </div>
-                <% end %>
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Supplier</label>
                     <div class="col-9">
-                       <%= select_tag "supplier_id", options_from_collection_for_select( Supplier.all, "id", "supplier_name", params[:supplier_id]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', include_blank: true, required: "required"}  %></div>
+                       <%= select_tag "supplier_id", options_for_select(""),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', include_blank: true, required: "required"}  %></div>
                 </div>
+                <% end %>
                   <%= hidden_field_tag 'product_id', params[:product_id], placeholder: 'Enter puchase price...', class: "form-control",readonly: true %>
                 <div class="form-group mb-0 justify-content-end row">
                     <div class="col-9">
@@ -127,10 +132,10 @@
             }));
 
           jQuery.each( data.supplier, function( i, val ) {
-            var zone = val.payment + " " + val.zone +" " + val.distirct
+            var zone = val.zone +" " + val.distirct
              $('.supplier_id').append($('<option>', { 
                 value: val.supplier_id + '/' + val.product_id + "/" + zone,
-                text : val.name + " " + " " + val.payment + " " + val.net_price
+                text : val.name + " " + " " + val.payment + " " + val.net_price + " " + val.zone +" " + val.distirct
             }));
           });
 
