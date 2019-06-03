@@ -28,10 +28,6 @@
 
 $.extend( $.fn.dataTable.defaults, {
   responsive: true,
-  searching: true
-  ordering: true
-  deferRender: true
-  lengthMenu: [10, 25, 50, 100]
   pagingType: 'full',
   //dom:
   //  "<'row'<'col-sm-4 text-left'f><'right-action col-sm-8 text-right'<'buttons'B> <'select-info'> >>" +
