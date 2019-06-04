@@ -88,9 +88,11 @@
                   <thead>
                   <tr  class="bg-dark">
                   <th>Date</th>
+                  <th>Product</th>
                   <th>Price</th>
                   <th>Rebate</th>
-                  <th>Net</th>
+                  <th>Claw Margin</th>
+                  <th>Net Price</th>
                   <th>User</th>
                   </tr>
                   </thead>
@@ -101,6 +103,8 @@
                   <td><%= r.description.split('$')[1].to_s %></td>
                   <td><%= r.description.split('$')[2].to_s %></td>
                   <td><%= r.description.split('$')[3].to_s %></td>
+                  <td><%= r.description.split('$')[4].to_s %></td>
+                  <td><%= r.description.split('$')[5].to_s %></td>
                   <td><%= r.username %></td>
                   </tr>
                   <% end %>

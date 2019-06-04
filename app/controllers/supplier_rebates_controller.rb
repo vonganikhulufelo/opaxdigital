@@ -66,7 +66,8 @@ class SupplierRebatesController < ApplicationController
     if params[:product_id] != 'n'
       @s_pay_m_product_price = SPayMProductPrice.find(params[:product_id])
       @s_pay_m_product_price.update(claw_margin: params[:claw_margin],product_rebate: params[:rebate], net_price: params[:net_price])
-      @description = @s_pay_m_product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s+ "$" + @s_pay_m_product_price.net_price.to_s
+      @s_pay_m_product_price1 = SPayMProductPrice.find(params[:product_id])
+      @description = @s_pay_m_product_price1.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price.product_pescription_product.to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s+ "$" + params[:net_price].to_s
       Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: @s_pay_m_product_price.uid.to_s)
 
          @customer_price = CPayMProductPrice.where(s_pay_m_product_price_id: @s_pay_m_product_price.id)
@@ -76,7 +77,8 @@ class SupplierRebatesController < ApplicationController
               @supp_price = SPayMProductPrice.find(customer.s_pay_m_product_price_id)
               @gross = customer.net_price - @supp_price.net_price
               customer.update(s_net_price: @supp_price.net_price,gross_price: @gross,net_price: customer.net_price,product_price_price: customer.product_price_price)
-              @description1 = customer.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" +  customer.product_price_price.to_s + "$" + customer.product_rebate.to_s+ "$" +  @supp_price.net_price.to_s
+              @customer_rebate = CPayMProductPrice.find(customer.id)
+              @description1 = @customer_rebate.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @customer_rebate.product_pescription_product.to_s + "$" + @customer_rebate.product_price_price.to_s+ "$" + @customer_rebate.product_rebate.to_s + "$" + @customer_rebate.claw_margin.to_s + "$" + @customer_rebate.net_price.to_s + "$" + @customer_rebate.s_name.to_s + "$" + @customer_rebate.s_net_price.to_s + "$" + @customer_rebate.gross_price.to_s
               Log.create!(user_id: current_user.user_id,description: @description1, username: current_user.name, uid: customer.uid.to_s)
             end
           end
@@ -86,19 +88,19 @@ class SupplierRebatesController < ApplicationController
         @s_pay_m_product_price = SPayMProductPrice.find_by(s_pay_m_district_id: @district.id,product_description_id: @product_discription.id)
         if @s_pay_m_product_price
           @s_pay_m_product_price.update(claw_margin: params[:claw_margin],product_price_price: params[:product_price],product_rebate: params[:rebate], net_price: params[:net_price])
-          @description = @s_pay_m_product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s+ "$" + @s_pay_m_product_price.net_price.to_s
+          @description = @s_pay_m_product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price. product_pescription_product.to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s + "$" + @s_pay_m_product_price.claw_margin.to_s + "$" + @s_pay_m_product_price.net_price.to_s
           Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: @s_pay_m_product_price.uid.to_s)
         else
         @s_pay_m_product_price2 = SPayMProductPrice.create!(claw_margin: params[:claw_margin],product_description_id: @product_discription.id,s_pay_m_district_id: @district.id,product_price_price: params[:product_price], product_pescription_product: @product_discription.productdescription_product,product_rebate: params[:rebate], net_price: params[:net_price] ,product_price_id: @product_price.id)
         @s_pay_m_product_price2.update(uid: 'rb_' + @s_pay_m_product_price2.id.to_s)
-        @description2 = @s_pay_m_product_price2.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price2.product_price_price.to_s + "$" + @s_pay_m_product_price2.product_rebate.to_s+ "$" + @s_pay_m_product_price2.net_price.to_s
+        @description2 = @s_pay_m_product_price2.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price2. product_pescription_product.to_s + "$" + @s_pay_m_product_price2.product_price_price.to_s + "$" + @s_pay_m_product_price2.product_rebate.to_s + "$" + @s_pay_m_product_price2.claw_margin.to_s + "$" + @s_pay_m_product_price2.net_price.to_s
         Log.create!(user_id: current_user.user_id,description: @description2, username: current_user.name, uid: 'rb_' + @s_pay_m_product_price2.id.to_s)
         end
       else
         @s_pay_m_district = SPayMDistrict.create!(magisterialdistrict_zone: @magisterial_district.magisterialdistrict_zone, magisterialdistrict_district: @magisterial_district.magisterialdistrict_district ,magisterial_district_id: @magisterial_district.id, supplier_payment_term_id: @spayment_term.id )
         @s_pay_m_product_price = SPayMProductPrice.create!(claw_margin: params[:claw_margin],product_description_id: @product_discription.id,s_pay_m_district_id: @s_pay_m_district.id,product_price_price: params[:product_price], product_pescription_product: @product_discription.productdescription_product,product_rebate: params[:rebate], net_price: params[:net_price] ,product_price_id: @product_price.id)
         @s_pay_m_product_price.update(uid: 'rb_' + @s_pay_m_product_price.id.to_s)
-        @description = @s_pay_m_product_price.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s+ "$" + @s_pay_m_product_price.net_price.to_s
+        @description = @s_pay_m_product_price.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price. product_pescription_product.to_s  + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s + "$" + @s_pay_m_product_price.claw_margin + "$" + @s_pay_m_product_price.net_price.to_s
         Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: 'rb_' + @s_pay_m_product_price.id.to_s)
       end
 
