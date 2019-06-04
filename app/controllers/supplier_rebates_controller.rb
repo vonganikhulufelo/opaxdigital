@@ -67,7 +67,7 @@ class SupplierRebatesController < ApplicationController
       @s_pay_m_product_price = SPayMProductPrice.find(params[:product_id])
       @s_pay_m_product_price.update(claw_margin: params[:claw_margin],product_rebate: params[:rebate], net_price: params[:net_price])
       @s_pay_m_product_price1 = SPayMProductPrice.find(params[:product_id])
-      @description = @s_pay_m_product_price1.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price.product_pescription_product.to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s+ "$" + params[:net_price].to_s
+      @description = @s_pay_m_product_price1.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price.product_pescription_product.to_s + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price1.product_rebate.to_s + "$"+ @s_pay_m_product_price1.claw_margin.to_s + "$" + @s_pay_m_product_price1.net_price.to_s
       Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: @s_pay_m_product_price.uid.to_s)
 
          @customer_price = CPayMProductPrice.where(s_pay_m_product_price_id: @s_pay_m_product_price.id)
