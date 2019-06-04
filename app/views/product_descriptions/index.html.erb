@@ -12,8 +12,8 @@
 <%= form_tag import_product_descriptions_path, multipart: true,class: "d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" do %>
  <div class="input-group">
   <%= file_field_tag :file, class: "" %>
-  <button class="btn btn-primary" type="submit">
-    <i class="fas fa-file-upload"></i>
+  <button class="fileupload btn btn-secondary waves-effect waves-light mb-3" type="submit">
+    <span><i class="fas fa-cloud-upload-alt"></i> Upload</span>
   </button>
   </div>
   <% end %>

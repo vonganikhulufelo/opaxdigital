@@ -200,7 +200,7 @@
  }
  
  .modal-content {
-   position: relative;
+   position: absolute;
    display: -webkit-box;
    display: -ms-flexbox;
    display: flex;
@@ -208,7 +208,7 @@
    -webkit-box-direction: normal;
    -ms-flex-direction: column;
    flex-direction: column;
-   width: 150%;
+   width: auto;
    pointer-events: auto;
    background-color: #fff;
    background-clip: padding-box;

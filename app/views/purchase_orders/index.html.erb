@@ -75,8 +75,9 @@ var resizefunc = [];
                 <div class="btn-group">
                         <button type="button" class="btn btn-danger btn-rounded w-md dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
                         <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                            <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, purchase, method: :delete,class: "dropdown-item" %>
+                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete,class: "dropdown-item" %>
                             
                         </div>
                     </div></td>
@@ -120,8 +121,9 @@ var resizefunc = [];
                 <td><div class="btn-group">
                         <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
                         <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <%= link_to '<i class="fas fa-edit"></i>'.html_safe, step2_path(purchase), data: { turbolinks: false },class: "dropdown-item" %>
+                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to '<i class="fas fa-edit"></i> Delete'.html_safe, step2_path(purchase), data: { turbolinks: false },class: "dropdown-item" %>
                             <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
                             
                         </div>
@@ -159,8 +161,9 @@ var resizefunc = [];
                     <td><div class="btn-group">
                         <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
                         <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <%= link_to '<i class="fas fa-edit"></i>'.html_safe, step3_path(purchase), data: { turbolinks: false },class: "dropdown-item" %>
+                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to '<i class="fas fa-edit"></i> Delete'.html_safe, step3_path(purchase), data: { turbolinks: false },class: "dropdown-item" %>
                             <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
                             
                         </div>
@@ -193,8 +196,9 @@ var resizefunc = [];
                     <td><div class="btn-group">
                         <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Pending<span class="caret"></span></button>
                         <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_purchase_order_path(purchase), data: { turbolinks: false },class: "dropdown-item" %>
+                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to '<i class="fas fa-edit"></i> Delete'.html_safe, edit_purchase_order_path(purchase), data: { turbolinks: false },class: "dropdown-item" %>
                             <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
                             
                         </div>
