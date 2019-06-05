@@ -31,7 +31,7 @@
                 <tbody class="bg-dark">
       <% @suppliers.each do |supplier| %>
       <tr class="bg-dark">
-      <% if current_user.role != "Basic" %>
+      <% if current_user.role != "Admin" %>
         <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_supplier_path(supplier), data: { turbolinks: false } %></td>
         <% end %>
