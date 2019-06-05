@@ -61,8 +61,9 @@ def import
             @supplier_price.each do | supplier |
               supplier.update(net_price: @product_price1.productprice_price + supplier.product_rebate,product_price_price: @product_price1.productprice_price)
               @net = @product_price1.productprice_price + supplier.product_rebate
-              @description = supplier.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @product_price1.productprice_price.to_s + "$" + supplier.product_rebate.to_s+ "$" + @net.to_s
-              Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: supplier.uid.to_s)
+                @s_pay_m_product_price1 = SPayMProductPrice.find(supplier.id)
+                @description = @s_pay_m_product_price1.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price1.product_pescription_product.to_s + "$" + @s_pay_m_product_price1.product_price_price.to_s + "$" + @s_pay_m_product_price1.product_rebate.to_s + "$"+ @s_pay_m_product_price1.claw_margin.to_s + "$" + @s_pay_m_product_price1.net_price.to_s
+                Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: supplier.uid.to_s)
             end
           end
 
@@ -70,8 +71,8 @@ def import
             @customer_price.each do | customer |
               @supp_price = SPayMProductPrice.find(customer.s_pay_m_product_price_id)
               @gross = (@product_price1.productprice_price + customer.product_rebate) - @supp_price.net_price
-              customer.update(s_net_price: @supp_price.net_price,gross_price: @gross,net_price: @product_price1.productprice_price + customer.product_rebate,product_price_price: @product_price1.productprice_price)
-              @description1 = customer.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" +  @product_price1.productprice_price.to_s + "$" + customer.product_rebate.to_s+ "$" +  @supp_price.net_price.to_s
+             @customer_rebate = CPayMProductPrice.find(customer.id)
+              @description1 = @customer_rebate.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @customer_rebate.product_pescription_product.to_s + "$" + @customer_rebate.product_price_price.to_s+ "$" + @customer_rebate.product_rebate.to_s + "$" + @customer_rebate.claw_margin.to_s + "$" + @customer_rebate.net_price.to_s + "$" + @customer_rebate.s_name.to_s + "$" + @customer_rebate.s_net_price.to_s + "$" + @customer_rebate.gross_price.to_s
               Log.create!(user_id: current_user.user_id,description: @description1, username: current_user.name, uid: customer.uid.to_s)
             end
           end
@@ -122,8 +123,9 @@ end
             @supplier_price.each do | supplier |
               supplier.update(net_price: @product_price1.productprice_price + supplier.product_rebate,product_price_price: @product_price1.productprice_price)
               @net = @product_price1.productprice_price + supplier.product_rebate
-              @description = @supplier.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + params[:productprice_price].to_s + "$" + supplier.product_rebate.to_s+ "$" + @net.to_s
-              Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: supplier.uid.to_s)
+              @s_pay_m_product_price1 = SPayMProductPrice.find(supplier.id)
+                @description = @s_pay_m_product_price1.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price1.product_pescription_product.to_s + "$" + @s_pay_m_product_price1.product_price_price.to_s + "$" + @s_pay_m_product_price1.product_rebate.to_s + "$"+ @s_pay_m_product_price1.claw_margin.to_s + "$" + @s_pay_m_product_price1.net_price.to_s
+                Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: supplier.uid.to_s)
             end
           end
 
@@ -132,7 +134,8 @@ end
               @supp_price = SPayMProductPrice.find(customer.s_pay_m_product_price_id)
               @gross = (@product_price1.productprice_price + customer.product_rebate) - @supp_price.net_price
               customer.update(s_net_price: @supp_price.net_price,gross_price: @gross,net_price: @product_price1.productprice_price + customer.product_rebate,product_price_price: @product_price1.productprice_price)
-              @description1 = customer.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" +  @product_price1.productprice_price.to_s + "$" + customer.product_rebate.to_s+ "$" +  @supp_price.net_price.to_s
+              @customer_rebate = CPayMProductPrice.find(customer.id)
+              @description1 = @customer_rebate.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @customer_rebate.product_pescription_product.to_s + "$" + @customer_rebate.product_price_price.to_s+ "$" + @customer_rebate.product_rebate.to_s + "$" + @customer_rebate.claw_margin.to_s + "$" + @customer_rebate.net_price.to_s + "$" + @customer_rebate.s_name.to_s + "$" + @customer_rebate.s_net_price.to_s + "$" + @customer_rebate.gross_price.to_s
               Log.create!(user_id: current_user.user_id,description: @description1, username: current_user.name, uid: customer.uid.to_s)
             end
           end
@@ -165,8 +168,9 @@ end
             @supplier_price.each do | supplier |
               supplier.update(net_price: @product_price1.productprice_price + supplier.product_rebate,product_price_price: @product_price1.productprice_price)
               @net = @product_price1.productprice_price + supplier.product_rebate
-              @description = supplier.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + params[:productprice_price].to_s + "$" + supplier.product_rebate.to_s+ "$" + @net.to_s
-              Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: supplier.uid.to_s)
+              @s_pay_m_product_price1 = SPayMProductPrice.find(supplier.id)
+                @description = @s_pay_m_product_price1.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price1.product_pescription_product.to_s + "$" + @s_pay_m_product_price1.product_price_price.to_s + "$" + @s_pay_m_product_price1.product_rebate.to_s + "$"+ @s_pay_m_product_price1.claw_margin.to_s + "$" + @s_pay_m_product_price1.net_price.to_s
+                Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: supplier.uid.to_s)
             end
           end
 
@@ -175,7 +179,8 @@ end
               @supp_price = SPayMProductPrice.find(customer.s_pay_m_product_price_id)
               @gross = (@product_price1.productprice_price + customer.product_rebate) - @supp_price.net_price
               customer.update(s_net_price: @supp_price.net_price,gross_price: @gross,net_price: @product_price1.productprice_price + customer.product_rebate,product_price_price: @product_price1.productprice_price)
-              @description1 = customer.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" +  @product_price1.productprice_price.to_s + "$" + customer.product_rebate.to_s+ "$" +  @supp_price.net_price.to_s
+              @customer_rebate = CPayMProductPrice.find(customer.id)
+              @description1 = @customer_rebate.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @customer_rebate.product_pescription_product.to_s + "$" + @customer_rebate.product_price_price.to_s+ "$" + @customer_rebate.product_rebate.to_s + "$" + @customer_rebate.claw_margin.to_s + "$" + @customer_rebate.net_price.to_s + "$" + @customer_rebate.s_name.to_s + "$" + @customer_rebate.s_net_price.to_s + "$" + @customer_rebate.gross_price.to_s
               Log.create!(user_id: current_user.user_id,description: @description1, username: current_user.name, uid: customer.uid.to_s)
             end
           end
