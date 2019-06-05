@@ -16,6 +16,7 @@
                         <thead>
                   <tr>
                     <th> Zone District</th>
+                    <th> Date</th>
                     <th> Code</th>
                     <th> Price</th>
                     <th> Description</th>
@@ -25,6 +26,52 @@
       			<% @price_lookups.each do |price_lookup| %>
      			<tr>
      				<td><%= price_lookup.zone_district %></td>
+                    <td>
+        <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#price<%= price_lookup.uid %>"><div class="history"><%= price_lookup.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+        
+        <div class="modal fade" id="price<%= price_lookup.uid %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container">
+      <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr  class="bg-dark">
+            <th>Date</th>
+            <th>Zone</th>
+            <th>Decription</th>
+            <th>Price</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% Log.where(uid: price_lookup.uid).order("created_at DESC").map do | r |%>
+            <tr class="bg-dark">
+              <td scope="row"><%= r.description.split('$')[0].to_s %></td>
+              <td><%= r.description.split('$')[1].to_s %></td>
+              <td><%= r.description.split('$')[2].to_s %></td>
+              <td><%= r.description.split('$')[3].to_s %></td>
+              <td><%= r.username %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+  </div>
+  </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+        </td>
      				<td><%= price_lookup.magisterial_code %></td>
      				<td><%= price_lookup.product_price %></td>
      				<td><%= price_lookup.product_description %></td>
