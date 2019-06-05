@@ -18,7 +18,7 @@
                        <%= file_field_tag 'vendor_documentation' %>
                        <br>
                        <br>
-                       <%= text_field_tag 'vendor_reference', @purchase_order.vendor_documentation, readonly: true, placeholder: 'Vendor Documentation File Path...' %>
+                       <%= label_tag 'vendor_documentation', @purchase_order.vendor_documentation, readonly: true, placeholder: 'Vendor Documentation File Path...' %>
                    </div>
                     </div>
                 <% if !@purchase_order.vendor_reference.present? && !@purchase_order.vendor_documentation.present?%>

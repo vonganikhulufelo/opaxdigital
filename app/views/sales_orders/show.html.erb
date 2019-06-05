@@ -108,19 +108,24 @@
             </div>
         </div>
     </article>
-  
-    <article class="timeline-item alt">
+
+    <% if @sales_order.status == '2' %>
+      <article class="timeline-item ">
+        <div class="timeline-desk">
+        <div class="panel">
+        <div class="panel-body">
+        <span class="arrow"></span>  
+    <% else %>
+     <article class="timeline-item alt">
     <div class="timeline-desk">
     <div class="panel">
     <div class="panel-body">
     <span class="arrow-alt"></span>
+    <% end %>
     <span class="timeline-icon"></span>
         <div class="row">
         <div class="col-12">
         <div class="card-box">
-        <!-- <div class="panel-heading">
-        <h4>Invoice</h4>
-        </div> -->
         <div class="panel-body">
         <div class="clearfix">
         <div class="float-left">
@@ -190,8 +195,58 @@
         </div>
      </div>
     </article>
-</p>
-</p>
-</div>
-</div>
 
+    <% if @sales_order.status == '4' %>
+      <article class="timeline-item ">
+        <div class="timeline-desk">
+        <div class="panel">
+        <div class="panel-body">
+        <span class="arrow"></span>  
+    <% else %>
+        <article class="timeline-item alt">
+        <div class="timeline-desk">
+        <div class="panel">
+        <div class="panel-body">
+        <span class="arrow-alt"></span>
+    <% end %>
+        <span class="timeline-icon"></span>
+            <div class="row">
+            <div class="col-12">
+            <div class="card-box">
+            <!-- <div class="panel-heading">
+            <h4>Invoice</h4>
+            </div> -->
+            <div class="panel-body">
+            <div class="clearfix">
+            <div class="float-left">
+            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 04: Recon Status</h3>
+            </div>
+            <div class="float-right">
+            <%#= link_to 'Edit', step4_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+            </div>
+            </div>
+            <hr>
+            <div class="row">
+            <div class="col-12">
+            <div class="float-left m-t-30">
+           <p class="m-t-10"><strong>Recon: </strong> <%= @sales_order.recon %><p>
+            </div>
+            <div class="float-right m-t-30">
+            
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        </div>
+     </div>
+    </article>
+</p>
+</p>
+</div>
+</div>
+</div>
+</article>

@@ -2,7 +2,7 @@ class PurchaseOrdersController < ApplicationController
   before_action :require_login
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
   def index
-  	    @purchases = PurchaseOrder.where(user_id: current_user.user_id)
+        @purchases = PurchaseOrder.where(user_id: current_user.user_id)
   end
 
   def new
@@ -39,6 +39,7 @@ class PurchaseOrdersController < ApplicationController
   end
 
   def step4
+    @purchase_order = PurchaseOrder.find(params[:id])
   end
 
   def edit
@@ -72,7 +73,7 @@ class PurchaseOrdersController < ApplicationController
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def supplier_rebate_params
-    params.require(:purchase_order).permit(:bol_reference,:vendor_name,:status,:vendor_payment,:zone,:zone_id,:payment_id,:vendor_id,:user_id,:order_date,:system__internal_reference,:internal_po_reference, purchase_order_products_attributes: PurchaseOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
+    params.require(:purchase_order).permit(:bol_reference,:vendor_name,:status, :recon_status,:vendor_payment,:zone,:zone_id,:payment_id,:vendor_id,:user_id,:order_date,:system__internal_reference,:internal_po_reference, purchase_order_products_attributes: PurchaseOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
   end
 end
 
