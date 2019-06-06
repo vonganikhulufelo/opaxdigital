@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :sales_orders
   get 'sales_orders/step2/:id', to: 'sales_orders#step2', as: :pick_up
+  get 'sales_orders/step3/:id', to: 'sales_orders#step3', as: :delivery_details
+  get 'sales_orders/step4/:id', to: 'sales_orders#step4', as: :recon
   resources :purchase_orders
   get 'purchase_orders/step2/:id', to: 'purchase_orders#step2', as: :step2
   get 'purchase_orders/step3/:id', to: 'purchase_orders#step3', as: :step3
