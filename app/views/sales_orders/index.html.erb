@@ -22,12 +22,17 @@ var resizefunc = [];
         <ul class="nav nav-tabs tabs-bordered">
         <li class="nav-item">
                 <a href="#home1-b1" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                    <p class=""><strong>All sales </strong> <span class="badge badge-secondary"><%= @sales.count %></span></p>
+                    <p class=""><strong>All Sales </strong> <span class="badge badge-secondary"><%= @sales.count %></span></p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#profile-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                <a href="#home-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
                 <p class=""><strong>Step 1 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '1').count %></span></p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#profile-b1" data-toggle="tab" aria-expanded="false" class="nav-link ">
+                <p class=""><strong>Step 2 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '2').count %></span></p>
                 </a>
             </li>
         </ul>
@@ -48,7 +53,7 @@ var resizefunc = [];
                 <th>Puma</th>
                 <th>Status</th>
                 <th>Recon Status</th>
-                </tr>
+                </tr> 
             </thead>
             <tbody class="">
                 <% @sales.each do |sale| %>
@@ -78,54 +83,101 @@ var resizefunc = [];
                 <td><%= sale.puma_reference %></td>
                 <td><%= sale.status %></td>
                 <td><%= sale.recon %></td>
+                </tr>
                 <% end %>
             </tbody>
-              </table> </div>
-         
-            <div class="tab-pane " id="profile-b1">
-                <table id="responsive-datatable1" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            </table> 
+          </div>
+
+            <div class="tab-pane fade table-responsive" id="home-b1">
+                 <table id="responsive-datatable12" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
-                  <tr>
-                  <th>Status</th>
+                <tr>
+                <th colspan="1"></th>
                 <th>Order Date</th>
-                <th>Internal Reference</th>
-                <th>PO Reference</th>
-                <th>Vendor Reference</th>
-                </tr>
+                <th>Customer Name</th>
+                <th>Zone</th>
+                <th>Payment Type</th>
+                <th>Deliver Date</th>
+                </tr> 
             </thead>
             <tbody class="">
-                <% @sales.where(status: '2').each do |sale| %>
+                <% @sales.where(status: '1').each do |sale| %>
                 <tr>
-                    <td><div class="btn-group">
+                <% if sale.status == '5' %>
+                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Success</div></td>
+                <% else %>
+                <td><div class="btn-group">
                         <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
                         <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i>'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
-                        <%= link_to '<i class="fas fa-edit"></i> View'.html_safe, step3_path(sale), data: { turbolinks: false },class: "dropdown-item" %>
+                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
                         <div class="dropdown-divider"></div>
                         <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
                             
                         </div>
                     </div>
                     </td>
+                <% end %>
                     <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
-                    <td><%= sale.system__internal_reference %></td>
-                    <td><%= sale.internal_po_reference %></td>
-                    <td><%= sale.vendor_reference %></td>
-                    
+                    <td><%= sale.customer_name %></td>
+                    <td><%= sale.zone %></td>
+                    <td><%= sale.payment %></td>
+                    <td><%= sale.delivery_date_on_delivery.strftime("%m/%d/%Y %H:%M:%S") %></td>
                 </tr>
                 <% end %>
+            </tbody>
+              </table> </div>
+            <div class="tab-pane " id="profile-b1">
+                <table id="responsive-datatable1" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                <th colspan="1"></th>
+                <th>Order Date</th>
+                <th>Customer Name</th>
+                <th>Delivery Date</th>
+                <th>Delivery Note Reference</th>
+                <th>Delivery Note Attachment</th>
+                <th>Puma Reference</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <% @sales.where(status: '2').each do |sale| %>
+                <tr>
+                <% if sale.status == '5' %>
+                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Success</div></td>
+                <% else %>
+                <td><div class="btn-group">
+                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
+                        <div class="dropdown-menu">
+                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                            
+                        </div>
+                    </div>
+                    </td>
+                <% end %>
+                    <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td><%= sale.customer_name %></td>
+                    <td><%= sale.delivered_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td><%= sale.delivery_note_reference %></td>
+                    <td><%= sale.delivery_attachment %></td>
+                    <td><%= sale.puma_reference %></td>
+                <% end %>
+                </tr> 
             </tbody>
               </table>
                </div>
         </div>
     </div>
 </div> <!-- end col -->
-</div>
-
-<script type="text/javascript">
+<script>
 $(document).ready(function() {
     // Responsive Datatable
     $('#responsive-datatable').DataTable({
+        "scrollX": true
+    });
+    $('#responsive-datatable2').DataTable({
         "scrollX": true
     });
     

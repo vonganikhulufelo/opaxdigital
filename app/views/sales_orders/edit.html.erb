@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-md-12">
         <div class="card-box">
@@ -13,7 +12,7 @@
                       </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-3 col-form-label">Supplier</label>
+                    <label for="inputEmail3" class="col-3 col-form-label">Customer</label>
                     <div class="col-9">
                        <%= f.collection_select :customer_id,  @customers.order(:customer_name), :id, :customer_name, {include_blank: true}, {class: "form-control form-control-lg m-t-md selectpicker supplier", required: "required"} %>
                     </div>

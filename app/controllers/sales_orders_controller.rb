@@ -34,6 +34,14 @@ class SalesOrdersController < ApplicationController
     @sales_order = SalesOrder.find_by(id: params[:id], user_id: current_user.user_id)
   end
 
+  def step3
+    @sales_order = SalesOrder.find_by(id: params[:id], user_id: current_user.user_id)
+  end
+
+  def step4
+    @sales_order = SalesOrder.find_by(id: params[:id], user_id: current_user.user_id)
+  end
+
   def update
     @sales_order = SalesOrder.find_by(id: params[:id], user_id: current_user.user_id)
     if @sales_order.update(customer_rebate_params)
@@ -51,6 +59,6 @@ class SalesOrdersController < ApplicationController
   end
 
   def customer_rebate_params
-    params.require(:sales_order).permit(:user_id,:order_date,:customer_id,:zone_id,:payment_id,:customer_id,:invoice,:puma_reference,:delivery_note_reference,:delivery_attachment,:status,:delivery_date_on_delivery, sales_order_products_attributes: SalesOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
+    params.require(:sales_order).permit(:user_id,:order_date,:customer_id, :recon, :zone_id,:payment_id,:customer_id,:invoice,:puma_reference,:delivery_note_reference,:delivery_attachment,:status,:delivery_date_on_delivery, sales_order_products_attributes: SalesOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
   end
 end

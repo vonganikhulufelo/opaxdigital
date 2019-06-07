@@ -31,7 +31,7 @@ File: Main Css
 }
 
 .topbar .topbar-left-sm + .navbar-custom {
-  margin-left: 180px;
+  margin-left: 250px;
 }
 
 .logo {
@@ -217,20 +217,24 @@ File: Main Css
   background: #ffffff;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  position: absolute;
+  position: static;
   top: 70px;
 }
 
 body.fixed-left .side-menu.left {
-  bottom: 50px;
-  height: 100%;
   margin-bottom: -70px;
   margin-top: 0;
-  position: fixed;
+  position: relative;
+  min-width: 240px;
+  max-width: 250px;
+  min-height: 800px !important;
 }
-
+body.fixed-left .side-menu.left.active {
+    margin-left: -240px;
+    transform: rotateY(100deg);
+}
 .content-page {
-  margin-left: 240px;
+  margin-left: 2px;
   overflow: hidden;
   width: 100%;
 }
@@ -2667,72 +2671,7 @@ code, pre {
   border-color: #485561 #485561 #485561;
 }
 
-/*===========
-Modal
-=========== */
-.modal .modal-dialog .close {
-  top: 0;
-  position: absolute;
-  right: 0;
-  height: 36px;
-  width: 36px;
-  background-color: #323b44;
-  opacity: 1;
-  border: 2px solid #ffffff;
-  text-shadow: none;
-  color: #ffffff;
-  border-radius: 50%;
-  padding: 0;
-  font-size: 18px;
-}
 
-.modal .modal-dialog .modal-title {
-  margin: 0;
-}
-
-.modal .modal-dialog .modal-content {
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  border-color: #DDDDDD;
-  border-radius: 2px;
-  box-shadow: none;
-}
-
-.modal .modal-dialog .modal-content .modal-header {
-  border-bottom-width: 2px;
-  margin: 0;
-}
-
-.modal .modal-dialog .modal-content .modal-body {
-  padding: 20px;
-}
-
-.modal-full {
-  width: 98%;
-  max-width: 100%;
-}
-
-/* Custom-modal */
-.modal-demo {
-  background-color: #ffffff;
-  width: 600px;
-  border-radius: 4px;
-  display: none;
-}
-
-.modal-demo .close {
-  position: absolute;
-  top: 12px;
-  right: 25px;
-  color: #ffffff;
-  opacity: 0.5;
-  font-weight: normal;
-  font-size: 26px;
-}
-
-.modal-demo .close:hover {
-  opacity: 1;
-}
 
 .custom-modal-title {
   padding: 15px 25px 15px 25px;
