@@ -1,6 +1,7 @@
 <div class="row">
 <div class="col-md-6">
-<h2><i class="fas fa-user-lock"></i> Vendor Purchase Order</h2>
+<h2><i class="fas fa-user-lock"></i> Vendor Purchase Order
+ <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light"><i class="fas fa-arrow-left "></i></a></h2>
 </div>
 </div>
 <div class="dropdown-divider"></div>
@@ -255,9 +256,6 @@
             <div class="float-left">
             <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 04: Recon Status</h3>
             </div>
-            <div class="float-right">
-            <%= link_to 'Edit', step4_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-            </div>
             </div>
             <hr>
             <div class="row">
@@ -307,22 +305,12 @@
             <%= form_with(model: @purchase_order, local: true) do |f| %>  
 
             <div class="form-group row">
-                <label for="inputEmail3" class="col-3 col-form-label">Recon Status</label>
-                <div class="col-9">
-                    <span><%= f.check_box :recon_status %> checked</span>
-                  </div>
+             <span><strong>Recon Status: </strong> <%= f.check_box :recon_status %> checked</span>
             </div>
             <%= f.hidden_field :status, value: '4' %>
-
-            <div class="form-group mb-0 justify-content-end row">
-                <div class="loat-right">
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
-                    <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
-                </div>
+            <div class="float-right m-t-30">
+             <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
             </div>
-            </div>
-            <div class="col-sm-6">
-
             </div>
             </div>
             <% end %>
@@ -332,4 +320,3 @@
         </div>
       </div>
     </div>
-  </div>

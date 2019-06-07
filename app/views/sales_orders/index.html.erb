@@ -35,11 +35,6 @@ var resizefunc = [];
                 <p class=""><strong>Step 2 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '2').count %></span></p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#messages-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                <p class=""><strong>Step 3 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '3').count %></span></p>
-                </a>
-            </li>
         </ul>
         <div class="tab-content">
         <div class="tab-pane fade show active" id="home1-b1">
@@ -101,8 +96,8 @@ var resizefunc = [];
                 <th colspan="1"></th>
                 <th>Order Date</th>
                 <th>Customer Name</th>
-                <th>Payment Type</th>
                 <th>Zone</th>
+                <th>Payment Type</th>
                 <th>Deliver Date</th>
                 </tr> 
             </thead>
@@ -125,9 +120,9 @@ var resizefunc = [];
                 <% end %>
                     <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
                     <td><%= sale.customer_name %></td>
-                    <td><%= sale.payment %></td>
                     <td><%= sale.zone %></td>
-                    <td><%= sale.delivery_date_on_delivery %></td>
+                    <td><%= sale.payment %></td>
+                    <td><%= sale.delivery_date_on_delivery.strftime("%m/%d/%Y %H:%M:%S") %></td>
                 </tr>
                 <% end %>
             </tbody>
@@ -137,9 +132,12 @@ var resizefunc = [];
               <thead>
                 <tr>
                 <th colspan="1"></th>
+                <th>Order Date</th>
+                <th>Customer Name</th>
                 <th>Delivery Date</th>
                 <th>Delivery Note Reference</th>
                 <th>Delivery Note Attachment</th>
+                <th>Puma Reference</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -159,30 +157,17 @@ var resizefunc = [];
                     </div>
                     </td>
                 <% end %>
-                    <td><%= sale.delivery_date_on_delivery.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td><%= sale.customer_name %></td>
+                    <td><%= sale.delivered_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
                     <td><%= sale.delivery_note_reference %></td>
                     <td><%= sale.delivery_attachment %></td>
+                    <td><%= sale.puma_reference %></td>
                 <% end %>
                 </tr> 
             </tbody>
               </table>
                </div>
-            <div class="tab-pane fade" id="messages-b1">
-                <table id="responsive-datatable2" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-              <thead>
-                  <tr>
-                  <th>Status</th>
-                <th>Order Date</th>
-                <th>Internal Reference</th>
-                <th>PO Reference</th>
-                <th>Vendor Documentation</th>
-                </tr>
-            </thead>
-            <tbody class="">
-               
-            </tbody>
-              </table></div>
-         
         </div>
     </div>
 </div> <!-- end col -->
