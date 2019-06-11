@@ -100,7 +100,7 @@ class SupplierRebatesController < ApplicationController
         @s_pay_m_district = SPayMDistrict.create!(magisterialdistrict_zone: @magisterial_district.magisterialdistrict_zone, magisterialdistrict_district: @magisterial_district.magisterialdistrict_district ,magisterial_district_id: @magisterial_district.id, supplier_payment_term_id: @spayment_term.id )
         @s_pay_m_product_price = SPayMProductPrice.create!(claw_margin: params[:claw_margin],product_description_id: @product_discription.id,s_pay_m_district_id: @s_pay_m_district.id,product_price_price: params[:product_price], product_pescription_product: @product_discription.productdescription_product,product_rebate: params[:rebate], net_price: params[:net_price] ,product_price_id: @product_price.id)
         @s_pay_m_product_price.update(uid: 'rb_' + @s_pay_m_product_price.id.to_s)
-        @description = @s_pay_m_product_price.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price. product_pescription_product.to_s  + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s + "$" + @s_pay_m_product_price.claw_margin + "$" + @s_pay_m_product_price.net_price.to_s
+        @description = @s_pay_m_product_price.created_at.strftime("%Y-%m-%d %H:%M:%S").to_s + "$" + @s_pay_m_product_price. product_pescription_product.to_s  + "$" + @s_pay_m_product_price.product_price_price.to_s + "$" + @s_pay_m_product_price.product_rebate.to_s + "$" + @s_pay_m_product_price.claw_margin.to_s + "$" + @s_pay_m_product_price.net_price.to_s
         Log.create!(user_id: current_user.user_id,description: @description, username: current_user.name, uid: 'rb_' + @s_pay_m_product_price.id.to_s)
       end
 

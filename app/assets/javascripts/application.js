@@ -11,8 +11,6 @@
 // about supported directives.
 //
 //= require jquery3
-//= require shieldui.min
-//= require tree.min
 //= require rails-ujs
 //= require jquery.turbolinks
 //= require datatables

@@ -1,4 +1,4 @@
-<!-- Top Bar Start -->
+
 <div class="topbar">
 
 <!-- LOGO -->
@@ -9,21 +9,66 @@
 </div>
 
  <!-- Button mobile view to collapse sidebar menu -->
-<nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
+<nav class="navbar-custom">
+  <ul class="list-inline float-left mb-0">
+    <li>
+  <button class="button-menu-mobile waves-effect waves-light" id="sidebarCollapse">
+                            <span></span>
+                        <span></span>
+                        <span></span>
+                        </button>
+                      </li>
+                      </ul>
+                
+    <ul class="list-inline float-right mb-0">
 
-                    <button type="button" id="sidebarCollapse" class="navbar-btn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
+        <li class="list-inline-item notification-list hide-phone">
+            <a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
+                <i class="mdi mdi-crop-free noti-icon"></i>
+            </a>
+        </li>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="list-inline-item dropdown notification-list">
+        <li class="list-inline-item notification-list">
+            <a class="nav-link right-bar-toggle waves-light waves-effect" href="#">
+                <i class="mdi mdi-dots-horizontal noti-icon"></i>
+            </a>
+        </li>
+
+        <li class="list-inline-item dropdown notification-list">
+            
+            <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" aria-labelledby="Preview">
+                <!-- item-->
+                <div class="dropdown-item noti-title">
+                    <h5 class="font-16"><span class="badge badge-danger float-right">5</span>Notification</h5>
+                </div>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-success"><i class="mdi mdi-comment-account"></i></div>
+                    <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-info"><i class="mdi mdi-account"></i></div>
+                    <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-danger"><i class="mdi mdi-airplane"></i></div>
+                    <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>
+                </a>
+
+                <!-- All-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
+                    View All
+                </a>
+
+            </div>
+        </li>
+
+        <li class="list-inline-item dropdown notification-list">
             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <%= image_tag "profile.jpg", class: "rounded-circle" %>
@@ -36,6 +81,16 @@
 
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="mdi mdi-account"></i> <span>Profile</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="mdi mdi-settings"></i> <span>Settings</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
                 </a>
 
@@ -44,14 +99,12 @@
 
             </div>
         </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
 
+    </ul>
+
+</nav>
 
 </div>
-<!-- Top Bar End -->
 
 <!-- ========== Left Sidebar Start ========== -->
 <div class="left side-menu">

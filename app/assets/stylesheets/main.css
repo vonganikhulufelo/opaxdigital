@@ -226,12 +226,21 @@ body.fixed-left .side-menu.left {
   margin-top: 0;
   position: relative;
   min-width: 240px;
-  max-width: 250px;
-  min-height: 800px !important;
+  margin-left: -250px;
+  min-height: 100vh;
+        transform: rotateY(90deg);;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
 }
 body.fixed-left .side-menu.left.active {
-    margin-left: -240px;
-    transform: rotateY(100deg);
+    margin-left: 0;
+        transform: none;
+         -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
 }
 .content-page {
   margin-left: 2px;

@@ -64,7 +64,3 @@ $(document).on('turbolinks:before-cache', function() {
   }
 });
 
-$(document).on('turbolinks:load', function() {
-  $('#responsive-datatable').DataTable()
-});
-
