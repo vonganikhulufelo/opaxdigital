@@ -22,7 +22,6 @@
 //= require bootstrap.min
 //= require datatables
 //= require  custombox.min
-//= require  app.min
 
 
 $(document).on('turbolinks:load', function() {
