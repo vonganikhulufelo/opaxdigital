@@ -9,5 +9,4 @@ class ProductDescription < ApplicationRecord
   	Log.where(uid: self.uid).destroy_all
     Log.create!(user_id: self.user_id, uid: 'Delete', description: @log.description)
   end
-
 end

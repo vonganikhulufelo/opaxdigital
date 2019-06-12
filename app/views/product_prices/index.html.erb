@@ -8,17 +8,23 @@
 <div><% if @product_prices.present? %>Updated at <%= @product_prices.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
 </div>
 <div class="col-md-6">
-<% if current_user.role != "Basic" %>
-<%= form_tag import_product_prices_path, multipart: true,class: "d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" do %>
- <div class="input-group">
-  <%= file_field_tag :file, class: "" %>
-  <button class="btn btn-primary" type="submit">
-    <i class="fas fa-file-upload"></i>
-  </button>
+  <% if current_user.role != "Basic" %>
+  <%= form_tag import_product_prices_path, multipart: true do %>
+  <div class="row">
+    <div class="col-md-6 ">
+      <div class="custom-file">
+      <%= file_field_tag :file, class: "custom-file-input",id: "customFile",required: true %>
+      <label class="custom-file-label" for="customFile">Choose file</label>
+    </div>
+    </div>
+    <div class="col-md-6">
+          <%= button_tag "Submit", class: "btn btn-primary", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
+    </div>
   </div>
   <% end %>
-<% end %>
+  <% end %>
 </div>
+
 </div>
 <div class="dropdown-divider"></div>
 <br>
@@ -107,6 +113,17 @@
 
 
 <script>
-var resizefunc = [];
-</script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
 
+$(document).ready(function() {
+
+
+// Responsive Datatable
+$('#responsive-datatable').DataTable();
+
+} );
+</script>

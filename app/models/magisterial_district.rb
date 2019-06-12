@@ -8,7 +8,6 @@ class MagisterialDistrict < ApplicationRecord
   def zonedistrict
     self.zonedistrict = "#{self.magisterialdistrict_zone}" + " " + "#{self.magisterialdistrict_district.to_s}"
   end
-
   after_destroy :create_logs
 
   def create_logs
