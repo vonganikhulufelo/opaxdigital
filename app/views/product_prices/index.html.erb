@@ -11,13 +11,13 @@
   <% if current_user.role != "Basic" %>
   <%= form_tag import_product_prices_path, multipart: true do %>
   <div class="row">
-    <div class="col-md-6 ">
+    <div class="col-sm-6 ">
       <div class="custom-file">
       <%= file_field_tag :file, class: "custom-file-input",id: "customFile",required: true %>
       <label class="custom-file-label" for="customFile">Choose file</label>
     </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6">
           <%= button_tag "Submit", class: "btn btn-primary", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
     </div>
   </div>
@@ -68,7 +68,8 @@
       <table class="table">
         <thead>
           <tr  class="bg-dark">
-            <th>Date</th>
+            <th>Created</th>
+            <th>Price Date</th>
             <th>Zone</th>
             <th>Decription</th>
             <th>Price</th>
@@ -78,6 +79,8 @@
         <tbody>
             <% Log.where(uid: product_price.uid).order("created_at DESC").map do | r |%>
             <tr class="bg-dark">
+              
+              <td><%= r.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
               <td scope="row"><%= r.description.split('$')[0].to_s %></td>
               <td><%= r.description.split('$')[1].to_s %></td>
               <td><%= r.description.split('$')[2].to_s %></td>

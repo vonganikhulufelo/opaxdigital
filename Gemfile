@@ -36,6 +36,7 @@ gem "jquery-turbolinks"
 gem 'carrierwave', '~> 1.0'
 gem 'jquery-datatables'
 gem 'will_paginate', '~> 3.1.0'
+gem 'resque'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
