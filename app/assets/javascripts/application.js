@@ -22,6 +22,7 @@
 //= require bootstrap.min
 //= require datatables
 //= require  custombox.min
+//= require  imports
 
 
 $(document).on('turbolinks:load', function() {

@@ -225,18 +225,17 @@ body.fixed-left .side-menu.left {
   margin-bottom: -70px;
   margin-top: 0;
   position: relative;
-  min-width: 240px;
-  margin-left: -250px;
   min-height: 100vh;
-        transform: rotateY(90deg);;
-  -webkit-transition: margin .25s ease-out;
+  min-width: 240px;
+    max-width: 250px;
+-webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
 }
 body.fixed-left .side-menu.left.active {
-    margin-left: 0;
-        transform: none;
+    margin-left: -250px;
+    transform: rotateY(100deg);
          -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
