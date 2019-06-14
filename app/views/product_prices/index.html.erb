@@ -18,7 +18,7 @@
     </div>
     </div>
     <div class="col-sm-6">
-          <%= button_tag "Submit", class: "btn btn-primary timepout" %>
+          <%= button_tag "Submit", class: "btn btn-primary timepout", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
     </div>
   </div>
   <% end %>
@@ -128,9 +128,11 @@ $('#responsive-datatable').DataTable();
 </script>
 
 <script type="text/javascript">
+
     $('.timepout').click(function () {
+       toastr.warning("","Please refresh after few minutes.");
 setTimeout(function() {
- 
+
   location.reload(true);
 
 }, 10000);

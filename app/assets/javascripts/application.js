@@ -23,6 +23,7 @@
 //= require datatables
 //= require  custombox.min
 //= require  imports
+//= require  toastr.min
 
 
 $(document).on('turbolinks:load', function() {
