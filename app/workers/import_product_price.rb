@@ -2,8 +2,8 @@ require 'csv'
 class ImportProductPrice
   @queue = :default
   def self.perform(file)
-
-  	CSV.foreach(file.path, headers: true) do |row|
+    filename = file.to_csv
+  	CSV.foreach(filename, headers: true) do |row|
 
      if row[1].length < 3
         @zonename = '0' + row[1]
