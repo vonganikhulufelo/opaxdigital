@@ -130,12 +130,14 @@ $('#responsive-datatable').DataTable();
 <script type="text/javascript">
 
     $('.timepout').click(function () {
+       var imgVal = $('.custom-file-input').val(); 
+      if (imgVal != ''){
        toastr.warning("","Please refresh after few minutes.");
-setTimeout(function() {
+      setTimeout(function() {
 
-  location.reload(true);
+        location.reload(true);
 
-}, 10000);
+      }, 10000);}
 });
     
 
