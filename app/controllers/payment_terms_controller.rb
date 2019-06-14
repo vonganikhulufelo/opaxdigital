@@ -5,7 +5,7 @@ class PaymentTermsController < ApplicationController
   # GET /payment_terms
   # GET /payment_terms.json
   def index
-    @payment_terms = PaymentTerm.where(user_id: current_user.user_id)
+    @payment_terms = PaymentTerm.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('created_at ASC')
   end
 
   # GET /payment_terms/1

@@ -4,8 +4,12 @@ class SupplierRebatesController < ApplicationController
 
   # GET /supplier_rebates
   # GET /supplier_rebates.json
-  def index
-    @suppliers = Supplier.order('supplier_name ASC')
+    def index
+    if params[:search]
+    @suppliers = Supplier.where('supplier_name LIKE ?', "%#{params[:search]}%").paginate(page: params[:page], per_page: 30)
+  else
+    @suppliers = Supplier.order('supplier_name ASC').paginate(page: params[:page], per_page: 30)
+  end
   end
 
   # GET /supplier_rebates/1
@@ -177,6 +181,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplier_rebate_params
-      params.require(:supplier_rebate).permit(:SupplierRebate_Rebate, :SupplierRebate_Net_Price, :supplier_id, :user_id, :product_price_id, :magisterial_district_id, :product_description_id)
+      params.require(:supplier_rebate).permit(:SupplierRebate_Rebate, :search, :SupplierRebate_Net_Price, :supplier_id, :user_id, :product_price_id, :magisterial_district_id, :product_description_id)
     end
 end

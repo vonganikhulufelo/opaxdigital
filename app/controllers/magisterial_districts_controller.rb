@@ -5,7 +5,7 @@ class MagisterialDistrictsController < ApplicationController
   # GET /magisterial_districts
   # GET /magisterial_districts.json
   def index
-    @magisterial_districts = MagisterialDistrict.where(user_id: current_user.user_id)
+    @magisterial_districts = MagisterialDistrict.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('updated_at DESC')
   end
 
   # GET /magisterial_districts/1

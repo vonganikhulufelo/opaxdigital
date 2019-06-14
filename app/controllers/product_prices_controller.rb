@@ -5,7 +5,7 @@ class ProductPricesController < ApplicationController
   # GET $product_prices
   # GET $product_prices.json
   def index
-    @product_prices = ProductPrice.where(user_id: current_user.user_id).order("updated_at ASC")
+    @product_prices = ProductPrice.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('updated_at DESC')
   end
 
   # GET $product_prices$1

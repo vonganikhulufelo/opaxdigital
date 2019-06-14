@@ -32,15 +32,16 @@
 
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id='responsive-datatable' class="table table-hover m-0 table-centered dt-responsive nowrap w-100" cellspacing="0" id="tickets-table">
+          <%= render 'shared/search_form', {controller: "magisterial_districts"} %>
+            <table id='' class="table table-hover m-0 table-centered dt-responsive nowrap w-100" cellspacing="0" id="tickets-table">
                 <thead>
                 <tr>
                   <% if current_user.role != "Basic" %>
                     <th ></th>
                     <th ></th>
                     <% end %>
-                    <th>Zone</th>
                     <th>Date</th>
+                    <th>Zone</th>
                     <th>District</th>
                     <th>Code</th>
                     <th>Province</th>
@@ -53,7 +54,6 @@
                     <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, magisterial_district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                     <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_magisterial_district_path(magisterial_district) %></td>
                     <% end %>
-                    <td><%= link_to magisterial_district.magisterialdistrict_zone, magisterial_district %></td>
                     <td>
                     <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#mag<%= magisterial_district.id %>"><div class="history"><%= magisterial_district.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
         
@@ -102,6 +102,7 @@
     </div>
   </div>
                     </td>
+                     <td><%= link_to magisterial_district.magisterialdistrict_zone, magisterial_district %></td>
                     <td><%= magisterial_district.magisterialdistrict_district %></td>
                     <td><%= magisterial_district.magisterialdistrict_code %></td>
                     <td><%= magisterial_district.magisterialdistrict_province %></td>
@@ -109,6 +110,17 @@
                 <% end %>
                 </tbody>
             </table>
+            <div class="clearfix">
+              <div class="float-left">
+                 <%= page_entries_info @magisterial_districts %>
+              </div>
+              <div class="float-right">
+                <div class="flickr_pagination">
+                  <%= will_paginate @magisterial_districts, :container => false %>
+                </div>
+              </div>
+            </div>
+               </div>
         </div>
     </div>
 </div> <!-- end row -->

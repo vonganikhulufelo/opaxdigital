@@ -5,7 +5,7 @@ class ProductDescriptionsController < ApplicationController
   # GET /product_descriptions
   # GET /product_descriptions.json
   def index
-    @product_descriptions = ProductDescription.where(user_id: current_user.user_id)
+    @product_descriptions = ProductDescription.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('updated_at DESC')
   end
 
   # GET /product_descriptions/1

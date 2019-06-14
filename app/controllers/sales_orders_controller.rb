@@ -1,6 +1,6 @@
 class SalesOrdersController < ApplicationController
   def index
-    @sales = SalesOrder.where(user_id: current_user.user_id)
+    @sales = SalesOrder.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('customer_name ASC')
   end
 
   def new

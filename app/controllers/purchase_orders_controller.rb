@@ -2,7 +2,7 @@ class PurchaseOrdersController < ApplicationController
   before_action :require_login
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
   def index
-        @purchases = PurchaseOrder.where(user_id: current_user.user_id)
+    @purchases = PurchaseOrder.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('vendor_name ASC')
   end
 
   def new

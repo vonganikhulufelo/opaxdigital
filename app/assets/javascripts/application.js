@@ -50,6 +50,15 @@ $(document).ready(function(){
   });
 })
 
+
+$(".spinner").hide();
+
+  $(document).ajaxStart(function() {
+    $(".spinner").fadeIn('slow');
+  }).ajaxStop(function() {
+      $(".spinner").hide();
+  });
+  
 $(document).ready(function() {
     
   $('.js-searchable').select2({

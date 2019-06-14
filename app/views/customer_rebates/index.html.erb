@@ -21,7 +21,7 @@
 
 <div class="card mb-3 bg-dark">
 <div class="card-body bg-dark">
-<div class="">
+<%= render 'shared/search_form', {controller: "customer_rebates"} %>
 <div class="sui-treeview">
 <ul id="treeview">
    <% @customers.each do |customer| %>
@@ -166,6 +166,16 @@
 <% end %>
 </ul>
 </div>
+<div class="clearfix">
+                <div class="float-left">
+                   <%= page_entries_info @customers %>
+                </div>
+                <div class="float-right">
+                  <div class="flickr_pagination">
+                    <%= will_paginate @customers, :container => false %>
+                  </div>
+                </div>
+              </div>
 </div>
 </div>
 </div>

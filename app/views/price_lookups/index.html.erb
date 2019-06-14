@@ -12,7 +12,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+           <%= render 'shared/search_form', {controller: "price_lookups"} %>
+            <table id="" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                   <tr>
                     <th> Zone District</th>
@@ -79,13 +80,24 @@
      			<% end %>
                 </tbody>
               </table>
+              <div class="clearfix">
+              <div class="float-left">
+                 <%= page_entries_info @price_lookups %>
+              </div>
+              <div class="float-right">
+                <div class="flickr_pagination">
+                  <%= will_paginate @price_lookups, :container => false %>
+                </div>
+              </div>
+            </div>
+               </div>
         </div>
     </div>
 </div> <!-- end row -->
 
 
 
-
+<%= will_paginate @price_lookups %>
 
 <script>
 var resizefunc = [];

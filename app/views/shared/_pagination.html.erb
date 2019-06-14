@@ -1,0 +1,10 @@
+<div class="clearfix">
+<div class="float-left">
+   <%= page_entries_info @suppliers %>
+</div>
+<div class="float-right">
+  <div class="flickr_pagination">
+    <%= will_paginate @suppliers, :container => false %>
+  </div>
+</div>
+</div>

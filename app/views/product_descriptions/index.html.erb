@@ -18,7 +18,7 @@
     </div>
     </div>
     <div class="col-sm-6">
-          <%= button_tag "Submit", class: "btn btn-primary", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
+      <%= button_tag "Submit", class: "btn btn-primary", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
     </div>
   </div>
   <% end %>
@@ -31,7 +31,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+          <%= render 'shared/search_form', {controller: "product_descriptions"} %>
+            <table id="" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
                   <% if current_user.role != "Basic" %>
@@ -98,6 +99,16 @@
                 <% end %>
                 </tbody>
               </table>
+              <div class="clearfix">
+              <div class="float-left">
+                 <%= page_entries_info @product_descriptions %>
+              </div>
+              <div class="float-right">
+                <div class="flickr_pagination">
+                  <%= will_paginate @product_descriptions, :container => false %>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 </div> <!-- end row -->

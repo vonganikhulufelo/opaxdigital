@@ -9,4 +9,12 @@ class Supplier < ApplicationRecord
   	Log.where(uid: self.uid).destroy_all
     Log.create!(user_id: self.user_id, uid: 'Delete', description: @log.description)
   end
+
+  def self.search(search)
+  	if search
+    	where('supplier_name LIKE ?', "%#{search}%")
+  	else
+    	all
+  	end
+  end
 end

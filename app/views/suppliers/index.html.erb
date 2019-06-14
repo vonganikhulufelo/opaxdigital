@@ -15,7 +15,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+          <%= render 'shared/search_form', {controller: "suppliers"} %>
+          <table id="" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                   <tr>
                   <% if current_user.role != "Basic" %>
@@ -91,12 +92,19 @@
     <% end %>
                 </tbody>
               </table>
+              <div class="clearfix">
+                <div class="float-left">
+                   <%= page_entries_info @suppliers %>
+                </div>
+                <div class="float-right">
+                  <div class="flickr_pagination">
+                    <%= will_paginate @suppliers, :container => false %>
+                  </div>
+                </div>
+              </div>
         </div>
     </div>
 </div> <!-- end row -->
-
-
-
 
 
 <script>
