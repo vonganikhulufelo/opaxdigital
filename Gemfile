@@ -29,6 +29,8 @@ gem 'unicorn'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rails_12factor', group: :production
 gem 'sorcery'
+gem 'cancan'
+gem 'rolify'
 gem 'select2-rails'
 gem "jquery-turbolinks"
 gem 'font-awesome-sass', '~> 5.8.1'

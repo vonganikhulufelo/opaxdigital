@@ -11,11 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
 *= require select2
-*= require all
-*= require sb-admin
-*= require sb-admin.min
 *= require style
-*= require main
 *= require datatables
 *= require bootstrap.min
 *= require custombox.min

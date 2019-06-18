@@ -6,6 +6,7 @@ class PaymentTermsController < ApplicationController
   # GET /payment_terms.json
   def index
     @payment_terms = PaymentTerm.where(user_id: current_user.user_id)
+    authorize! :read, @payment_term
   end
 
   # GET /payment_terms/1
@@ -16,6 +17,7 @@ class PaymentTermsController < ApplicationController
   # GET /payment_terms/new
   def new
     @payment_term = PaymentTerm.new
+    authorize! :create, @payment_term
   end
 
   # GET /payment_terms/1/edit
@@ -26,6 +28,7 @@ class PaymentTermsController < ApplicationController
   # POST /payment_terms.json
   def create
     @payment_term = PaymentTerm.new(payment_term_params)
+     authorize! :create, @payment_term
     if !PaymentTerm.find_by(paymentterm_description: params[:payment_term][:paymentterm_description],paymentterm_threshold: params[:payment_term][:paymentterm_threshold])
     respond_to do |format|
       if @payment_term.save
@@ -47,6 +50,7 @@ class PaymentTermsController < ApplicationController
   # PATCH/PUT /payment_terms/1
   # PATCH/PUT /payment_terms/1.json
   def update
+     authorize! :edit, @payment_term
     respond_to do |format|
       if @payment_term.update(payment_term_params)
         Log.create!(description: @payment_term.paymentterm_description + '$' + @payment_term.paymentterm_threshold.to_s, username: current_user.name, uid: @payment_term.uid.to_s, user_id: current_user.user_id)
@@ -62,6 +66,7 @@ class PaymentTermsController < ApplicationController
   # DELETE /payment_terms/1
   # DELETE /payment_terms/1.json
   def destroy
+     authorize! :destroy, @payment_term
     @payment_term.destroy
     respond_to do |format|
       format.html { redirect_to payment_terms_url, notice: 'Payment term was successfully destroyed.' }
