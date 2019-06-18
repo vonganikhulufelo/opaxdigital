@@ -12,7 +12,7 @@ class Supplier < ApplicationRecord
 
   def self.search(search)
   	if search
-    	where('supplier_name LIKE ?', "%#{search}%")
+    	where('LOWER(supplier_name) LIKE ?', "%#{search.downcase}%")
   	else
     	all
   	end

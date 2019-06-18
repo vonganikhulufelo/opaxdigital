@@ -18,7 +18,7 @@ class MagisterialDistrict < ApplicationRecord
 
   def self.search(search)
     if search
-      where('magisterialdistrict_zone LIKE ?', "%#{search}%")
+      where('LOWER(magisterialdistrict_zone) LIKE ?', "%#{search.downcase}%")
     else
       all
     end

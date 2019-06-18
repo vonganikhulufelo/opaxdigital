@@ -11,7 +11,7 @@ after_destroy :create_logs
 
    def self.search(search)
   	if search
-    	where('customer_name LIKE ?', "%#{search}%")
+    	where('LOWER(customer_name) LIKE ?', "%#{search.downcase}%")
   	else
     	all
   	end

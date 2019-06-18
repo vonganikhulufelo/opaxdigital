@@ -1,10 +1,18 @@
 <div class="clearfix">
 <div class="float-right">
-<%= form_tag({controller: controller}, method: :get) do %>
-<p class="search"><%= text_field_tag :search, params[:search], placeholder: "Search by Name", class: "form-control", :autocomplete => :off %>
-<%= submit_tag 'Search', name: nil, class: "btn btn-primary waves-effect waves-light" %>
-<%= link_to "Clear Search", request.path, class:"cancel-button" %>
-</p>
+<%= form_tag({controller: controller}, method: :get, class: "app-search") do %>
+<div class="app-search-box">
+	<div class="input-group">
+	<%= text_field_tag :search, params[:search], placeholder: "Search by Name", class: "form-control", :autocomplete => :off %>
+	<div class="input-group-append">
+	<button class="btn" type="submit">
+		<i class="fab fa-sistrix "></i>
+	</button>
+	</div>
+	</div>
+</div>
 <% end %>
+<%= link_to "Clear Search", request.path, class:"cancel-button" %>
 </div>
 </div>
+<br>

@@ -12,7 +12,7 @@ class PaymentTerm < ApplicationRecord
 
   def self.search(search)
     if search
-      where('paymentterm_description LIKE ?', "%#{search}%")
+      where('LOWER(paymentterm_description) LIKE ?', "%#{search.downcase}%")
     else
       all
     end

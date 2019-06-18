@@ -7,23 +7,7 @@
 </h2>
 <div><% if @product_descriptions.present? %>Updated at <%= @product_descriptions.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
 </div>
-<div class="col-md-6">
-<% if current_user.role != "Basic" %>
-  <%= form_tag import_product_descriptions_path, multipart: true do %>
-  <div class="row">
-    <div class="col-sm-6 ">
-      <div class="custom-file">
-      <%= file_field_tag :file, class: "custom-file-input",id: "customFile",required: true %>
-      <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
-    </div>
-    <div class="col-sm-6">
-      <%= button_tag "Submit", class: "btn btn-primary", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
-    </div>
-  </div>
-  <% end %>
-  <% end %>
-</div>
+<%= render 'shared/import_form', {controller: "product_descriptions", action: "import"} %>
 </div>
 <div class="dropdown-divider"></div>
 <br>

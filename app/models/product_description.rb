@@ -12,7 +12,7 @@ class ProductDescription < ApplicationRecord
 
   def self.search(search)
     if search
-      where('productdescription_product LIKE ?', "%#{search}%")
+      where('LOWER(productdescription_product) LIKE ?', "%#{search.downcase}%")
     else
       all
     end

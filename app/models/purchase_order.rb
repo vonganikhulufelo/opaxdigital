@@ -6,7 +6,7 @@ class PurchaseOrder < ApplicationRecord
 
   def self.search(search)
   	if search
-    	where('vendor_name LIKE ?', "%#{search}%")
+    	where('LOWER(vendor_name) LIKE ?', "%#{search.downcase}%")
   	else
     	all
   	end
