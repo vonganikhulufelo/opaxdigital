@@ -15,4 +15,12 @@ class MagisterialDistrict < ApplicationRecord
   	Log.where(uid: self.uid).destroy_all
     Log.create!(user_id: self.user_id, uid: 'Delete', description: @log.description)
   end
+
+  def self.search(search)
+    if search
+      where('LOWER(magisterialdistrict_zone) LIKE ?', "%#{search.downcase}%")
+    else
+      all
+    end
+  end
 end

@@ -247,6 +247,32 @@
    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
  }
  
+ .flickr_pagination {
+  text-align: center;
+  padding: 0.3em;
+  cursor: default; }
+  .flickr_pagination a, .flickr_pagination span, .flickr_pagination em {
+    padding: 0.2em 0.5em; }
+  .flickr_pagination .disabled {
+    color: #aaaaaa; }
+  .flickr_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    color: rgb(51, 153, 255); }
+  .flickr_pagination a {
+    text-decoration: none; }
+    .flickr_pagination a:hover, .flickr_pagination a:focus {
+      background: rgb(51, 153, 255);;
+      color: white; }
+  .flickr_pagination .page_info {
+    color: blue;
+    padding-top: 0.8em; }
+  .flickr_pagination .previous_page, .flickr_pagination .next_page {
+    border-width: 2px; }
+  .flickr_pagination .previous_page {
+    margin-right: 1em; }
+  .flickr_pagination .next_page {
+    margin-left: 1em; }
  
  .sui-treeview-list,ul.sui-treeview-list {
    list-style:none;
@@ -270,7 +296,7 @@
   font-weight: 600;
 }
  
- .sui-treeview-item,li.sui-treeview-item{padding:.2em}.sui-treeview-item-toggle{display:inline-block;width:16px;height:16px;text-align:center;vertical-align:middle;overflow:hidden;cursor:pointer;margin-left:-16px;font-size:20px;color: #007bff;}.sui-treeview-item-toggle-expanded{display:inline-block;zoom:1;width:0;height:0;line-height:0;border-left:.4em solid transparent;border-right:.4em solid transparent;border-top:.4em solid;position:relative;top:-2px}.sui-treeview-item-toggle-collapsed{display:inline-block;zoom:1;width:0;height:0;line-height:0;border-left:.4em solid;border-top:.4em solid transparent;border-bottom:.4em solid transparent;position:relative}.sui-treeview-item-check{display:inline-block;width:16px;height:16px;text-align:center;vertical-align:middle;overflow:visible;margin-left:.5em;margin-right:.2em}
+ .sui-treeview-item,li.sui-treeview-item{padding:.2em}.sui-treeview-item-toggle{display:inline-block;width:16px;text-align:center;vertical-align:middle;overflow:hidden;cursor:pointer;margin-left:-16px;font-size:20px;color: #007bff;}.sui-treeview-item-toggle-expanded{display:inline-block;zoom:1;width:0;height:0;line-height:0;border-left:.4em solid transparent;border-right:.4em solid transparent;border-top:.4em solid;position:relative;top:-2px}.sui-treeview-item-toggle-collapsed{display:inline-block;zoom:1;width:0;height:0;line-height:0;border-left:.4em solid;border-top:.4em solid transparent;border-bottom:.4em solid transparent;position:relative}.sui-treeview-item-check{display:inline-block;width:16px;height:16px;text-align:center;vertical-align:middle;overflow:visible;margin-left:.5em;margin-right:.2em}
  .sui-treeview-item-text{font-family: "Roboto", sans-serif;font-size:14px;vertical-align:middle;margin-left:.2em;padding-left:0em;padding-right:.3em;padding-top:.2em;padding-bottom:.2em}.sui-treeview-item-text:hover{}.sui-treeview-item-text-dragging,.sui-treeview-item-text-dragging:hover{color:#fff;background-color:#197bb5}.sui-treeview-item-text-dropover{color:#fff;background-color:#2199e0}.sui-treeview-item-icon{display:inline-block;width:16px;height:16px;text-align:center;vertical-align:middle;overflow:hidden;margin-right:.5em}.sui-treeview-item-toggle-loading{width:16px;height:16px;overflow:hidden;background-repeat:no-repeat;background-image:url(../img/loading-light-small.gif)}.sui-treeview-item-toggle-loading .sui-treeview-item-toggle-expanded,.sui-treeview-item-toggle-loading .sui-treeview-item-toggle-collapsed{display:none}.sui-treeview-focus .sui-treeview-item-selected>.sui-treeview-item-content>.sui-treeview-item-text,.sui-treeview-focus .sui-treeview-item-selected>.sui-treeview-item-content>.sui-treeview-item-text:hover{color:#fff;background-color:#2199e0}.sui-treeview-item-active>.sui-treeview-item-content>.sui-treeview-item-text,.sui-treeview-item-active>.sui-treeview-item-content>.sui-treeview-item-text:hover,.sui-treeview-focus .sui-treeview-item-active>.sui-treeview-item-content>.sui-treeview-item-text,.sui-treeview-focus .sui-treeview-item-active>.sui-treeview-item-content>.sui-treeview-item-text:hover{color:#fff;background-color:#197bb5}.sui-treeview-item-disabled{pointer-events:none;cursor:default;opacity:.4;color:#6d6d6d}.sui-treeview-item-disabled .sui-checkbox{opacity:1}
 @import "datatables";
 
@@ -293,17 +319,14 @@
     cursor: pointer;
 }
 
-#menu span {
+#sidebarCollapse span {
     width: 80%;
     height: 2px;
     margin: 0 auto;
     display: block;
     background: #555;
-    color: white;
     transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
-    transform: none;
-    opacity: 1;
-    margin: 5px auto;
+    transition-delay: 0.2s;
 }
 
 #sidebarCollapse span:first-of-type {
@@ -317,7 +340,7 @@
 }
 
 
-#menu.active span {
+#sidebarCollapse.active span {
     transform: none;
     opacity: 1;
     margin: 5px auto;

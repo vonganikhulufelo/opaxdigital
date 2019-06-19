@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.where(user_id: current_user.user_id).order('customer_name ASC')
+    @customers = Customer.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('customer_name ASC')
   end
 
   # GET /customers/1

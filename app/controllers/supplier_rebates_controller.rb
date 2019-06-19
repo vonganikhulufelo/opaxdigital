@@ -5,7 +5,11 @@ class SupplierRebatesController < ApplicationController
   # GET /supplier_rebates
   # GET /supplier_rebates.json
   def index
-    @suppliers = Supplier.order('supplier_name ASC')
+    if params[:search]
+      @suppliers = Supplier.where('LOWER(supplier_name) LIKE ?', "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 30)
+    else
+      @suppliers = Supplier.order('supplier_name ASC').paginate(page: params[:page], per_page: 30)
+    end
   end
 
   # GET /supplier_rebates/1

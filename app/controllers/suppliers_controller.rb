@@ -5,7 +5,7 @@ class SuppliersController < ApplicationController
   # GET /suppliers
   # GET /suppliers.json
   def index
-    @suppliers = Supplier.where(user_id: current_user.user_id).order('supplier_name ASC')
+    @suppliers = Supplier.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('supplier_name ASC')
   end
 
   # GET /suppliers/1

@@ -5,7 +5,12 @@ class CustomerRebatesController < ApplicationController
   # GET /customer_rebates
   # GET /customer_rebates.json
   def index
-   @customers = Customer.order('customer_name ASC')
+   @customers =
+   if params[:search]
+    Customer.where('LOWER(customer_name) LIKE ?', "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 30)
+  else
+    Customer.order('customer_name ASC').paginate(page: params[:page], per_page: 30)
+  end
   end
 
   # GET /customer_rebates/1

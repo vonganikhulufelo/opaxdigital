@@ -7,23 +7,7 @@
 </h2>
 <div><% if @magisterial_districts.present? %>Updated at <%= @magisterial_districts.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
 </div>
-<div class="col-md-6">
-<% if current_user.role != "Basic" %>
-  <%= form_tag import_magisterial_districts_path, multipart: true do %>
-  <div class="row">
-    <div class="col-sm-6 ">
-      <div class="custom-file">
-      <%= file_field_tag :file, class: "custom-file-input",id: "customFile",required: true %>
-      <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
-    </div>
-    <div class="col-sm-6">
-          <%= button_tag "Submit", class: "btn btn-primary", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
-    </div>
-  </div>
-  <% end %>
-  <% end %>
-</div>
+<%= render 'shared/import_form', {controller: "magisterial_districts", action: "import"} %>
 </div>
 <div class="dropdown-divider"></div>
 <br>
@@ -32,7 +16,8 @@
 
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id='responsive-datatable' class="table table-hover m-0 table-centered dt-responsive nowrap w-100" cellspacing="0" id="tickets-table">
+          <%= render 'shared/search_form', {controller: "magisterial_districts"} %>
+            <table class="table table-hover m-0 table-centered dt-responsive nowrap w-100" cellspacing="0" id="tickets-table">
                 <thead>
                 <tr>
                   <% if current_user.role != "Basic" %>
@@ -109,25 +94,16 @@
                 <% end %>
                 </tbody>
             </table>
+             <div class="clearfix">
+              <div class="float-left">
+                 <%= page_entries_info @magisterial_districts %>
+              </div>
+              <div class="float-right">
+                <div class="flickr_pagination">
+                  <%= will_paginate @magisterial_districts, :container => false %>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 </div> <!-- end row -->
-
-
-
-
-
-<script>
-var resizefunc = [];
-</script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-
-// Responsive Datatable
-$('#responsive-datatable').DataTable();
-
-} );
-
-</script>

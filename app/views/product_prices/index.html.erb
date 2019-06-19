@@ -7,24 +7,7 @@
 </h2>
 <div><% if @product_prices.present? %>Updated at <%= @product_prices.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
 </div>
-<div class="col-md-6">
-  <% if current_user.role != "Basic" %>
-  <%= form_tag import_product_prices_path, multipart: true do %>
-  <div class="row">
-    <div class="col-sm-6 ">
-      <div class="custom-file">
-      <%= file_field_tag :file, class: "custom-file-input",id: "customFile",required: true %>
-      <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
-    </div>
-    <div class="col-sm-6">
-          <%= button_tag "Submit", class: "btn btn-primary timepout", data: { disable_with: "<i class='fas fa-spinner fa-spin'>" } %>
-    </div>
-  </div>
-  <% end %>
-  <% end %>
-</div>
-
+<%= render 'shared/import_form', {controller: "product_prices", action: "import"} %>
 </div>
 <div class="dropdown-divider"></div>
 <br>
@@ -32,7 +15,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
-            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+          <%= render 'shared/search_form', {controller: "product_prices"} %>
+            <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
                   <% if current_user.role != "Basic" %>
@@ -107,6 +91,16 @@
     <% end %>
                 </tbody>
               </table>
+              <div class="clearfix">
+              <div class="float-left">
+                 <%= page_entries_info @product_prices %>
+              </div>
+              <div class="float-right">
+                <div class="flickr_pagination">
+                  <%= will_paginate @product_prices, :container => false %>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 </div> <!-- end row -->
