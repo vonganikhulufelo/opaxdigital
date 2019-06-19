@@ -17,6 +17,7 @@ class Ability
         can :edit, :all
     elsif user.has_role? :basic
         can :read, :all
+        can :edit, User
     end
     #
     # The first argument to `can` is the action you are giving the user 

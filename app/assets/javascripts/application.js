@@ -70,9 +70,17 @@ $(document).ready(function() {
   
 
 $(document).on('turbolinks:load', function() {
-      $('#sidebarCollapse').on('click', function () {
-          $('.side-menu.left').toggleClass('active');
-          $(this).toggleClass('active');
+  if ($(window).width() >= 768) {
+      $('#menu').on('click', function () {
+          $('body').toggleClass('sidebar-enable enlarged');
+          $(this).toggleClass('sidebar-enable enlarged');
       });
-  });
+      }else{
+      $('#menu').on('click', function () {
+          $('body').toggleClass('sidebar-enable');
+          $(this).toggleClass('sidebar-enable');
+      });
+    }
 
+      
+  });

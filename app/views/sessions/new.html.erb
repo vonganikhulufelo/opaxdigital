@@ -3,52 +3,57 @@
         <div class="alert alert-<%= key %> text-center"><%= value %>
         </div>
       <% end %>
+ <div class="account-pages mt-5 mb-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card">
 
-    <div class="wrapper-page">
+                            <div class="card-body p-4">
+                                
+                                <div class="text-center w-75 m-auto">
+                                    <a href="">
+                                        <span><i class="fas fa-cogs" height="24"></i>Opax Digital</span>
+                                        
+                                    </a>
 
-            <div class="text-center">
-                <a  class="logo-lg"><i class="fa fa-cogs"></i><span> OPAX DIGITAL</span> </a>
+                                    <p class="text-muted mb-4 mt-3">Enter your email address and password to access opax digital.</p>
+                                </div>
+
+                                 <%= form_tag login_path, :class => 'form-horizontal m-t-20' do %>
+
+                                    <div class="form-group mb-3">
+                                        <label for="emailaddress">Email address</label>
+                                        <%= email_field_tag :email, params[:email], class: 'form-control',id: "emailaddress", placeholder: "Email", required: "required",autofocus: "autofocus",placeholder: "Enter your email"  %>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="password">Password</label>
+                                        <%= password_field_tag :password,nil, class: 'form-control',id: "inputPassword", placeholder: "Password", required:"required", placeholder: "Enter your password"%>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <div class="custom-control custom-checkbox">
+                                            <%= check_box_tag :remember, params[:remember], false ,id: "checkbox-signin", class: "custom-control-input"%>
+                                            <label class="custom-control-label" for="checkbox-signin">Remember me</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-0 text-center">
+                                        <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                                    </div>
+
+                                <% end %>
+
+                            </div> <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+
+
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
             </div>
-
-            <%= form_tag login_path, :class => 'form-horizontal m-t-20' do %>
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-user"></i></span>
-                            </div>
-                            <%= email_field_tag :email, params[:email], class: 'form-control',id: "inputEmail", placeholder: "Email", required: "required",autofocus: "autofocus"  %>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                            </div>
-                            <%= password_field_tag :password,nil, class: 'form-control',id: "inputPassword", placeholder: "Password", required:"required"%>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <div class="custom-control custom-checkbox">
-                            <%= check_box_tag :remember, params[:remember], true ,id: "customCheck1", class: "custom-control-input"%>
-                            <label class="custom-control-label" for="customCheck1">Remember me</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group text-right m-t-20">
-                    <div class="col-xs-12">
-                        <button class="btn btn-primary btn-custom w-md waves-effect waves-light" type="submit">Log In
-                        </button>
-                    </div>
-                </div>
-            <% end %>
+            <!-- end container -->
         </div>
-
+        <!-- end page -->

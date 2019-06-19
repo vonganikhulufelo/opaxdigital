@@ -19,6 +19,6 @@ class User < ApplicationRecord
   def create_logs
     @log = Log.where(uid: self.uid).last
     Log.where(uid: self.uid).destroy_all
-    Log.create!(user_id: self.user_id, uid: 'Delete', description: @log.description)
+    #Log.create!(user_id: self.user_id, uid: 'Delete', description: @log.description)
   end
 end
