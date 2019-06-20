@@ -8,38 +8,34 @@
 <div class="dropdown-divider"></div>
 <br>
 
-<div class="row">
-  <div class="col-sm-12">
-    <div class="clearfix">
-    <div class="float-left">
-     <h3 class="text-center btn btn-danger btn-rounded w-md waves-effect waves-light m-b-5 float-right">Pending</h3>
-    </div>
-    <div class="float-right">
-     <h3 class="text-right btn btn-success btn-rounded w-md waves-effect waves-light m-b-5 float-right">Completed</h3>
-    </div>
-    </div>
-    <br>
-    
-    <div class="timeline">
-    <article class="timeline-item alt">
-     <div class="text-right">
-        <div class="time-show first">
-         <a href="#" class="btn btn-primary w-lg">Status</a>
-        </div>
-     </div>
-    </article>
 
-    <article class="timeline-item ">
-     <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>
-        <span class="timeline-icon"></span>
-        <div class="row">
-        <div class="col-12">
-        <div class="card-box">
-         <div class="panel-body">
-            <div class="clearfix">
+<div class="row">
+
+    <div class="col-12">
+        <div class="timeline" dir="ltr">
+
+            <article class="timeline-item">
+                <h2 class="m-0 d-none">&nbsp;</h2>
+                <div class="time-show mt-0">
+                    <a href="#" class="btn btn-primary width-lg">Status</a>
+                </div>
+            </article>
+
+            <% if ['1', '2', '3'].include?(@sales_order.status) %>
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="panel">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+        <% else %>
+        <article class="timeline-item  timeline-item-left">
+            <div class="timeline-desk">
+                <div class="panel">
+                    <div class="timeline-box">
+                        <span class="arrow-alt"></span>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="clearfix">
             <div class="float-left">
              <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 01: Sales Order Details</h3>
             </div>
@@ -47,8 +43,8 @@
              <%= link_to 'Edit', edit_sales_order_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
             </div>
             </div>
-            <hr>
-                <div class="row">
+            <br>
+                        <div class="row">
                 <div class="col-12">
                 <div class="float-left m-t-30">
                 <p><strong>Customer Name: </strong>  <%= @sales_order.customer_name %></p>
@@ -62,10 +58,8 @@
                 </div>
                 </div>
                 </div>
-                <div class="m-h-50"></div>
-                <div class="row">
-                <div class="col-12">
-                <div class="table-responsive">
+                 <br>
+                        <div class="table-responsive">
                 <table class="table m-t-30">
                 <thead>
                 <tr><th>Product Name</th>
@@ -85,10 +79,8 @@
                 <% end %>
                 </tbody>
                 </table>
-                </div>
-                </div>
-                </div>
-                <div class="row">
+            </div>
+            <div class="row">
                 <div class="col-6">
 
                 </div>
@@ -100,131 +92,98 @@
                 <h4 class="text-right">R 0.00</h4>
                 </div>
                 </div>
+                    </div>
                 </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-        </div>
-    </article>
+            </article>
 
-    <% if ['2', '3'].include?(@sales_order.status) %>
-      <article class="timeline-item ">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>  
-    <% else %>
-        <article class="timeline-item alt">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow-alt"></span>
-    <% end %>
-        <span class="timeline-icon"></span>
-            <div class="row">
-            <div class="col-12">
-            <div class="card-box">
-            <div class="panel-body">
-        <div class="clearfix">
-        <div class="float-left">
-        <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 02: Delivery Details</h3>
-        </div>
-        <div class="float-right">
-        <%= link_to 'Edit', pick_up_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-        </div>
-        </div>
-        <hr>
-        <div class="row">
-        <div class="col-12">
-        <div class="float-left m-t-30">
-        <p><strong>Delivery Note Reference: </strong>  <%= @sales_order.delivery_note_reference %></p>
-        <p class="m-t-10"><strong>Invoice: </strong>  <%= @sales_order.invoice %></p>
-        <p class="m-t-10"><strong>Delivery Attachment: </strong>  <%= @sales_order.delivery_attachment %></p>
-        </div>
-        <div class="float-right m-t-30">
-        <p><strong>Order Date: </strong><%= @sales_order.order_date.strftime("%Y-%m-%d")%></p>
-        <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-danger">Pending</span></p>
-        <p class="m-t-10"><strong>Delivery Date: </strong>  <%= @sales_order.delivery_date_on_delivery.strftime("%Y-%m-%d") %></p>
-        <p class="m-t-10"><strong>Puma Reference: </strong>  <%= @sales_order.puma_reference %></p>
-        </div>
-        </div>
-        </div>
-        <div class="m-h-50"></div>
-        <div class="row">
-        <div class="col-12">
-        <div class="table-responsive">
-        <table class="table m-t-30">
-        <thead>
-        <tr><th>Product Name</th>
-        <th>Sale Price</th>
-        <th>Delivery Quantity</th>
-        <th>Delivery Value</th>
-        </tr></thead>
-        <tbody>
-        <% @sales_order.sales_order_products.each do | product | %>
-        <tr>
-        <td><%= product.product_name%></td>
-        <td><%= product.order_rate%></td>
-        <td><%= product.delivery_quantity%></td>
-        <td><%= product.delivery_value%></td>
-        </tr>
-        <% end %>
-        </tbody>
-        </table>
-        </div>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-6">
 
-        </div>
-        <div class="col-6">
-        <p class="text-right"><b>Sub-total:</b> 0.00</p>
-        <p class="text-right">Discout: 0.0%</p>
-        <p class="text-right">VAT: 0.0%</p>
-        <hr>
-        <h4 class="text-right">R 0.00</h4>
-        </div>
-        </div>
-        </div>
-            </div>
-            </div>
-            </div>  
-        </div>
-        </div>
-     </div>
-    </article>
+            <% if ['2','3'].include?(@sales_order.status) %>
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="panel">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+        <% else %>
+        <article class="timeline-item  timeline-item-left">
+            <div class="timeline-desk">
+                <div class="panel">
+                    <div class="timeline-box">
+                        <span class="arrow-alt"></span>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="clearfix">
+                        <div class="float-left">
+                        <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 02: Delivery Details</h3>
+                        </div>
+                        <div class="float-right">
+                        <%= link_to 'Edit', pick_up_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+                        </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                        <div class="col-12">
+                        <div class="float-left m-t-30">
+                        <p><strong>Customer Name: </strong>  <%= @sales_order.customer_name %></p>
+                        <p class="m-t-10"><strong>Order Payment: </strong>  <%= @sales_order.payment %></p>
+                        <p class="m-t-10"><strong>Zone: </strong>  <%= @sales_order.zone %></p>
+                        </div>
+                        <div class="float-right m-t-30">
+                        <p><strong>Order Date: </strong><%= @sales_order.order_date.strftime("%Y-%m-%d")%></p>
+                        <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-danger">Pending</span></p>
+                        <p class="m-t-10"><strong>Delivery Date: </strong>  <%= @sales_order.delivery_date_on_delivery.strftime("%Y-%m-%d") %></p>
+                        </div>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                        <table class="table m-t-30">
+                        <thead>
+                        <tr><th>Product Name</th>
+                        <th>Sale Price</th>
+                        <th>Delivery Quantity</th>
+                        <th>Delivery Value</th>
+                        </tr></thead>
+                        <tbody>
+                        <% @sales_order.sales_order_products.each do | product | %>
+                        <tr>
+                        <td><%= product.product_name%></td>
+                        <td><%= product.order_rate%></td>
+                        <td><%= product.delivery_quantity%></td>
+                        <td><%= product.delivery_value%></td>
+                        </tr>
+                        <% end %>
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </article>
 
-    <% if @sales_order.recon == '1' %>
-      <article class="timeline-item ">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>  
-    <% else %>
-        <article class="timeline-item alt">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow-alt"></span>
-    <% end %>
-        <span class="timeline-icon"></span>
-            <div class="row">
-            <div class="col-12">
-            <div class="card-box">
-            <!-- <div class="panel-heading">
-            <h4>Invoice</h4>
-            </div> -->
-            <div class="panel-body">
-            <div class="clearfix">
-            <div class="float-left">
-            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 03: Recon Status</h3>
-            </div>
-            </div>
-            <hr>
-            <div class="row">
+            <% if ['3'].include?(@sales_order.status) %>
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="panel">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+        <% else %>
+        <article class="timeline-item  timeline-item-left">
+            <div class="timeline-desk">
+                <div class="panel">
+                    <div class="timeline-box">
+                        <span class="arrow-alt"></span>
+            <% end %>
+                            <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                            <div class="row">
+                                <div class="col-12">
+                            <div class="clearfix">
+                            <div class="float-left m-t-30"">
+                            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 03: Recon Status</h3>
+                            </div>
+                            </div>
+                           </div>
+                       </div>
+                            <hr>
+                            <div class="row">
             <div class="col-12">
             <div class="float-left m-t-30">
             <p class="m-t-10"><strong>Recon Status: </strong> 
@@ -233,24 +192,19 @@
             <% else %>
                 <span class="badge badge-danger">Pending</span>
             <% end  %>
-            <p>
+            </p>
             </div>
             <div class="float-right m-t-30">
                 <button  type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm">Analyse</button>
             </div>
             </div>
             </div>
-            </div>
-            </div>
-            </div>
-            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
-        </div>
-     </div>
-    </article>
-</p>
-</p>
-</div>
+        <!-- end timeline -->
+    </div> <!-- end col -->
 </div>
 
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

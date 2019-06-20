@@ -6,15 +6,15 @@ class SessionsController < ApplicationController
 
   def create
     if @user = login(params[:email], params[:password], params[:remember])
-      redirect_to supplier_rebates_path, notice: 'Login successful'
+      redirect_to supplier_rebates_path, flash: { success: "Login successful" }
     else
-      flash.now[:alert] = 'Login failed'
+      flash.now[:danger] = 'Login failed'
       render action: 'new'
     end
   end
 
   def destroy
     logout
-    redirect_to root_path, notice: 'Logged out!'
+    redirect_to root_path, flash: { danger: "Logged out!" }
   end
 end

@@ -8,7 +8,8 @@
 <br>
 
 <div class="row">
-  <div class="col-sm-12">
+    
+<div class="col-12">
     <div class="clearfix">
     <div class="float-left">
      <h3 class="text-center btn btn-danger btn-rounded w-md waves-effect waves-light m-b-5 float-right">Pending</h3>
@@ -19,26 +20,22 @@
     </div>
     <br>
     
-    <div class="timeline">
-    <article class="timeline-item alt">
-     <div class="text-right">
-        <div class="time-show first">
-         <a href="#" class="btn btn-primary w-lg">Status</a>
-        </div>
-     </div>
-    </article>
+    <div class="timeline" dir="ltr">
 
-    <article class="timeline-item ">
-     <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>
-        <span class="timeline-icon"></span>
-        <div class="row">
-        <div class="col-12">
-        <div class="card-box">
-         <div class="panel-body">
-            <div class="clearfix">
+        <article class="timeline-item">
+            <h2 class="m-0 d-none">&nbsp;</h2>
+            <div class="time-show mt-0">
+                <a href="#" class="btn btn-primary width-lg">Status</a>
+            </div>
+        </article>
+
+
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+                    <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                    <div class="clearfix">
             <div class="float-left">
              <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 01: Purchase Order Details</h3>
             </div>
@@ -102,30 +99,24 @@
                   <h4 class="text-right">R 0.00</h4>
                  </div>
                 </div>
+                </div>
             </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-        </div>
-    </article>
-
-    <% if ['2', '3', '4'].include?(@purchase.status) %>
-      <article class="timeline-item ">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>  
-    <% else %>
-        <article class="timeline-item alt">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow-alt"></span>
-    <% end %>
-        <span class="timeline-icon"></span>
-            <div class="row">
+        </article>
+        <% if ['2', '3', '4'].include?(@purchase.status) %>
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="panel">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+        <% else %>
+        <article class="timeline-item  timeline-item-left">
+            <div class="timeline-desk">
+                <div class="panel">
+                    <div class="timeline-box">
+                        <span class="arrow-alt"></span>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="row">
             <div class="col-12">
             <div class="card-box">
             <div class="panel-body">
@@ -152,26 +143,25 @@
             </div>
             </div>
             </div>  
-        </div>
-        </div>
-     </div>
-    </article>
-
-    <% if ['3', '4'].include?(@purchase.status) %>
-      <article class="timeline-item ">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>  
-    <% else %>
-        <article class="timeline-item alt">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow-alt"></span>
-    <% end %>
-        <span class="timeline-icon"></span>
-            <div class="row">
+                    </div>
+                </div>
+            </div>
+        </article>
+        <% if ['3', '4'].include?(@purchase.status) %>
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="panel">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+        <% else %>
+        <article class="timeline-item  timeline-item-left">
+            <div class="timeline-desk">
+                <div class="panel">
+                    <div class="timeline-box">
+                        <span class="arrow-alt"></span>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="row">
             <div class="col-12">
             <div class="card-box">
             <div class="panel-body">
@@ -226,25 +216,22 @@
             </div>
             </div>
             </div>
-        </div>
-        </div>
-     </div>
     </article>
 
-    <% if @purchase.recon_status == '1' %>
-      <article class="timeline-item ">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow"></span>  
-    <% else %>
-        <article class="timeline-item alt">
-        <div class="timeline-desk">
-        <div class="panel">
-        <div class="panel-body">
-        <span class="arrow-alt"></span>
-    <% end %>
-        <span class="timeline-icon"></span>
+    <% if ['4'].include?(@purchase.status) %>
+        <article class="timeline-item">
+            <div class="timeline-desk">
+                <div class="panel">
+                <div class="timeline-box">
+                    <span class="arrow"></span>
+        <% else %>
+        <article class="timeline-item  timeline-item-left">
+            <div class="timeline-desk">
+                <div class="panel">
+                    <div class="timeline-box">
+                        <span class="arrow-alt"></span>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
             <div class="row">
             <div class="col-12">
             <div class="card-box">
@@ -279,14 +266,8 @@
             </div>
             </div>
             </div>
-        </div>
-        </div>
-     </div>
     </article>
-</p>
-</p>
-</div>
-</div>
+
 
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -320,3 +301,9 @@
         </div>
       </div>
     </div>
+
+    </div>
+    <!-- end timeline -->
+</div> <!-- end col -->
+                        
+</div>

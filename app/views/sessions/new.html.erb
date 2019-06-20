@@ -1,8 +1,3 @@
- 
-  <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %> text-center"><%= value %>
-        </div>
-      <% end %>
  <div class="account-pages mt-5 mb-5">
             <div class="container">
                 <div class="row justify-content-center">
@@ -18,6 +13,11 @@
                                     </a>
 
                                     <p class="text-muted mb-4 mt-3">Enter your email address and password to access opax digital.</p>
+                                </div>
+                                <div class="text-center">
+                                <% flash.each do |name, msg| %>
+                                  <%= content_tag :div, msg, id: "sessions", class: "alert alert-#{name}" %>
+                                <% end %>
                                 </div>
 
                                  <%= form_tag login_path, :class => 'form-horizontal m-t-20' do %>
