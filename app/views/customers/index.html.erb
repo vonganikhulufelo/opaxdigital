@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-md-6">
 <h2><i class="fas fa-users"></i> Customers
-<% if current_user.role != "Basic" %>
+<% if can? :create, Customer %>
 <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_customer_path, data: { turbolinks: false } %>
 <% end %>
 </h2>
@@ -19,24 +19,18 @@
             <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                  <% if current_user.role != "Basic" %>
-                    <th colspan="2"></th>
-                    <% end %>
                     <th>Updated At</th>
                     <th>Customer name</th>
                     <th>Customer location</th>
                     <th>Customer address</th>
                     <th>Customer contact</th>
                     <th>Customer email</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody class="bg-dark">
       <% @customers.each do |customer| %>
       <tr class="bg-dark">
-      <% if current_user.role != "Basic" %>
-        <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_customer_path(customer), data: { turbolinks: false } %></td>
-        <% end %>
         <td>
           <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#payment<%= customer.id %>"><div class="history"><%= customer.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
         
@@ -90,6 +84,19 @@
         <td><%= customer.customer_address %></td>
         <td><%= customer.customer_contact %></td>
         <td><%= customer.customer_email %></td>
+        <td>
+        <div class="btn-group dropdown">
+          <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <% if can? :edit, Customer %>
+              <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_customer_path(customer),class: "dropdown-item", data: { turbolinks: false } %>
+              <% end %>
+              <% if can? :create, Customer %>
+              <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, customer, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+              <% end %>
+          </div>
+      </div>
+      </td>
       </tr>
     <% end %>
                 </tbody>

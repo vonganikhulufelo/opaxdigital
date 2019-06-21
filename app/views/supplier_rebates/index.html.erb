@@ -10,7 +10,7 @@
 <div class="col-md-12">
 <h2>
   <i class="fas fa-users-cog"></i> Vendor Rebates 
-  <% if current_user.role != "Basic" %>
+  <% if can? :create, SPayMProductPrice %>
   <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_supplier_path %>
   <% end %>
 </h2>
@@ -28,21 +28,21 @@
     <% @suppliers.each do |supplier| %>
       <li data-icon-cls="treeview-icon icon-folder" data-expanded="false">
       
-        <% if current_user.role != "Basic" %>
+        <% if can? :create, SPayMProductPrice %>
         <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_supplier_path(supplier.id), data: { turbolinks: false } %>
         <% end %>
         <a href="#supplier<%= supplier.id %>" data-toggle="collapse" class="rebate_name"> | <%= supplier.supplier_name %></a>
         <ul>
         <% supplier.supplier_payment_terms.each do |payment_term| %>
           <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
-          <% if current_user.role != "Basic" %>
+          <% if can? :create, SPayMProductPrice %>
           <%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,'n','n','n'), data: { turbolinks: false } %>
           <% end %>
           <a href="#payment<%= payment_term.id %>" data-toggle="collapse"> | <%= payment_term.payment_term_description %></a>
             <ul>
               <% payment_term.s_pay_m_districts.each do |magistrial_district| %>
               <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
-                <% if current_user.role != "Basic" %>
+                <% if can? :create, SPayMProductPrice %>
                 <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, remove_supplier_zone_path(magistrial_district.id), method: :delete, data: { confirm: 'Are you sure?' } %>
                 <%= link_to '<i class="fas fa-plus"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,'n','n'), data: { turbolinks: false } %>
                 <% end %>
@@ -51,24 +51,18 @@
               <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
               <tr>
-              <% if current_user.role != "Basic" %>
-              <th colspan="2"></th>
-              <% end %>
               <th>Product</th>
               <th>Date</th>
               <th>Price</th>
               <th>Craw Back Margin</th>
               <th>Rebate</th>
               <th>Net</th>
+              <th>Action</th>
               </tr>
               </thead>
               <tbody>
               <% magistrial_district.s_pay_m_product_prices.each do |product_price| %>
               <tr>
-              <% if current_user.role != "Basic" %>
-              <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, remove_supplier_product_path(product_price.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <td><%= link_to '<i class="fas fa-pen"></i>'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.id,'n'), data: { turbolinks: false } %></td>
-              <% end %>
               <td>
                 <%= product_price.product_pescription_product %>
               </td>
@@ -125,6 +119,21 @@
               <td><%= product_price.claw_margin %></td>
               <td><%= product_price.product_rebate %></td>
               <td><%= product_price.net_price %></td>
+
+              <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+
+                        <% if can? :create, SPayMProductPrice %>
+                         <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, remove_supplier_product_path(product_price.id), method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                          <% if can? :create, SPayMProductPrice %>
+                          <%= link_to '<i class="fas fa-pen"></i> Edit'.html_safe, suplier_payment_zone_product_rabate_path(supplier.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.id,'n'), data: { turbolinks: false },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                </td>
               </tr>
               <% end %>
               </tbody>

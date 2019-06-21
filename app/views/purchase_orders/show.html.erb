@@ -40,7 +40,9 @@
              <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 01: Purchase Order Details</h3>
             </div>
             <div class="float-right">
+                <% if can? :create, PurchaseOrder %>
              <%= link_to 'Edit', edit_purchase_order_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+             <% end %>
             </div>
             </div>
             <hr>
@@ -125,7 +127,9 @@
             <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 02: Vendor Confirmation</h3>
             </div>
             <div class="float-right">
+                <% if can? :create, PurchaseOrder %>
             <%= link_to 'Edit', step2_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+            <% end %>
             </div>
             </div>
             <hr>
@@ -170,7 +174,9 @@
             <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 03: Pick-Up Details</h3>
             </div>
             <div class="float-right">
+                <% if can? :create, PurchaseOrder %>
             <%= link_to 'Edit', step3_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+            <% end %>
             </div>
             </div>
             <hr>
@@ -258,7 +264,9 @@
             <p>
             </div>
             <div class="float-right m-t-30">
+                <% if can? :create, PurchaseOrder %>
             <button  type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm">Analyse</button>
+            <% end %>
             </div>
             </div>
             </div>

@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-md-6">
 <h2><i class="fas fa-users"></i> Vendors
-<% if current_user.role != "Basic" %>
+<% if can? :create, Supplier %>
 <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_supplier_path, data: { turbolinks: false }  %>
 <% end %>
 </h2>
@@ -19,23 +19,17 @@
             <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                  <% if current_user.role != "Basic" %>
-                    <th colspan="2"></th>
-                    <% end %>
                     <th> Updated At</th>
                     <th> Name</th>
                     <th> Address</th>
                     <th> Contact</th>
                     <th> Email</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody class="bg-dark">
       <% @suppliers.each do |supplier| %>
       <tr class="bg-dark">
-      <% if current_user.role != "Admin" %>
-        <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_supplier_path(supplier), data: { turbolinks: false } %></td>
-        <% end %>
         <td>
           <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#payment<%= supplier.id %>"><div class="history"><%= supplier.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
         
@@ -88,6 +82,19 @@
         <td><%= supplier.supplier_address %></td>
         <td><%= supplier.supplier_contact %></td>
         <td><%= supplier.supplier_email %></td>
+        <td>
+        <div class="btn-group dropdown">
+          <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <% if can? :edit, Supplier %>
+              <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_supplier_path(supplier),class: "dropdown-item", data: { turbolinks: false } %>
+              <% end %>
+              <% if can? :create, Supplier %>
+              <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, supplier, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+              <% end %>
+          </div>
+      </div>
+      </td>
       </tr>
     <% end %>
                 </tbody>

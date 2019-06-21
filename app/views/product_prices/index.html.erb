@@ -19,22 +19,16 @@
             <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                  <% if current_user.role != "Basic" %>
-                    <th colspan="2"></th>
-                    <% end %>
                     <th>Date</th>
                     <th>Zone</th>
                     <th>Price</th>
                     <th>Description</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody class="bg-dark">
                   <% @product_prices.each do |product_price| %>
       <tr class="bg-dark">
-      <% if current_user.role != "Basic" %>
-        <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, product_price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_product_price_path(product_price) %> </td>
-        <% end %>
         <td>
         <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#price<%= product_price.id %>"><div class="history"><%= product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
         
@@ -87,6 +81,19 @@
         <td><%= product_price.productprice_zone_class %></td>
         <td><%= product_price.productprice_price %></td>
         <td><%= product_price.productdescription_product %></td>
+        <td>
+        <div class="btn-group dropdown">
+          <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <% if can? :edit, ProductPrice %>
+              <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_product_price_path(product_price),class: "dropdown-item", data: { turbolinks: false } %>
+              <% end %>
+              <% if can? :create, ProductPrice %>
+              <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, product_price, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+              <% end %>
+          </div>
+      </div>
+      </td>
       </tr>
     <% end %>
                 </tbody>

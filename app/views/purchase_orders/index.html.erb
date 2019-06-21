@@ -45,12 +45,12 @@ var resizefunc = [];
             </li>
         </ul>
         <div class="tab-content">
-        <div class="tab-pane fade show active" id="home1-b1">
+        <div class="tab-pane fade show active table-responsive" id="home1-b1">
             <%= render 'shared/search_form', {controller: "purchase_orders"} %>
             <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                <th colspan="1"></th>
+                    <th>Status</th>
                 <th>Order Date</th>
                 <th>Internal Reference</th>
                 <th>PO Reference</th>
@@ -59,25 +59,18 @@ var resizefunc = [];
                 <th>Payment Term</th>
                 <th>Vendor Reference</th>
                 <th>BOL Reference</th>
+                <th>Action</th>
                 </tr>
             </thead>
             <tbody class="">
                 <% @purchases.each do |purchase| %>
                 <tr>
-                <% if purchase.status == '5' %>
-                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Completed</div></td>
-                <% else %>
-                <td>
-                <div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded w-md dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete,class: "dropdown-item" %>
-                            
-                        </div>
-                    </div></td>
-                <% end %>
+                    <td><% if  purchase.status == '4' %>
+                            <button class="btn btn-success btn-rounded w-md waves-effect waves-light">Complete</button>
+                            <% else %>
+                            <button class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</button>
+                            <% end %>
+                        </td>
                     <td><%= purchase.order_date.strftime("%Y-%m-%d %H:%M:%S") %></td>
                     <td><%= purchase.system__internal_reference %></td>
                     <td><%= purchase.internal_po_reference %></td>
@@ -86,6 +79,20 @@ var resizefunc = [];
                     <td><%= purchase.vendor_payment %></td> 
                     <td><%= purchase.vendor_reference %></td>
                     <td><%= purchase.bol_reference %></td>
+                <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <% if can? :read, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                  </td>
+
 
                 </tr>
                 <% end %>
@@ -107,7 +114,7 @@ var resizefunc = [];
                  <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                <th colspan="1"></th>
+                <th>Status</th>
                 <th>Order Date</th>
                 <th>Internal Reference</th>
                 <th>PO Reference</th>
@@ -118,24 +125,14 @@ var resizefunc = [];
                 <th>Net Price</th>
                 <th>Order QTY</th>
                 <th>Order Value</th>
+                <th>Action</th>
                 </tr>
             </thead>
             <tbody class="">
                 <% @purchases.where(status: '1').each do |purchase| %>
                 <tr>
-                <% if purchase.status == '5' %>
-                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Success</div></td>
-                <% else %>
-                <td><div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                            <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                            
-                        </div>
-                    </div></td>
-                <% end %>
+                <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
+                </td>
                     <td><%= purchase.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
                     <td><%= purchase.system__internal_reference %></td>
                     <td><%= purchase.internal_po_reference %></td>
@@ -146,6 +143,20 @@ var resizefunc = [];
                     <td><%= purchase.net_price %></td>
                     <td><%= purchase.order_qty %></td>
                     <td><%= purchase.order_value %></td>
+                     <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+
+                        <% if can? :read, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                  </td>
 
                 </tr>
                 <% end %>
@@ -159,35 +170,42 @@ var resizefunc = [];
               </div>
             </div> 
             </div>
-            <div class="tab-pane " id="profile-b1">
+            <div class="tab-pane table-responsive" id="profile-b1">
                 <%= render 'shared/search_form', {controller: "purchase_orders"} %>
                 <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                <th colspan="1"></th>
+                <th>Status</th>
                 <th>Order Date</th>
                 <th>Internal Reference</th>
                 <th>Vendor Reference</th>
                 <th>Vendor Documentation</th>
+                <th>Action</th>
                 </tr>
             </thead>
             <tbody class="">
                 <% @purchases.where(status: '2').each do |purchase| %>
                 <tr>
-                    <td><div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                            
-                        </div>
-                    </div>
+                    <td> <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light"> Pending</button>
                     </td>
                     <td><%= purchase.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
                     <td><%= purchase.internal_po_reference %></td>
                     <td><%= purchase.vendor_reference %></td>
                     <td><%= purchase.vendor_documentation %></td>
+                    <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+
+                        <% if can? :read, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                  </td>
                     
                 </tr>
                 <% end %>
@@ -201,7 +219,7 @@ var resizefunc = [];
               </div>
             </div>
                </div>
-            <div class="tab-pane fade" id="settings-b1">
+            <div class="tab-pane fade table-responsive" id="settings-b1">
                 <table id="responsive-datatable3" class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                   <tr>
@@ -213,20 +231,13 @@ var resizefunc = [];
                 <th>Pick-Up QTY</th>
                 <th>Pick-Up Value</th>
                 <th>BOL Reference</th>
+                <th>Action</th>
                 </tr>
             </thead>
             <tbody class="">
-                <% @purchases.where(status: '4').each do |purchase| %>
+                <% @purchases.where(status: '3').each do |purchase| %>
                 <tr>
-                 <td><div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                            
-                        </div>
-                    </div>
+                 <td><button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light"> Pending</button>
                     </td>
                     <td><%= purchase.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
                     <td><%= purchase.system__internal_reference %></td>
@@ -235,6 +246,19 @@ var resizefunc = [];
                     <td><%= purchase.pick_up_qt %></td>
                     <td><%= purchase.pick_up_value %></td>
                     <td><%= purchase.bol_reference %></td>
+                    <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+
+                        <% if can? :read, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, purchase,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, PurchaseOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, purchase, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
                 </tr>
                 <% end %>
             </tbody>

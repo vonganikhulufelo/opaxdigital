@@ -8,7 +8,7 @@
 <div class="row">
 <div class="col-md-6">
 <h2><i class="fas fa-users"></i> Customer Rebates
-<% if current_user.role != "Basic" %>
+<% if can? :create, CPayMProductPrice %>
 <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_customer_path %>
 <% end %>
 </h2>
@@ -26,21 +26,21 @@
 <ul id="treeview">
    <% @customers.each do |customer| %>
       <li data-icon-cls="treeview-icon icon-folder" data-expanded="false">
-      <% if current_user.role != "Basic" %>
+      <% if can? :create, CPayMProductPrice %>
       <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_customer_path(customer.id) %>
       <% end %>
       <a href="#supplier<%= customer.id %>" data-toggle="collapse" class="rebate_name"> | <%= customer.customer_name %></a>
       <ul>
       <% customer.customer_payment_terms.each do |payment_term| %>
       <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
-        <% if current_user.role != "Basic" %>
+        <% if can? :create, CPayMProductPrice %>
         <%= link_to '<i class="fas fa-plus"></i>'.html_safe, cutomer_payment_zone_product_cust_rabate_path(customer.id,payment_term.payment_term_id,'n','n','n'), data: { turbolinks: false } %>
         <% end %>
         <a href="#payment<%= payment_term.id %>" data-toggle="collapse"> | <%= payment_term.payment_term_description %></a>
           <ul>
            <% payment_term.c_pay_m_districts.each do |magistrial_district| %>
             <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
-              <% if current_user.role != "Basic" %>
+              <% if can? :create, CPayMProductPrice %>
               <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, remove_customer_zone_path(magistrial_district.id), method: :delete, data: { confirm: 'Are you sure?' } %>
               <%= link_to '<i class="fas fa-plus"></i>'.html_safe, cutomer_payment_zone_product_cust_rabate_path(customer.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,'n','n'), data: { turbolinks: false } %>
               <% end %>
@@ -48,10 +48,10 @@
               <%= magistrial_district.magisterialdistrict_district %></a>
                 <ul class="col-md-12">
                    <li data-icon-cls="treeview-icon icon-txt">
+                    <div class="table-responsive">
                     <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                    <th colspan="2"></th>
                     <th>Product</th>
                     <th>Date</th>
                     <th>Price</th>
@@ -60,18 +60,16 @@
                     <th>Supplier</th>
                     <th>Supplier Rebate</th>
                     <th>Gross Margin</th>
+                    <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <% magistrial_district.c_pay_m_product_prices.each do |product_price| %>
                     <tr class="bg-dark">
-      
-                    <% if current_user.role != "Basic" %>
-                    <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, remove_customer_product_path(product_price.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                    <td><%= link_to '<i class="fas fa-pen"></i>'.html_safe, cutomer_payment_zone_product_cust_rabate_path(customer.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.product_description_id,product_price.id), data: { turbolinks: false } %></td>
-                    <% end %>
-                    <td>
-                      <%= product_price.product_pescription_product %>
+                       
+                <td><%= product_price.product_pescription_product %>
+                  </td>
+                      
                     </td>
                     <td>
                       <a class='<i class="fas fa-plus"></i> history'.html_safe href="#" data-toggle="modal" data-target="#price12<%= product_price.id %>"><div class="history"><%= product_price.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
@@ -149,10 +147,26 @@
                     <td>
                       <%= product_price.gross_price %>
                     </td>
+
+                    <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+
+                        <% if can? :create, CPayMProductPrice %>
+                         <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, remove_customer_product_path(product_price.id), method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                          <% if can? :create, CPayMProductPrice %>
+                          <%= link_to '<i class="fas fa-pen"></i> Edit'.html_safe, cutomer_payment_zone_product_cust_rabate_path(customer.id,payment_term.payment_term_id,magistrial_district.magisterial_district_id,product_price.product_description_id,product_price.id), data: { turbolinks: false },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                </td>
                   </tr>
                    <% end %>
                   </tbody>
                   </table>
+                </div>
                   </li>
                 </ul> 
               </li>

@@ -20,24 +20,18 @@
             <table class="table table-hover m-0 table-centered dt-responsive nowrap w-100" cellspacing="0" id="tickets-table">
                 <thead>
                 <tr>
-                  <% if current_user.role != "Basic" %>
-                    <th ></th>
-                    <th ></th>
-                    <% end %>
+                  
                     <th>Zone</th>
                     <th>Date</th>
                     <th>District</th>
                     <th>Code</th>
                     <th>Province</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody class="bg-dark">
                   <% @magisterial_districts.each do |magisterial_district| %>
                   <tr class="bg-dark">
-                  <% if current_user.role != "Basic" %>
-                    <td><%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, magisterial_district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                    <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_magisterial_district_path(magisterial_district) %></td>
-                    <% end %>
                     <td><%= link_to magisterial_district.magisterialdistrict_zone, magisterial_district %></td>
                     <td>
                     <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#mag<%= magisterial_district.id %>"><div class="history"><%= magisterial_district.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
@@ -90,6 +84,19 @@
                     <td><%= magisterial_district.magisterialdistrict_district %></td>
                     <td><%= magisterial_district.magisterialdistrict_code %></td>
                     <td><%= magisterial_district.magisterialdistrict_province %></td>
+                    <td>
+        <div class="btn-group dropdown">
+          <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <% if can? :edit, MagisterialDistrict %>
+              <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_magisterial_district_path(magisterial_district),class: "dropdown-item", data: { turbolinks: false } %>
+              <% end %>
+              <% if can? :create, MagisterialDistrict %>
+              <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, magisterial_district, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+              <% end %>
+          </div>
+      </div>
+      </td>
                   </tr>
                 <% end %>
                 </tbody>
