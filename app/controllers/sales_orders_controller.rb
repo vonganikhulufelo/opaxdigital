@@ -59,6 +59,6 @@ class SalesOrdersController < ApplicationController
   end
 
   def customer_rebate_params
-    params.require(:sales_order).permit(:user_id,:order_date,:customer_id, :recon, :zone_id,:payment_id,:customer_id,:invoice,:puma_reference,:delivery_note_reference,:delivery_attachment,:status,:delivery_date_on_delivery, sales_order_products_attributes: SalesOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
+    params.require(:sales_order).permit(:sales_user_id,:user_id,:order_date,:customer_id, :recon, :zone_id,:payment_id,:customer_id,:invoice,:puma_reference,:delivery_note_reference,:delivery_attachment,:status,:delivery_date_on_delivery, sales_order_products_attributes: SalesOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
   end
 end

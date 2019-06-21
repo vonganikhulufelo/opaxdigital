@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-md-6">
 <h2><i class="fas fa-user-lock"></i> Customer Sales Orders
-<% if current_user.role != "Basic" %>
+ <% if can? :create, SalesOrder %>
 <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_sales_order_path %>
 <% end %>
 </h2>
@@ -42,7 +42,7 @@ var resizefunc = [];
             <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                <th colspan="1"></th>
+                    <th>Status</th>
                 <th>Customer Name</th>
                 <th>Zone</th>
                 <th>Delivery Date</th>
@@ -52,26 +52,19 @@ var resizefunc = [];
                 <th>Delivery Note Attached</th>
                 <th>Invoiced</th>
                 <th>Puma</th>
-                <th>Status</th>
                 <th>Recon Status</th>
+                <th>Action</th>
+
                 </tr> 
             </thead>
             <tbody class="">
                 <% @sales.each do |sale| %>
                 <tr>
-                <% if sale.status == '5' %>
+                <% if sale.status == '3' %>
                 <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Completed</div></td>
                 <% else %>
-                <td>
-                <div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded w-md dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete,class: "dropdown-item" %>
-                            
-                        </div>
-                    </div></td>
+                    <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
+                </td>
                 <% end %>
                 <td><%= link_to sale.customer_name, sales_order_path(sale.id) %> </td>
                 <td><%= sale.zone %></td>
@@ -82,8 +75,20 @@ var resizefunc = [];
                 <td><%= sale.delivery_note_reference %></td>
                 <td><%= sale.invoice %></td>
                 <td><%= sale.puma_reference %></td>
-                <td><%= sale.status %></td>
                 <td><%= sale.recon %></td>
+                <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <% if can? :read, SalesOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, SalesOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                  </td>
                 </tr>
                 <% end %>
             </tbody>
@@ -105,36 +110,38 @@ var resizefunc = [];
                 <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                <th colspan="1"></th>
+                <th>Status</th>
                 <th>Order Date</th>
                 <th>Customer Name</th>
                 <th>Zone</th>
                 <th>Payment Type</th>
                 <th>Deliver Date</th>
+                <th>Action</th>
                 </tr> 
             </thead>
             <tbody class="">
                 <% @sales.where(status: '1').each do |sale| %>
                 <tr>
-                <% if sale.status == '5' %>
-                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Success</div></td>
-                <% else %>
-                <td><div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                            
-                        </div>
-                    </div>
-                    </td>
-                <% end %>
+                <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
+                </td>
                     <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
                     <td><%= sale.customer_name %></td>
                     <td><%= sale.zone %></td>
                     <td><%= sale.payment %></td>
                     <td><%= sale.delivery_date_on_delivery.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <% if can? :read, SalesOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, SalesOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                  </td>
                 </tr>
                 <% end %>
             </tbody>
@@ -152,38 +159,40 @@ var resizefunc = [];
                 <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                <th colspan="1"></th>
+                <th>Status</th>
                 <th>Order Date</th>
                 <th>Customer Name</th>
                 <th>Delivery Date</th>
                 <th>Delivery Note Reference</th>
                 <th>Delivery Note Attachment</th>
                 <th>Puma Reference</th>
+                <th>Action</th>
                 </tr>
             </thead>
             <tbody class="">
                 <% @sales.where(status: '2').each do |sale| %>
                 <tr>
-                <% if sale.status == '5' %>
-                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Success</div></td>
-                <% else %>
-                <td><div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-rounded dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> Pending<span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                        <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale, data: { turbolinks: false },class: "dropdown-item" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                            
-                        </div>
-                    </div>
-                    </td>
-                <% end %>
-                    <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
+                </td>
+                    <td><%= sale.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
                     <td><%= sale.customer_name %></td>
-                    <td><%= sale.delivered_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
+                    <td><%= sale.delivered_date %></td>
                     <td><%= sale.delivery_note_reference %></td>
                     <td><%= sale.delivery_attachment %></td>
                     <td><%= sale.puma_reference %></td>
+                    <td>
+                    <div class="btn-group dropdown">
+                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <% if can? :read, SalesOrder %>
+                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale,class: "dropdown-item", data: { turbolinks: false } %>
+                          <% end %>
+                          <% if can? :create, SalesOrder %>
+                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                          <% end %>
+                      </div>
+                  </div>
+                  </td>
                 <% end %>
                 </tr> 
             </tbody>

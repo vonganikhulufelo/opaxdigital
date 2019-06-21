@@ -265,7 +265,9 @@
             </div>
             <div class="float-right m-t-30">
                 <% if can? :create, PurchaseOrder %>
+                <% if @purchase_order.purchase_user_id != current_user.id %>
             <button  type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm">Analyse</button>
+            <% end %>
             <% end %>
             </div>
             </div>

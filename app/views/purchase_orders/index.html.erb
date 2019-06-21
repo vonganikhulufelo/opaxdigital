@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-md-6">
 <h2><i class="fas fa-user-lock"></i> Vendors Purchase Orders
-<% if current_user.role != "Basic" %>
+ <% if can? :create, PurchaseOrder %>
 <%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_purchase_order_path %>
 <% end %>
 </h2>
@@ -40,7 +40,7 @@ var resizefunc = [];
             </li>
             <li class="nav-item">
                 <a href="#settings-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                <p class=""><strong>Step 3 </strong> <span class="badge badge-secondary"><%= @purchases.where(status: '4').count %></span></p>
+                <p class=""><strong>Step 3 </strong> <span class="badge badge-secondary"><%= @purchases.where(status: '3').count %></span></p>
                 </a>
             </li>
         </ul>
