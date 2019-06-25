@@ -81,9 +81,10 @@
         <div class="btn-group dropdown">
           <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
           <div class="dropdown-menu dropdown-menu-right">
-            <% if can? :create, PaymentTerm %>
+            <% if can? :edit, PaymentTerm %>
               <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_payment_term_path(payment_term),class: "dropdown-item" %>
-
+              <% end %>
+              <% if can? :create, PaymentTerm %>
               <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, payment_term, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
               <% end %>
           </div>

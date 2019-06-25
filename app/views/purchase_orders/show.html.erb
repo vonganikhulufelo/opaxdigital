@@ -7,313 +7,267 @@
 <div class="dropdown-divider"></div>
 <br>
 
+
 <div class="row">
-    
-<div class="col-12">
-    <div class="clearfix">
-    <div class="float-left">
-     <h3 class="text-center btn btn-danger btn-rounded w-md waves-effect waves-light m-b-5 float-right">Pending</h3>
-    </div>
-    <div class="float-right">
-     <h3 class="text-right btn btn-success btn-rounded w-md waves-effect waves-light m-b-5 float-right">Completed</h3>
-    </div>
-    </div>
-    <br>
-    
-    <div class="timeline" dir="ltr">
+    <div class="col-12">
+        <div class="timeline" dir="ltr">
 
-        <article class="timeline-item">
-            <h2 class="m-0 d-none">&nbsp;</h2>
-            <div class="time-show mt-0">
-                <a href="#" class="btn btn-primary width-lg">Status</a>
-            </div>
-        </article>
+            <article class="timeline-item">
+                <h2 class="m-0 d-none">&nbsp;</h2>
+                <div class="time-show mt-0">
+                    <a href="#" class="btn btn-primary width-lg">Status</a>
+                </div>
+            </article>
 
-
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
-                    <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                    <div class="clearfix">
-            <div class="float-left">
-             <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 01: Purchase Order Details</h3>
-            </div>
-            <div class="float-right">
-                <% if can? :create, PurchaseOrder %>
-             <%= link_to 'Edit', edit_purchase_order_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-             <% end %>
-            </div>
-            </div>
-            <hr>
-                <div class="row">
-                <div class="col-12">
-                <div class="float-left m-t-30">
-                    <p><strong>Vendor Name: </strong>  <%= @purchase.vendor_name %></p>
-                    <p class="m-t-10"><strong>Order Payment: </strong>  <%= @purchase.vendor_payment %></p>
-                    <p class="m-t-10"><strong>Zone: </strong>  <%= @purchase.zone %></p>
-                     <p class="m-t-10"><strong>PO Reference: </strong>  <%= @purchase.internal_po_reference %></p>
-                </div>
-                <div class="float-right m-t-30">
-                    <p><strong>Order Date: </strong><%= @purchase.order_date.strftime("%Y-%m-%d")%></p>
-                    <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-success">Complete</span></p>
-                     <p class="m-t-10"><strong>Internal Reference: </strong>  <%= @purchase.system__internal_reference %></p>
-                </div>
-                </div>
-                </div>
-                <div class="m-h-50"></div>
-                <div class="row">
-                <div class="col-12">
-                <div class="table-responsive">
-                <table class="table m-t-30">
-                <thead>
-                <tr>
-                 <th>Product Name</th>
-                 <th>Zone Price</th>
-                 <th>Purchase Price</th>
-                 <th>Order Quantity</th>
-                 <th>Order Value</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% @purchase.purchase_order_products.each do | product | %>
-                <tr>
-                 <td><%= product.product_name%></td>
-                 <td><%= product.zone_price%></td>
-                 <td><%= product.purchase_price%></td>
-                 <td><%= product.order_quantity%></td>
-                 <td><%= product.order_value%></td>
-                </tr>
-                <% end %>
-                </tbody>
-                </table>
-                </div>
-                </div>
-                </div>
-                <div class="row">
-                 <div class="col-6">
-                 </div>
-                 <div class="col-6">
-                  <p class="text-right"><b>Sub-total:</b>R 0.00</p>
-                  <p class="text-right">Discout: 0.0%</p>
-                  <p class="text-right">VAT: 0.0%</p>
-                  <hr>
-                  <h4 class="text-right">R 0.00</h4>
-                 </div>
-                </div>
-                </div>
-            </div>
-        </article>
-        <% if ['2', '3', '4'].include?(@purchase.status) %>
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="panel">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
-        <% else %>
-        <article class="timeline-item  timeline-item-left">
-            <div class="timeline-desk">
-                <div class="panel">
-                    <div class="timeline-box">
-                        <span class="arrow-alt"></span>
-            <% end %>
+            <%= render 'shared/timeline_right' %>
                         <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                        <div class="row">
-            <div class="col-12">
-            <div class="card-box">
-            <div class="panel-body">
-            <div class="clearfix">
-            <div class="float-left">
-            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 02: Vendor Confirmation</h3>
-            </div>
-            <div class="float-right">
-                <% if can? :create, PurchaseOrder %>
-            <%= link_to 'Edit', step2_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-            <% end %>
-            </div>
-            </div>
-            <hr>
-            <div class="row">
-            <div class="col-12">
-            <div class="float-left m-t-30">
-            <p><strong>Vendor Reference: </strong>  <%= @purchase.vendor_reference %></p>
-            </div>
-            <div class="float-right m-t-30">
-            <p class="m-t-10"><strong>Vendor Documentation: </strong> <%= @purchase.vendor_documentation %><p>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>  
+                        <div class="ribbon-content">
+                            <div class="clearfix">
+                            <div class="float-left">
+                            <h4 class="mt-0 font-16">Step 01: Purchase Order Details</h4>
+                            </div>
+                            <div class="float-right">
+                            <% if can? :create, PurchaseOrder %>
+                            <%= link_to 'Edit', edit_purchase_order_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+                            <% end %>
+                            </div>
+                            </div>
+                            <br>
+                            <p class="mb-0">
+                              <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                                    <p><strong>Vendor Name: </strong>  <%= @purchase.vendor_name %></p>
+                                    <p class="m-t-10"><strong>Order Payment: </strong>  <%= @purchase.vendor_payment %></p>
+                                    <p class="m-t-10"><strong>Zone: </strong>  <%= @purchase.zone %></p>
+                                     <p class="m-t-10"><strong>PO Reference: </strong>  <%= @purchase.internal_po_reference %></p>
+                                </div>
+                                <div class="float-right m-t-30">
+                                    <p><strong>Order Date: </strong><%= @purchase.order_date.strftime("%Y-%m-%d")%></p>
+                                    <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-success">Complete</span></p>
+                                     <p class="m-t-10"><strong>Internal Reference: </strong>  <%= @purchase.system__internal_reference %></p>
+                                </div>
+                                </div>
+                                </div>
+                            <br>
+                                <table class="table m-t-30">
+                                <thead>
+                                <tr>
+                                 <th>Product Name</th>
+                                 <th>Zone Price</th>
+                                 <th>Purchase Price</th>
+                                 <th>Order Quantity</th>
+                                 <th>Order Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% @purchase.purchase_order_products.each do | product | %>
+                                <tr>
+                                 <td><%= product.product_name%></td>
+                                 <td><%= product.zone_price%></td>
+                                 <td><%= product.purchase_price%></td>
+                                 <td><%= product.order_quantity%></td>
+                                 <td><%= product.order_value%></td>
+                                </tr>
+                                <% end %>
+                                </tbody>
+                                </table>
+                            <br>
+                                <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6">
+                                <p class="text-right"><b>Sub-total:</b> 0.00</p>
+                                <p class="text-right">Discout: 0.0%</p>
+                                <p class="text-right">VAT: 0.0%</p>
+                                <hr>
+                                <h4 class="text-right">R 0.00</h4>
+                                </div>
+                                </div> 
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
-        <% if ['3', '4'].include?(@purchase.status) %>
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="panel">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
-        <% else %>
-        <article class="timeline-item  timeline-item-left">
-            <div class="timeline-desk">
-                <div class="panel">
-                    <div class="timeline-box">
-                        <span class="arrow-alt"></span>
-            <% end %>
-                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                        <div class="row">
-            <div class="col-12">
-            <div class="card-box">
-            <div class="panel-body">
-            <div class="clearfix">
-            <div class="float-left">
-            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 03: Pick-Up Details</h3>
-            </div>
-            <div class="float-right">
-                <% if can? :create, PurchaseOrder %>
-            <%= link_to 'Edit', step3_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-            <% end %>
-            </div>
-            </div>
-            <hr>
-            <div class="m-h-50"></div>
-            <div class="row">
-            <div class="col-12">
-            <div class="table-responsive">
-            <table class="table m-t-30">
-            <thead>
-            <tr><th>Product Name</th>
-            <th>Zone Price</th>
-            <th>Purchase Price</th>
-            <th>Pick Up Quantity</th>
-            <th>PIck Up Value</th>
-            </tr></thead>
-            <tbody>
-            <% @purchase.purchase_order_products.each do | product | %>
-            <tr>
-            <td><%= product.product_name%></td>
-            <td><%= product.zone_price%></td>
-            <td><%= product.purchase_price%></td>
-            <td><%= product.pick_up_quantity%></td>
-            <td><%= product.pick_up_value%></td>
-            </tr>
-            <% end %>
-            </tbody>
-            </table>
-            </div>
-            </div>
-            </div>
-            <div class="row">
-            <div class="col-6">
-            </div>
-            <div class="col-6">
-            <p class="text-right"><b>Sub-total:</b>R 0.00</p>
-            <p class="text-right">Discout: 0.0%</p>
-            <p class="text-right">VAT: 0.0%</p>
-            <hr>
-            <h4 class="text-right">R 0.00</h4>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-    </article>
+            </article>
 
-    <% if ['4'].include?(@purchase.status) %>
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="panel">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
-        <% else %>
-        <article class="timeline-item  timeline-item-left">
-            <div class="timeline-desk">
-                <div class="panel">
-                    <div class="timeline-box">
-                        <span class="arrow-alt"></span>
-            <% end %>
-                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-            <div class="row">
-            <div class="col-12">
-            <div class="card-box">
-            <!-- <div class="panel-heading">
-            <h4>Invoice</h4>
-            </div> -->
-            <div class="panel-body">
-            <div class="clearfix">
-            <div class="float-left">
-            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 04: Recon Status</h3>
-            </div>
-            </div>
-            <hr>
-            <div class="row">
-            <div class="col-12">
-            <div class="float-left m-t-30">
-           <p class="m-t-10"><strong>Recon Status: </strong>
-            <% if @purchase.recon_status == '1' %>
-               <span class="badge badge-success">Complete</span>
+            <% if ['2', '3', '4'].include?(@purchase.status) %>
+            <%= render 'shared/timeline_right' %>
             <% else %>
-                <span class="badge badge-danger">Pending</span>
-            <% end  %>
-            <p>
-            <p>
-            </div>
-            <div class="float-right m-t-30">
-                <% if can? :create, PurchaseOrder %>
-                <% if @purchase_order.purchase_user_id != current_user.id %>
-            <button  type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm">Analyse</button>
+            <%= render 'shared/timeline_left' %>
             <% end %>
-            <% end %>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-    </article>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="ribbon-content">
+                            <div class="clearfix">
+                            <div class="float-left">
+                            <h4 class="mt-0 font-16">Step 02: Vendor Confirmation</h4>
+                            </div>
+                            <div class="float-right">
+                            <% if can? :create, PurchaseOrder %>
+                            <%= link_to 'Edit', step2_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+                            <% end %>
+                            </div>
+                            </div>
+                            <br>
+                            <p class="mb-0">
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                                <p><strong>Vendor Reference: </strong> <%= @purchase.vendor_reference %></p>
+                                <br>
+                                <p class="m-t-10"><strong>Vendor Documentation: </strong> <%= @purchase.vendor_documentation %><p>
+                                </div>
+                                </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content bg-dark">
-        <div class="modal-header">
-          <h4 class="m-t-0 m-b-30 header-title">Purchase Order(Step 04)</h4>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
+            <% if ['2', '3', '4'].include?(@purchase.status) %>
+            <%= render 'shared/timeline_right' %>
+            <% else %>
+            <%= render 'shared/timeline_left' %>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="ribbon-content">
+                            <div class="clearfix">
+                            <div class="float-left">
+                            <h4 class="mt-0 font-16">Step 03: Pick-Up Details</h4>
+                            </div>
+                            <div class="float-right">
+                            <% if can? :create, PurchaseOrder %>
+                            <%= link_to 'Edit', step3_path(@purchase), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+                            <% end %>
+                            </div>
+                            </div>
+                            <br>
+                            <p class="mb-0">
+                              <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                                    <p><strong>BOL Reference: </strong>  <%= @purchase.bol_reference %></p>
+                                </div>
+                                <div class="float-right m-t-30">
+                                  
+                                </div>
+                                </div>
+                                </div>
+                            <br>
+                                <table class="table m-t-30">
+                                <thead>
+                                <tr>
+                                <th>Product Name</th>
+                                <th>Zone Price</th>
+                                <th>Purchase Price</th>
+                                <th>Pick Up Quantity</th>
+                                <th>PIck Up Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% @purchase.purchase_order_products.each do | product | %>
+                                <tr>
+                                <td><%= product.product_name%></td>
+                                <td><%= product.zone_price%></td>
+                                <td><%= product.purchase_price%></td>
+                                <td><%= product.pick_up_quantity%></td>
+                                <td><%= product.pick_up_value%></td>
+                                </tr>
+                                <% end %>
+                                </tbody>
+                                </table>
+                            <br>
+                                <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6">
+                                <p class="text-right"><b>Sub-total:</b> 0.00</p>
+                                <p class="text-right">Discout: 0.0%</p>
+                                <p class="text-right">VAT: 0.0%</p>
+                                <hr>
+                                <h4 class="text-right">R 0.00</h4>
+                                </div>
+                                </div> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <% if @purchase.recon_status == '1' %>
+            <%= render 'shared/timeline_right' %>
+            <% else %>
+            <%= render 'shared/timeline_left' %>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="ribbon-content">
+                            <p class="mb-0">
+                                <div class="clearfix">
+                                <div class="float-left">
+                                <h4 class="mt-0 font-16">Step 04: Recon Status</h4>
+                                </div>
+                                </div>
+                                <p class="text-muted"><small>Note: The Purchase Order Step (4), is to be assesed and check by a different person, other then the person whom created the Steps (1 - 3) <strong>OR</strong> by the given role permisions ONLY</small></p>
+                            <br>
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                               <p class="m-t-10"><strong>Recon Status: </strong>
+                                <% if @purchase.recon_status == '1' %>
+                                   <span class="badge badge-success">Complete</span>
+                                <% else %>
+                                    <span class="badge badge-danger">Pending</span>
+                                <% end  %>
+                                <p>
+                                <p>
+                                </div>
+                                <div class="float-right m-t-30">
+                                    <% if can? :create, PurchaseOrder %>
+                                    <% if @purchase_order.purchase_user_id != current_user.id or current_user.has_role? :admin %>
+                                <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#myModal">Analyse</button>
+                                <% end %>
+                                <% end %>
+                                </div>
+                                </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
         </div>
-            <div class="row">
-            <div class="col-md-12">
-            <div class="card-box">
-            <div class="row">
+        <!-- end timeline -->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content bg-dark">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Purchase Order(Step 04)</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
             <div class="col-sm-12 col-md-12">
             <%= form_with(model: @purchase_order, local: true) do |f| %>  
-
-            <div class="form-group row">
-             <span><strong>Recon Status: </strong> <%= f.check_box :recon_status %> checked</span>
+            <div class="row">
+            <div class="col-md-6">
+             <strong>Recon Status: </strong> 
+            </div>
+            <div class="col-md-6"> 
+               <span><%= f.check_box :recon_status %> checked</span>
             </div>
             <%= f.hidden_field :status, value: '4' %>
-            <div class="float-right m-t-30">
-             <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
-            </div>
-            </div>
-            </div>
-            <% end %>
-            </div>
-            </div>
             </div>
         </div>
-      </div>
-    </div>
-
-    </div>
-    <!-- end timeline -->
-</div> <!-- end col -->
-                        
-</div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+        </div>
+        <% end %>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
