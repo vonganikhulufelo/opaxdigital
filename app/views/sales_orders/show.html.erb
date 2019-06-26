@@ -10,7 +10,6 @@
 
 
 <div class="row">
-
     <div class="col-12">
         <div class="timeline" dir="ltr">
 
@@ -21,236 +20,220 @@
                 </div>
             </article>
 
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="panel">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
+            <%= render 'shared/timeline_right' %>
                         <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                        <div class="clearfix">
-            <div class="float-left">
-             <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 01: Sales Order Details</h3>
-            </div>
-            <div class="float-right">
-                <% if can? :create, SalesOrder %>
-             <%= link_to 'Edit', edit_sales_order_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-             <% end %>
-            </div>
-            </div>
-            <br>
-                        <div class="row">
-                <div class="col-12">
-                <div class="float-left m-t-30">
-                <p><strong>Customer Name: </strong>  <%= @sales_order.customer_name %></p>
-                <p class="m-t-10"><strong>Order Payment: </strong>  <%= @sales_order.payment %></p>
-                <p class="m-t-10"><strong>Zone: </strong>  <%= @sales_order.zone %></p>
-                </div>
-                <div class="float-right m-t-30">
-                <p><strong>Order Date: </strong><%= @sales_order.order_date.strftime("%Y-%m-%d")%></p>
-                <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-success">Complete</span></p>
-                <p class="m-t-10"><strong>Delivery Date: </strong>  <%= @sales_order.delivery_date_on_delivery.strftime("%Y-%m-%d") %></p>
-                </div>
-                </div>
-                </div>
-                 <br>
-                        <div class="table-responsive">
-                <table class="table m-t-30">
-                <thead>
-                <tr><th>Product Name</th>
-                <th>Sale Price</th>
-                <th>Order Quantity</th>
-                <th>Order Value</th>
-                </tr></thead>
-                <tbody>
-                <% @sales_order.sales_order_products.each do | product | %>
-                <tr>
-                <td><%= product.product_name%></td>
-                <td><%= product.order_rate%></td>
-                <td><%= product.order_quantity%></td>
-                <td><%= product.order_value%></td>
-                </tr>
-
-                <% end %>
-                </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-6">
-
-                </div>
-                <div class="col-6">
-                <p class="text-right"><b>Sub-total:</b> 0.00</p>
-                <p class="text-right">Discout: 0.0%</p>
-                <p class="text-right">VAT: 0.0%</p>
-                <hr>
-                <h4 class="text-right">R 0.00</h4>
-                </div>
-                </div>
+                        <div class="ribbon-content">
+                            <div class="clearfix">
+                            <div class="float-left">
+                            <h4 class="mt-0 font-16">Step 01: Sales Order Details</h4>
+                            </div>
+                            <div class="float-right">
+                            <% if can? :create, SalesOrder %>
+                            <%= link_to 'Edit', edit_sales_order_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+                            <% end %>
+                            </div>
+                            </div>
+                            <br>
+                            <p class="mb-0">
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                                <p><strong>Customer Name: </strong>  <%= @sales_order.customer_name %></p>
+                                <p class="m-t-10"><strong>Order Payment: </strong>  <%= @sales_order.payment %></p>
+                                <p class="m-t-10"><strong>Zone: </strong>  <%= @sales_order.zone %></p>
+                                </div>
+                                <div class="float-right m-t-30">
+                                <p><strong>Order Date: </strong><%= @sales_order.order_date.strftime("%Y-%m-%d")%></p>
+                                <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-success">Complete</span></p>
+                                <p class="m-t-10"><strong>Delivery Date: </strong>  <%= @sales_order.delivery_date_on_delivery.strftime("%Y-%m-%d") %></p>
+                                </div>
+                                </div>
+                                </div>
+                                <br>
+                                <table class="table m-t-30">
+                                <thead>
+                                <tr><th>Product Name</th>
+                                <th>Sale Price</th>
+                                <th>Order Quantity</th>
+                                <th>Order Value</th>
+                                </tr></thead>
+                                <tbody>
+                                <% @sales_order.sales_order_products.each do | product | %>
+                                <tr>
+                                <td><%= product.product_name%></td>
+                                <td><%= product.order_rate%></td>
+                                <td><%= product.order_quantity%></td>
+                                <td><%= product.order_value%></td>
+                                </tr>
+                                <% end %>
+                                </tbody>
+                                </table>
+                            <br>
+                                <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6">
+                                <p class="text-right"><b>Sub-total:</b> 0.00</p>
+                                <p class="text-right">Discout: 0.0%</p>
+                                <p class="text-right">VAT: 0.0%</p>
+                                <hr>
+                                <h4 class="text-right">R 0.00</h4>
+                                </div>
+                                </div> 
+                            </p>
+                        </div>
                     </div>
                 </div>
             </article>
-
 
             <% if ['2','3'].include?(@sales_order.status) %>
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="panel">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
-        <% else %>
-        <article class="timeline-item  timeline-item-left">
-            <div class="timeline-desk">
-                <div class="panel">
-                    <div class="timeline-box">
-                        <span class="arrow-alt"></span>
+            <%= render 'shared/timeline_right' %>
+            <% else %>
+            <%= render 'shared/timeline_left' %>
             <% end %>
                         <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                        <div class="clearfix">
-                        <div class="float-left">
-                        <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 02: Delivery Details</h3>
+                        <div class="ribbon-content">
+                            <div class="clearfix">
+                            <div class="float-left">
+                            <h4 class="mt-0 font-16">Step 02: Delivery Details</h4>
+                            </div>
+                            <div class="float-right">
+                            <% if can? :create, SalesOrder %>
+                            <%= link_to 'Edit', pick_up_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
+                            <% end %>
+                            </div>
+                            </div>
+                            <br>
+                            <p class="mb-0">
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                                <p><strong>Customer Name: </strong>  <%= @sales_order.customer_name %></p>
+                                <p class="m-t-10"><strong>Order Payment: </strong>  <%= @sales_order.payment %></p>
+                                <p class="m-t-10"><strong>Zone: </strong>  <%= @sales_order.zone %></p>
+                                </div>
+                                <div class="float-right m-t-30">
+                                <p><strong>Order Date: </strong><%= @sales_order.order_date.strftime("%Y-%m-%d")%></p>
+                                <% if ['2','3'].include?(@sales_order.status) %>
+                                <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-success">
+                                Complete</span></p>
+                                <% else %>
+                                <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-danger">
+                                Pending</span></p>
+                                <% end %>
+                                <p class="m-t-10"><strong>Delivery Date: </strong>  <%= @sales_order.delivery_date_on_delivery.strftime("%Y-%m-%d") %></p>
+                                </div>
+                                </div>
+                                </div>
+                            <br>
+                                <table class="table m-t-30">
+                                <thead>
+                                <tr><th>Product Name</th>
+                                <th>Sale Price</th>
+                                <th>Delivery Quantity</th>
+                                <th>Delivery Value</th>
+                                </tr></thead>
+                                <tbody>
+                                <% @sales_order.sales_order_products.each do | product | %>
+                                <tr>
+                                <td><%= product.product_name%></td>
+                                <td><%= product.order_rate%></td>
+                                <td><%= product.delivery_quantity%></td>
+                                <td><%= product.delivery_value%></td>
+                                </tr>
+                                <% end %>
+                                </tbody>
+                                </table>
+                            <br>
+                                <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6">
+                                <p class="text-right"><b>Sub-total:</b> 0.00</p>
+                                <p class="text-right">Discout: 0.0%</p>
+                                <p class="text-right">VAT: 0.0%</p>
+                                <hr>
+                                <h4 class="text-right">R 0.00</h4>
+                                </div>
+                                </div> 
+                            </p>
                         </div>
-                        <div class="float-right">
-                             <% if can? :create, SalesOrder %>
-                        <%= link_to 'Edit', pick_up_path(@sales_order), data: { turbolinks: false },class: "btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 float-right" %>
-                        <% end %>
-                        </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                        <div class="col-12">
-                        <div class="float-left m-t-30">
-                        <p><strong>Customer Name: </strong>  <%= @sales_order.customer_name %></p>
-                        <p class="m-t-10"><strong>Order Payment: </strong>  <%= @sales_order.payment %></p>
-                        <p class="m-t-10"><strong>Zone: </strong>  <%= @sales_order.zone %></p>
-                        </div>
-                        <div class="float-right m-t-30">
-                        <p><strong>Order Date: </strong><%= @sales_order.order_date.strftime("%Y-%m-%d")%></p>
-                        <% if @sales_order.status == 3 %>
-                        <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-success">
-                        Complete</span></p
-                        <% else %>
-                        <p class="m-t-10"><strong>Order Status: </strong> <span class="badge badge-danger">
-                        Pending</span></p>
-                        <% end %>
-                        <p class="m-t-10"><strong>Delivery Date: </strong>  <%= @sales_order.delivery_date_on_delivery.strftime("%Y-%m-%d") %></p>
-                        </div>
-                        </div>
-                        </div>
-                        <br>
-                        <div class="table-responsive">
-                        <table class="table m-t-30">
-                        <thead>
-                        <tr><th>Product Name</th>
-                        <th>Sale Price</th>
-                        <th>Delivery Quantity</th>
-                        <th>Delivery Value</th>
-                        </tr></thead>
-                        <tbody>
-                        <% @sales_order.sales_order_products.each do | product | %>
-                        <tr>
-                        <td><%= product.product_name%></td>
-                        <td><%= product.order_rate%></td>
-                        <td><%= product.delivery_quantity%></td>
-                        <td><%= product.delivery_value%></td>
-                        </tr>
-                        <% end %>
-                        </tbody>
-                        </table>
-                    </div>
                     </div>
                 </div>
             </article>
 
-            <% if ['3'].include?(@sales_order.status) %>
-        <article class="timeline-item">
-            <div class="timeline-desk">
-                <div class="panel">
-                <div class="timeline-box">
-                    <span class="arrow"></span>
-        <% else %>
-        <article class="timeline-item  timeline-item-left">
-            <div class="timeline-desk">
-                <div class="panel">
-                    <div class="timeline-box">
-                        <span class="arrow-alt"></span>
-            <% end %>
-                            <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
-                            <div class="row">
-                                <div class="col-12">
-                            <div class="clearfix">
-                            <div class="float-left m-t-30"">
-                            <h3 class="text-right"><i class="mdi mdi-radar"></i>Step 03: Recon Status</h3>
-                            </div>
-                            </div>
-                           </div>
-                       </div>
-                            <hr>
-                            <div class="row">
-            <div class="col-12">
-            <div class="float-left m-t-30">
-            <p class="m-t-10"><strong>Recon Status: </strong> 
-            <% if @sales_order.status == '3' %>
-               <span class="badge badge-success">Complete</span>
+            <% if @sales_order.recon == '1' %>
+            <%= render 'shared/timeline_right' %>
             <% else %>
-                <span class="badge badge-danger">Pending</span>
-            <% end  %>
-            </p>
-            </div>
-            <div class="float-right m-t-30">
-                 <% if can? :create, SalesOrder %>
-                 <% if @sales_order.sales_user_id != current_user.id %>
-                <button  type="button" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm">Analyse</button>
-                <% end %>
-                <% end %>
-            </div>
-            </div>
-            </div>
+            <%= render 'shared/timeline_left' %>
+            <% end %>
+                        <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                        <div class="ribbon-content">
+                            <p class="mb-0">
+                                <div class="clearfix">
+                                <div class="float-left">
+                                <h4 class="mt-0 font-16">Step 03: Recon Status</h4>
+                                </div>
+                                </div>
+                                <p class="text-muted"><small>Note: The Sales Order Step (3), is to be assesed and check by a different person, other then the person whom created the Steps (1 - 2) <strong>OR</strong> by the given role permisions ONLY</small></p>
+                            <br>
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="float-left m-t-30">
+                                <p class="m-t-10"><strong>Recon Status: </strong> 
+                                <% if @sales_order.recon == '1' %>
+                                   <span class="badge badge-success">Complete</span>
+                                <% else %>
+                                    <span class="badge badge-danger">Pending</span>
+                                <% end  %>
+                                </p>
+                                </div>
+                                <div class="float-right m-t-30">
+                                 <% if can? :create, SalesOrder %>
+                                     <% if @sales_order.sales_user_id != current_user.id or current_user.has_role? :admin %>
+                                    <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#myModal">Analyse</button>
+                                    <% end %>
+                                <% end %>
+                                </div>
+                                </div>
+                                </div>
+                            </p>
                         </div>
                     </div>
                 </div>
+            </article>
+
         </div>
         <!-- end timeline -->
     </div> <!-- end col -->
 </div>
+<!-- end row -->
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content bg-dark">
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content bg-dark">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Recon Status</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
+            <h4 class="modal-title" id="myModalLabel">Sales Order(Step 03)</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div class="modal-body">
-         <div class="row">
-        <div class="col-md-12">
-        <div class="card-box">
-        <div class="row">
-        <div class="col-sm-12 col-md-12">
-        <%= form_with(model: @sales_order, local: true) do |f| %>  
-
-        <div class="form-group row">
-                    <div class="col-12">
-                        <div class="custom-control custom-checkbox">
-                          <strong>Recon Status: </strong> <span><%= f.check_box :recon %> checked</span>  
-                        </div>
-                    </div>
-                </div>
-        <%= f.hidden_field :status, value: '3' %>
-        <div class="form-group mb-0 justify-content-end row">
-        <div class="float-right">
+            <div class="col-sm-12 col-md-12">
+            <%= form_with(model: @sales_order, local: true) do |f| %>  
+            <div class="row">
+            <div class="col-md-6">
+             <strong>Recon Status: </strong> 
+            </div>
+            <div class="col-md-6"> 
+               <span><%= f.check_box :recon %> checked</span>
+            </div>
+            <%= f.hidden_field :status, value: '3' %>
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
             <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
         </div>
-        </div>
-        </div>
-        </div>
         <% end %>
-        </div>
-        </div>
-
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

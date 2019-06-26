@@ -24,7 +24,7 @@
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Zone</label>
                     <div class="col-9">
-                         <%= select_tag "magistrial_district_id", options_from_collection_for_select( @magisterial_districts, "id", "zonedistrict", params[:zone_id]),{include_blank: true, class: 'form-control form-control-lg m-t-md selectpicker zone_id', required: "required"} %></div>
+                         <%= select_tag "magistrial_district_id", options_from_collection_for_select( @magisterial_districts, "id", "zonedistrict", params[:zone_id]),{include_blank: true, class: 'form-control form-control-lg m-t-md selectpicker select2 zone_id', required: "required"} %></div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Product</label>
