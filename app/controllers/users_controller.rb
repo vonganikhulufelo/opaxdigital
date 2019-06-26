@@ -31,8 +31,7 @@ class UsersController < ApplicationController
     authorize! :create, @user
     respond_to do |format|
       if @user.save
-        @user.add_role params[:user][:role]
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to users_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -47,7 +46,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       authorize! :edit, @user
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
