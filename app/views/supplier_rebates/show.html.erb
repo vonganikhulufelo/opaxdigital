@@ -14,12 +14,12 @@
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-3 col-form-label">Vendor</label>
                     <div class="col-9">
-                      <%= select_tag "supplier_id", options_from_collection_for_select( @suppliers, "id", "supplier_name",params[:suplier_id]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', include_blank: true, required: "required"}  %></div>
+                      <%= select_tag "supplier_id", options_for_select( [[@supplier.supplier_name,@supplier.id]]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', required: "required"}  %></div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword3" class="col-3 col-form-label">Payment</label>
                     <div class="col-9">
-                        <%= select_tag "payment_term_id", options_from_collection_for_select( @payment_terms, "id", "paymentterm_description", params[:payment_id]),{ class: ' form-control-lg m-t-md selectpicker form-control', include_blank: true, required: "required"}  %></div>
+                        <%= select_tag "payment_term_id", options_for_select([[@payment_term.paymentterm_description,@payment_term.id]]),{ class: ' form-control-lg m-t-md selectpicker form-control', required: "required"}  %></div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Zone</label>

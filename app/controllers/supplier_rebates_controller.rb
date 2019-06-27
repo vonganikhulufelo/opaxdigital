@@ -15,8 +15,8 @@ class SupplierRebatesController < ApplicationController
   # GET /supplier_rebates/1
   # GET /supplier_rebates/1.json
   def show
-    @suppliers = Supplier.where(user_id: current_user.user_id)
-    @payment_terms = PaymentTerm.where(user_id: current_user.user_id)
+    @supplier = Supplier.find(params[:suplier_id])
+    @payment_term = PaymentTerm.find(params[:payment_id])
     @magisterial_districts = MagisterialDistrict.where(user_id: current_user.user_id).order("zonedistrict ASC")
     @product_descriptions = ProductDescription.where(user_id: current_user.user_id)
     
