@@ -51,14 +51,11 @@
         </div>
     </div>
     <div class="col-md-6">
-         <div id="mapid" style="width: 600px; height: 400px;"></div>
+         <div id="mapid" style="max-width: 600px; min-height: 400px;"></div>
     </div>
 
 </div>
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
+
    <!-- Load Leaflet from CDN -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -81,8 +78,6 @@
  <script src="https://unpkg.com/esri-leaflet-geocoder@2.2.14/dist/esri-leaflet-geocoder.js"
    integrity="sha512-uK5jVwR81KVTGe8KpJa1QIN4n60TsSV8+DPbL5wWlYQvb0/nYNgSOg9dZG6ViQhwx/gaMszuWllTemL+K+IXjg=="
    crossorigin=""></script>
-</head>
-<body>
 
 
 <script>
@@ -130,7 +125,7 @@ function initLeafLetMap() {
     gGeocodeService =  L.esri.Geocoding.geocodeService();
   gMap.on('click', onMapClicked );
 
-  
+
   var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
 
 var searchControl = L.esri.Geocoding.geosearch({
@@ -150,6 +145,3 @@ var searchControl = L.esri.Geocoding.geosearch({
 
 
 </script>
- </script>
-</body>
-</html>
