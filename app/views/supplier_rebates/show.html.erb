@@ -50,9 +50,9 @@
                     <label for="inputPassword5" class="col-3 col-form-label">Claw Back Margin</label>
                     <div class="col-9">
                      <% if @product %>
-                        <%= text_field_tag 'claw_margin', @product.claw_margin, placeholder: 'Claw back margin', class: "form-control claw_margin" %>
+                        <%= text_field_tag 'claw_margin', @product.claw_margin, placeholder: 'Claw back margin', class: "form-control claw_margin", :autocomplete => :off %>
                       <% else %>
-                      <%= text_field_tag 'claw_margin', nil, placeholder: 'Claw back margin', class: "form-control claw_margin" %>
+                      <%= text_field_tag 'claw_margin', nil, placeholder: 'Claw back margin', class: "form-control claw_margin", :autocomplete => :off %>
                       <% end %>
                       </div>
                 </div>

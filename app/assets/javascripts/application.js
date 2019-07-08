@@ -26,6 +26,25 @@
 //= require  toastr.min
 
 
+
+$(document).on('turbolinks:load', function() {
+
+  // hide spinner
+  $("#spinner").hide();
+
+
+  // show spinner on AJAX start
+  $(document).on("page:fetch", function(){
+    $("#spinner").show();
+  });
+
+  // hide spinner on AJAX stop
+  $(document).on("page:receive", function(){
+    $("#spinner").delay(3000).hide(0);
+  });
+
+});
+
 $(document).on('turbolinks:load', function() {
 
     $('form').on('click', '.remove_record', function(event) {
