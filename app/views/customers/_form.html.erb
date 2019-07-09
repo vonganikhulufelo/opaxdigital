@@ -17,7 +17,7 @@
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Customer Address</label>
                     <div class="col-9">
-                         <%= form.text_field :customer_address, class: "form-control", placeholder: "Enter Customer Address", id: "Customer_Address"%> </div>
+                         <%= form.text_area :customer_address, class: "form-control", placeholder: "Enter Customer Address", id: "Customer_Address"%> </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Customer Contact</label>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="col-md-6">
-         <div id="mapid" style="max-width: 600px; min-height: 400px;"></div>
+         <div id="mapid" style="width: 100%; min-height: 400px;"></div>
     </div>
 
 </div>
@@ -87,8 +87,7 @@ var gAddressMarker = null;
 
 function onTilesLoaded()
 {
-    //console.log( 'Tiles completely loaded ...');
-    //$(".leaflet-control-zoom").css("visibility", "hidden");
+  
 }
 
 function onGeocodeReverseComplete(error,result) {
