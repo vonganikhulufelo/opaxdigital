@@ -10,6 +10,7 @@
   </head>
  <body class="">
 
+
  <div id="wrapper">
 
             <!-- Topbar Start -->
@@ -193,8 +194,13 @@
 
                     <!-- Start Content-->
                     <div class="container-fluid">
-                        
+                        <div class="row">
+                            <div id="spinner" class="col-lg-1 col-centered mx-auto"> 
+                               <div class="spinner-border avatar-lg text-primary" role="status"></div>
+                            </div>
+                        </div>
                         <% end %>
+                        
                         <%= yield %>
                         <% if logged_in? %>
 
