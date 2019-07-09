@@ -1,10 +1,8 @@
 
     <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="card-box">
             <h4 class="m-t-0 m-b-30 header-title"></h4>
-            <div class="row">
-            <div class="col-md-6">
             <%= form_with(model: @supplier, local: true) do |form| %>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-3 col-form-label">Vendor Name</label>
@@ -49,8 +47,21 @@
                 </div>
             <% end %>
             </div>
-            </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card-box">
+            <div id="mapid" style="width: 100%; min-height: 300px;"></div>
         </div>
     </div>
 
 </div>
+
+<%= render 'shared/map' %>
+
+<script type="text/javascript">
+ 
+function onGeocodeReverseComplete(error,result) {
+    $("#Supplier_Address").val( result.address.Match_addr );
+    gAddressMarker.bindPopup(result.address.Match_addr).openPopup();
+} 
+</script>
