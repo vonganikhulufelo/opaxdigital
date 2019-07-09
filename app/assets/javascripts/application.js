@@ -40,7 +40,7 @@ $(document).on('turbolinks:load', function() {
 
   // hide spinner on AJAX stop
   $(document).on("page:receive", function(){
-    $("#spinner").delay(3000).hide(0);
+    $("#spinner").delay(3000).fadeOut();
   });
 
 });
