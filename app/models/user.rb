@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :product_prices, dependent: :destroy
   has_many :customers, dependent: :destroy
   has_many :sales_orders, dependent: :destroy
+  has_many :tanks, dependent: :destroy
   after_destroy :create_logs
 
   def create_logs

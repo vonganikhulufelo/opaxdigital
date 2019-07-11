@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ 
   resources :customer_rebates
   resources :supliers, :cutomers, :only => [:show] do
     resources :payments, :only => [:show] do
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   get 'customer_product_name/:id', to: 'customer_orders#product_name'
   get 'customer_product_price/:id', to: 'customer_orders#product_price'
 
+  resources :tanks
 
   resources :product, :only => [:show] do
     get '/getprices/:id', to: 'getprices#pricing', as: :pricing

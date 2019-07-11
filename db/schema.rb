@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_124142) do
+ActiveRecord::Schema.define(version: 2019_07_11_104459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,6 +290,20 @@ ActiveRecord::Schema.define(version: 2019_06_21_124142) do
     t.index ["user_id"], name: "index_suppliers_on_user_id"
   end
 
+  create_table "tanks", force: :cascade do |t|
+    t.integer "tank_number"
+    t.decimal "stock_in", precision: 38, scale: 4, default: "0.0"
+    t.decimal "stock_out", precision: 38, scale: 4, default: "0.0"
+    t.decimal "current_stock", precision: 38, scale: 4, default: "0.0"
+    t.integer "product_description"
+    t.decimal "tank_size", precision: 38, scale: 4, default: "0.0"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tanks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -359,5 +373,6 @@ ActiveRecord::Schema.define(version: 2019_06_21_124142) do
   add_foreign_key "supplier_payment_terms", "payment_terms"
   add_foreign_key "supplier_payment_terms", "suppliers"
   add_foreign_key "suppliers", "users"
+  add_foreign_key "tanks", "users"
   add_foreign_key "zones", "users"
 end
