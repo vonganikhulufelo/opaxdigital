@@ -34,8 +34,30 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
+
+
   def step3
     @purchase_order = PurchaseOrder.find(params[:id])
+  end
+
+  def step33
+    @purchase_order = PurchaseOrder.find(params[:id])
+
+    @purchase_order_products = PurchaseOrderProduct.where(purchase_order_id: @purchase_order.id)
+
+
+    if @purchase_order.update(step3_params)
+      @purchase_order_products.each do | product |
+        @tank = Tank.where(product_description: product.product_id)
+        if @tank.each do | tank|
+
+          tank.update(current_stock: (tank.current_stock + product.pick_up_quantity))
+        end
+      end
+      end
+      redirect_to @purchase_order
+      
+    end
   end
 
   def step4
@@ -75,6 +97,12 @@ class PurchaseOrdersController < ApplicationController
   def supplier_rebate_params
     params.require(:purchase_order).permit(:purchase_user_id,:bol_reference,:vendor_name,:status, :recon_status,:vendor_payment,:zone,:zone_id,:payment_id,:vendor_id,:user_id,:order_date,:system__internal_reference,:internal_po_reference, purchase_order_products_attributes: PurchaseOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
   end
-end
 
-#,purchase_order_products_attributes: [:id, :zone_price,:order_value, :order_quantity]
+  def step3_params
+    params.require(:purchase_order).permit(:bol_reference,:vendor_name,:status, purchase_order_products_attributes: PurchaseOrderProduct.attribute_names.map(&:to_sym).push(:_destroy) )
+  end
+
+  def step4_params
+    params.require(:purchase_order).permit(:recon_status)
+  end
+end

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get 'purchase_orders/step4/:id', to: 'purchase_orders#step4', as: :step4
   put "purchase_orders/step22/:id" => 'purchase_orders#step22', as: :step22
   put "purchase_orders/step33/:id" => 'purchase_orders#step33', as: :step33
+  
   resources :supplier_rebates, only: [:index, :new, :edit, :create, :destroy]
   resources :customers
   resources :suppliers

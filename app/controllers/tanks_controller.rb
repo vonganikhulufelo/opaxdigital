@@ -17,7 +17,7 @@ class TanksController < ApplicationController
 
     respond_to do |format|
       if @tank.save
-        @tank.update(uid: "t_" + @tank.id.to_s)
+        @tank.update(uid: "t_" + @tank.id.to_s, product_description: params[:product_description])
         @product_description = ProductDescription.find(params[:product_description])
         @dis = @tank.tank_number.to_s + '$' + @product_description.productdescription_product.to_s  + '$' + @tank.stock_in.to_s + '$' + @tank.stock_out.to_s + '$' + @tank.current_stock.to_s + '$' + @tank.product_description.to_s + '$' + @tank.tank_size.to_s
         
@@ -38,8 +38,9 @@ class TanksController < ApplicationController
 
  def update
     respond_to do |format|
-      if @tank.save
-        @product_description = ProductDescription.find(@tank.product_description)
+      if @tank.update(tank_params) 
+        @tank.update(product_description: params[:product_description])
+        @product_description = ProductDescription.find(params[:product_description])
         @dis = @tank.tank_number.to_s + '$' + @product_description.productdescription_product.to_s  + '$' + @tank.stock_in.to_s + '$' + @tank.stock_out.to_s + '$' + @tank.current_stock.to_s + '$' + @tank.product_description.to_s + '$' + @tank.tank_size.to_s
         
         Log.create!(description: @dis, username: current_user.name, uid: @tank.uid.to_s, user_id: current_user.user_id)
