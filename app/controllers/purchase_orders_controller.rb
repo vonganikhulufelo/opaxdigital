@@ -49,11 +49,8 @@ class PurchaseOrdersController < ApplicationController
     if @purchase_order.update(step3_params)
       @purchase_order_products.each do | product |
         @tank = Tank.where(product_description: product.product_id)
-        if @tank.each do | tank|
 
-          tank.update(current_stock: (tank.current_stock + product.pick_up_quantity))
-        end
-      end
+        @tank.update(current_stock: (@tank[0].current_stock.to_i + product.pick_up_quantity.to_i)).first
       end
       redirect_to @purchase_order
       

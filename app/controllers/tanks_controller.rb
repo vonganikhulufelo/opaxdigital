@@ -32,6 +32,10 @@ class TanksController < ApplicationController
   end
   end
 
+  def show
+    @tanks = Tank.where(user_id: current_user.user_id).select('tank_number, id, (current_stock/tank_size * 100) as current_stock')
+  end
+
   def edit
   	@product_descriptions = ProductDescription.where(user_id: current_user.user_id)
   end
