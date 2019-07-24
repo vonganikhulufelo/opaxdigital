@@ -108,6 +108,19 @@
 
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect" data-toggle="collapse" data-target="#vendor">
+                                    <i class="fas fa-charging-station "></i>
+                                    <span class="badge badge-success badge-pill float-right"></span>
+                                    <span> Dashboards </span>
+                                </a>
+                                <ul class="nav-second-level"  id="vendor" aria-expanded="true">
+                                    <li>
+                                        <%= link_to '<i class="fas fa-chart-line"></i> Dashboard'.html_safe, dashboard_path, data: { turbolinks: false }%>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect" data-toggle="collapse" data-target="#vendor">
                                     <i class="fas fa-gas-pump"></i>
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Vendors </span>

@@ -1,3 +1,43 @@
+GIT
+  remote: https://github.com/SciRuby/daru-view
+  revision: 7662fae07a2f339d9600c1dda263b8e409fc5592
+  specs:
+    daru-view (0.2.5)
+      actionview
+      daru
+      daru-data_tables
+      google_visualr
+      lazy_high_charts
+      nyaplot
+      thor
+
+GIT
+  remote: https://github.com/SciRuby/daru.git
+  revision: eb2380d49c615e181e688ff74e9b109fcc63067a
+  specs:
+    daru (0.2.1)
+      backports
+      packable (~> 1.3.9)
+
+GIT
+  remote: https://github.com/SciRuby/nyaplot.git
+  revision: 662ebc60b0d1e9fbebe7e06530d8450d266ebbdd
+  specs:
+    nyaplot (0.1.6)
+
+GIT
+  remote: https://github.com/Shekharrajak/daru-data_tables.git
+  revision: af3460a049daa8a090f82df693ffb6a48eb4ab59
+  specs:
+    daru-data_tables (0.3.5)
+      daru
+
+GIT
+  remote: https://github.com/winston/google_visualr.git
+  revision: 17b97114a345baadd011e7b442b9a6c91a2b7ab5
+  specs:
+    google_visualr (2.5.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,6 +83,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    backports (3.15.0)
     bcrypt (3.1.12)
     bindex (0.7.0)
     bootsnap (1.4.4)
@@ -63,6 +104,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    echarts-rails (0.1.8)
     erubi (1.8.0)
     execjs (2.7.0)
     faraday (0.15.4)
@@ -72,6 +114,7 @@ GEM
       sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hash-deep-merge (0.1.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
@@ -86,6 +129,8 @@ GEM
       turbolinks
     jwt (2.2.1)
     kgio (2.11.2)
+    lazy_high_charts (1.5.8)
+      hash-deep-merge
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -121,6 +166,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    packable (1.3.10)
+      backports
     pg (1.1.4)
     puma (3.12.1)
     rack (2.0.7)
@@ -245,12 +292,18 @@ DEPENDENCIES
   cancan
   carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
+  daru!
+  daru-data_tables!
+  daru-view!
+  echarts-rails
   font-awesome-sass (~> 5.8.1)
+  google_visualr!
   jbuilder (~> 2.5)
   jquery-datatables
   jquery-rails
   jquery-turbolinks
   listen (>= 3.0.5, < 3.2)
+  nyaplot!
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.3)

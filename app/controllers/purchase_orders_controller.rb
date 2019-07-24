@@ -74,6 +74,7 @@ class PurchaseOrdersController < ApplicationController
 
   def show
     @purchase = PurchaseOrder.find_by(id: params[:id], user_id: current_user.user_id)
+    @total = PurchaseOrder.joins(:purchase_order_products).select('SUM(purchase_order_products.order_value) as total_value, SUM(purchase_order_products.pick_up_value) as total_pickup')
   end
 
   def destroy

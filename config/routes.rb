@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'customer_product_price/:id', to: 'customer_orders#product_price'
 
   resources :tanks
+  get 'dashboards/dashboards', to: 'dashboards#dashboard', as: :dashboard
 
   resources :product, :only => [:show] do
     get '/getprices/:id', to: 'getprices#pricing', as: :pricing

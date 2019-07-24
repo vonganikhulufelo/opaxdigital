@@ -21,11 +21,13 @@
 //= require popper.min
 //= require bootstrap.min
 //= require datatables
-//= require  custombox.min
-//= require  imports
-//= require  toastr.min
-//= require  d3
-//= require  c3
+//= require custombox.min
+//= require imports
+//= require toastr.min
+//= require d3
+//= require c3
+//= require jquery.peity.min.js
+//= require echarts
 
 
 

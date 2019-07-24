@@ -77,9 +77,11 @@
                                 <div class="col-6">
                                 </div>
                                 <div class="col-6">
-                                <p class="text-right"><b>Sub-total:</b> 0.00</p>
+                                <% @total.each do | tot |%>
+                                <p class="text-right"><b>Sub-total:</b> <%= tot.total_value %></p>
                                 <p class="text-right">Discout: 0.0%</p>
                                 <p class="text-right">VAT: 0.0%</p>
+                                <% end %>
                                 <hr>
                                 <h4 class="text-right">R 0.00</h4>
                                 </div>
@@ -182,9 +184,11 @@
                                 <div class="col-6">
                                 </div>
                                 <div class="col-6">
-                                <p class="text-right"><b>Sub-total:</b> 0.00</p>
+                                <% @total.each do | tot |%>
+                                <p class="text-right"><b>Sub-total:</b> <%= tot.total_pickup %></p>
                                 <p class="text-right">Discout: 0.0%</p>
                                 <p class="text-right">VAT: 0.0%</p>
+                                <% end %>
                                 <hr>
                                 <h4 class="text-right">R 0.00</h4>
                                 </div>
