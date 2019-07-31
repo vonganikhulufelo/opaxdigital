@@ -1,0 +1,28 @@
+  <div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title"></h4>
+                 <div class="col-sm-6">
+              <%= form_tag(site_roles_path) do %>
+              <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">User</label>
+                    <div class="col-9">
+                        <%= select_tag "user_id", options_from_collection_for_select( User.where(user_id: current_user.user_id), "id", "email"),{ class: 'form-control form-control-lg m-t-md selectpicker select2', include_blank: true, required: "required"}  %></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword5" class="col-3 col-form-label">Site</label>
+                    <div class="col-9">
+                        <%= select_tag "site_id", options_from_collection_for_select( Site.where(user_id: current_user.user_id), "id", "site_number"),{ class: 'form-control form-control-lg m-t-md selectpicker select2', include_blank: true, required: "required"}  %></div>
+                </div>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                        <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+</div>
