@@ -1,0 +1,119 @@
+<div class="row">
+<div class="col-md-6">
+<h2><i class="fas fa-table"></i> Sites
+<% if can? :create, Site %>
+<%= link_to '<i class="fas fa-plus-square"></i>'.html_safe, new_site_path, data: { turbolinks: false } %>
+<% end %>
+</h2>
+<div><% if @sites.present? %>Updated at <%= @sites.last.updated_at.strftime("%Y-%m-%d %H:%M:%S") %><% end %></div>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<br>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <%= render 'shared/search_form', {controller: "sites"} %>
+            <table class="table table-hover table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    
+                    <th>Date</th>
+                    <th>Site Number</th>
+                    <th>User</th>
+                    <th>Site Location</th>
+                    <th>Tanks</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-dark">
+                  <% @sites.each do |site| %>
+      <tr class="bg-dark">
+      
+        <td>
+          <a class='<i class="fas fa-plus"></i>'.html_safe href="#" data-toggle="modal" data-target="#site<%= site.id %>"><div class="history"><%= site.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></div></a>
+        
+        <div class="modal fade" id="site<%= site.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><div class="container">
+      <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr  class="bg-dark">
+            <th>Created_at</th>
+            <th>Updated_at</th>
+            <th>Site Number</th>
+            <th>Site Location</th>
+            <th>User</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% Log.where(uid: site.uid).order("created_at DESC").map do | r |%>
+            <tr class="bg-dark">
+              <td><%= r.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= r.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= r.description.split('$')[0].to_s %></td>
+              <td><%= r.description.split('$')[1].to_s %></td>
+              <td><%= r.username %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+  </div>
+  </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+        </td>
+        <td><%= site.site_number %></td>
+        <td>
+          <%= link_to '<i class="fas fa-plus"></i>'.html_safe, new_site_role_path, data: { turbolinks: false },class: "" %>
+          <% User.joins(:sites_roles).select('users.email as email, users.name as name').where('sites_roles.site_id = ? AND users.user_id = ?',site.id,current_user.user_id).group('users.email, users.name').each do | s |%>
+          <%= s.name %>,
+          <% end %>
+        </td>
+        <td><%= site.site_location %></td>
+        <td><%= link_to '<i class="fas fa-eye"></i> Tanks'.html_safe, site_tanks_path(site.id),class: "dropdown-item" %></td>
+        <td>
+        <div class="btn-group dropdown">
+          <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <% if can? :edit, Site %>
+              <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, site_path(site), data: { turbolinks: false },class: "dropdown-item" %>
+              <%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_site_path(site), data: { turbolinks: false },class: "dropdown-item" %>
+              <% end %>
+              <% if can? :create, Site %>
+              <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, site, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item", data: { turbolinks: false } %>
+              <% end %>
+          </div>
+      </div>
+      </td>
+      </tr>
+    <% end %>
+                </tbody>
+            </table>
+            <div class="clearfix">
+              <div class="float-left">
+                 <%= page_entries_info @site %>
+              </div>
+              <div class="float-right">
+                <div class="flickr_pagination">
+                  <%= will_paginate @sites, :container => false %>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- end row -->

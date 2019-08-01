@@ -2,6 +2,7 @@ class ProductDescription < ApplicationRecord
   belongs_to :user
   has_many :product_prices, dependent: :destroy
   has_many :c_pay_m_product_prices, dependent: :destroy
+  has_many :tanks, dependent: :destroy
   after_destroy :create_logs
 
   def create_logs

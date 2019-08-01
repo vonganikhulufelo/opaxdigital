@@ -1,4 +1,5 @@
-<div class="row">
+
+      <div class="row">
 <div class="col-md-6">
 <h2><i class="fas fa-weight"></i> Tanks
 <% if can? :create, Tank %>
@@ -18,14 +19,14 @@
                 <thead>
                   <tr>
                    <th>Tank No</th>
-                    <th>Tank Volume</th>
+                    <th>Size</th>
                     <th>Product</th>
-                    <th>Current Stock</th>
+                    <th>Stock Size</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody class="bg-dark">
-                   <% @tanks.each do |tank| %>
+                   <% @site.tanks.each do |tank| %>
       <tr class="bg-dark">
              <td><%= tank.tank_number %></td>
               <td><%= tank.tank_volume %></td>
@@ -48,5 +49,4 @@
             </table>
         </div>
     </div>
-</div> <!-- end row -->
-
+</div>

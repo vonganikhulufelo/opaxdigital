@@ -10,7 +10,6 @@
   </head>
  <body class="">
 
-
  <div id="wrapper">
 
             <!-- Topbar Start -->
@@ -112,7 +111,7 @@
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Vendors </span>
                                 </a>
-                                <ul class="nav-second-level"  id="vendor" aria-expanded="true">
+                                <ul class="nav-second-level collapse"  id="vendor" aria-expanded="true">
                                     <li>
                                         <%= link_to '<i class="fas fa-users"></i> Vendor'.html_safe, suppliers_path, data: { turbolinks: false }%>
                                     </li>
@@ -131,7 +130,7 @@
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Customers </span>
                                 </a>
-                                <ul class="nav-second-level" id="customer" aria-expanded="false">
+                                <ul class="nav-second-level collapse" id="customer" aria-expanded="false">
                                     <li>
                                          <%= link_to '<i class="fas fa-users"></i> Customer'.html_safe, customers_path, data: { turbolinks: false } %>
                                     </li>
@@ -151,7 +150,7 @@
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Parameters </span>
                                 </a>
-                                <ul class="nav-second-level" id="parameter" aria-expanded="false">
+                                <ul class="nav-second-level collapse show" id="parameter" aria-expanded="false">
                                     <li>
                                         <%= link_to '<i class="fas fa-table"></i> Zones'.html_safe, magisterial_districts_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %>
                                     </li>
@@ -168,7 +167,7 @@
                                         <%= link_to '<i class="fas fa-table"></i> Price Look-Up'.html_safe, price_lookup_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %>
                                     </li>
                                     <li>
-                                        <%= link_to '<i class="fas fa-weight"></i> Tanks'.html_safe, tanks_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %>
+                                        <%= link_to '<i class="fas fa-weight"></i> Sites'.html_safe, sites_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %>
                                     </li>
                                     <li>
                                     </li>

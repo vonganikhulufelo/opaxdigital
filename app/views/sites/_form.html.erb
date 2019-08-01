@@ -1,0 +1,44 @@
+  <div class="row">
+    <div class="col-md-6">
+        <div class="card-box">
+            <h4 class="m-t-0 m-b-30 header-title"></h4>
+
+            <%= form_with(model: site, local: true) do |form| %>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-3 col-form-label">Site Name</label>
+                    <div class="col-9">
+                        <%= form.text_field :site_number, class: "form-control", placeholder: "Enter Site Number", id: "site_number",required: :true%> </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-3 col-form-label">Site Location</label>
+                    <div class="col-9">
+                        <%= form.text_field :site_location, class: "form-control", placeholder: "Enter Site Location", id: "site_location"%> </div>
+                </div>
+                
+                  <%= form.hidden_field :user_id, value: current_user.user_id %>
+                <div class="form-group mb-0 justify-content-end row">
+                    <div class="col-9">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Submit</button>
+                       <a onclick="history.back(-1)" href="" class="btn btn-secondary waves-effect waves-light">Cancel</a>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card-box">
+         <div id="mapid" style="width: 100%; min-height: 400px;"></div>
+      </div>
+    </div>
+
+</div>
+
+<%= render 'shared/map' %>
+
+<script type="text/javascript">
+ 
+function onGeocodeReverseComplete(error,result) {
+    $("#site_location").val( result.address.Match_addr );
+    gAddressMarker.bindPopup(result.address.Match_addr).openPopup();
+} 
+</script>

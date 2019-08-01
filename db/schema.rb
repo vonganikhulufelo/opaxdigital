@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_104459) do
+ActiveRecord::Schema.define(version: 2019_08_01_083801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,6 +267,25 @@ ActiveRecord::Schema.define(version: 2019_07_11_104459) do
     t.index ["user_id"], name: "index_sales_orders_on_user_id"
   end
 
+  create_table "sites", force: :cascade do |t|
+    t.string "site_number"
+    t.string "site_location"
+    t.string "uid"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sites_on_user_id"
+  end
+
+  create_table "sites_roles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_sites_roles_on_site_id"
+    t.index ["user_id"], name: "index_sites_roles_on_user_id"
+  end
+
   create_table "supplier_payment_terms", force: :cascade do |t|
     t.string "payment_term_description"
     t.string "payment_term_threshold"
@@ -291,16 +310,21 @@ ActiveRecord::Schema.define(version: 2019_07_11_104459) do
   end
 
   create_table "tanks", force: :cascade do |t|
-    t.integer "tank_number"
+    t.string "tank_number"
     t.decimal "stock_in", precision: 38, scale: 4, default: "0.0"
     t.decimal "stock_out", precision: 38, scale: 4, default: "0.0"
     t.decimal "current_stock", precision: 38, scale: 4, default: "0.0"
-    t.integer "product_description"
-    t.decimal "tank_size", precision: 38, scale: 4, default: "0.0"
+    t.decimal "tank_volume", precision: 38, scale: 4, default: "0.0"
+    t.decimal "opening_stock", precision: 38, scale: 4, default: "0.0"
+    t.decimal "closing_stock", precision: 38, scale: 4, default: "0.0"
     t.string "uid"
+    t.bigint "product_description_id"
+    t.bigint "user_id"
+    t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.index ["product_description_id"], name: "index_tanks_on_product_description_id"
+    t.index ["site_id"], name: "index_tanks_on_site_id"
     t.index ["user_id"], name: "index_tanks_on_user_id"
   end
 
@@ -370,9 +394,14 @@ ActiveRecord::Schema.define(version: 2019_07_11_104459) do
   add_foreign_key "s_pay_m_product_prices", "s_pay_m_districts"
   add_foreign_key "sales_order_products", "sales_orders"
   add_foreign_key "sales_orders", "users"
+  add_foreign_key "sites", "users"
+  add_foreign_key "sites_roles", "sites"
+  add_foreign_key "sites_roles", "users"
   add_foreign_key "supplier_payment_terms", "payment_terms"
   add_foreign_key "supplier_payment_terms", "suppliers"
   add_foreign_key "suppliers", "users"
+  add_foreign_key "tanks", "product_descriptions"
+  add_foreign_key "tanks", "sites"
   add_foreign_key "tanks", "users"
   add_foreign_key "zones", "users"
 end

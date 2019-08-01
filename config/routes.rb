@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   get 'customer_product_name/:id', to: 'customer_orders#product_name'
   get 'customer_product_price/:id', to: 'customer_orders#product_price'
 
-  resources :tanks
+  resources :sites do
+    resources :tanks
+  end
+  resources :site_roles
 
   resources :product, :only => [:show] do
     get '/getprices/:id', to: 'getprices#pricing', as: :pricing
