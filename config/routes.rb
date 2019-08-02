@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :sites do
     resources :tanks
   end
+  
   resources :site_roles
 
   resources :product, :only => [:show] do
