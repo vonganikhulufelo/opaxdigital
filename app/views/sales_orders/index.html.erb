@@ -25,16 +25,6 @@ var resizefunc = [];
                     <p class=""><strong>All Sales </strong> <span class="badge badge-secondary"><%= @sales.count %></span></p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#home-b1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                <p class=""><strong>Step 1 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '1').count %></span></p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#profile-b1" data-toggle="tab" aria-expanded="false" class="nav-link ">
-                <p class=""><strong>Step 2 </strong> <span class="badge badge-secondary"><%= @sales.where(status: '2').count %></span></p>
-                </a>
-            </li>
         </ul>
         <div class="tab-content">
         <div class="tab-pane fade show active" id="home1-b1">
@@ -42,55 +32,60 @@ var resizefunc = [];
             <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                    <th>Status</th>
+                <th>Status</th>
+                <th>Date Order</th>
                 <th>Customer Name</th>
-                <th>Zone</th>
-                <th>Delivery Date</th>
                 <th>Payment</th>
-                <th>Delivery Date</th>
-                <th>Delivery Note</th>
-                <th>Delivery Note Attached</th>
+                <th>Zone</th>
                 <th>Invoiced</th>
-                <th>Puma</th>
+                <th>Estimated Delivery Date</th>
+                <th>Product Ordered</th>
+                <th>Purchase Price</th>
+                <th>Product Quantity</th>
+                <th>Ordered Value</th>
+                <th>Product Delivery Date</th>
                 <th>Recon Status</th>
                 <th>Action</th>
 
                 </tr> 
             </thead>
             <tbody class="">
-                <% @sales.each do |sale| %>
-                <tr>
-                <% if sale.status == '3' %>
-                <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Completed</div></td>
-                <% else %>
-                    <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
-                </td>
-                <% end %>
-                <td><%= link_to sale.customer_name, sales_order_path(sale.id) %> </td>
-                <td><%= sale.zone %></td>
-                <td><%= sale.delivered_date %></td>
-                <td><%= sale.payment %></td>
-                <td><%= sale.delivery_date_on_delivery %></td>
-                <td><%= sale.delivery_note_reference %></td>
-                <td><%= sale.delivery_note_reference %></td>
-                <td><%= sale.invoice %></td>
-                <td><%= sale.puma_reference %></td>
-                <td><%= sale.recon %></td>
-                <td>
-                    <div class="btn-group dropdown">
-                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <% if can? :read, SalesOrder %>
-                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale,class: "dropdown-item", data: { turbolinks: false } %>
-                          <% end %>
-                          <% if can? :create, SalesOrder %>
-                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                          <% end %>
-                      </div>
+            <% @sales1.each do |sale| %>
+              <tr>
+              <% if sale.status == '3' %>
+              <td><div class="btn btn-success btn-rounded w-md waves-effect waves-light">Completed</div></td>
+              <% else %>
+                  <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
+              </td>
+              <% end %>
+              <td><%= sale.order_date.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= sale.customer_name %></td>
+              <td><%= sale.payment %></td>
+              <td><%= sale.zone %></td>
+              <td><%= sale.invoice %></td>
+              <td><%= sale.estimated_delivery_date.strftime("%Y-%m-%d %H:%M:%S") %></td>
+              <td><%= sale.product_name %></td>
+              <td><%= sale.order_rate %></td>
+              <td><%= sale.order_quantity %></td>
+              <td><%= sale.order_value %></td>
+              <td><%= sale.product_delivered_date %></td>
+              <td><%= sale.recon %></td>
+              <td>
+                <div class="btn-group dropdown">
+                  <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <% if can? :read, SalesOrder %>
+                      <%= link_to '<i class="fas fa-eye"></i> Edit Order'.html_safe, edit_sales_order_path(sale.id),class: "dropdown-item", data: { turbolinks: false } %>
+                      <%= link_to '<i class="fas fa-eye"></i> Edit Product'.html_safe, pick_up_path(sale.id),class: "dropdown-item", data: { turbolinks: false } %>
+                      <% end %>
+                      <% if can? :create, SalesOrder %>
+                      <%= link_to '<i class="fas fa-trash-alt"></i> Delete Order'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
+                      <% end %>
                   </div>
-                  </td>
-                </tr>
-                <% end %>
+              </div>
+              </td>
+            </tr>
+            <% end %>
             </tbody>
             </table>
             <div class="clearfix">
@@ -104,110 +99,10 @@ var resizefunc = [];
               </div>
             </div> 
           </div>
-
-            <div class="tab-pane fade table-responsive" id="home-b1">
-                <%= render 'shared/search_form', {controller: "sales_orders"} %>
-                <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                <th>Status</th>
-                <th>Order Date</th>
-                <th>Customer Name</th>
-                <th>Zone</th>
-                <th>Payment Type</th>
-                <th>Deliver Date</th>
-                <th>Action</th>
-                </tr> 
-            </thead>
-            <tbody class="">
-                <% @sales.where(status: '1').each do |sale| %>
-                <tr>
-                <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
-                </td>
-                    <td><%= sale.order_date.strftime("%m/%d/%Y %H:%M:%S") %></td>
-                    <td><%= sale.customer_name %></td>
-                    <td><%= sale.zone %></td>
-                    <td><%= sale.payment %></td>
-                    <td><%= sale.delivery_date_on_delivery.strftime("%m/%d/%Y %H:%M:%S") %></td>
-                    <td>
-                    <div class="btn-group dropdown">
-                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <% if can? :read, SalesOrder %>
-                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale,class: "dropdown-item", data: { turbolinks: false } %>
-                          <% end %>
-                          <% if can? :create, SalesOrder %>
-                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                          <% end %>
-                      </div>
-                  </div>
-                  </td>
-                </tr>
-                <% end %>
-            </tbody>
-              </table>
-              <div class="clearfix">
-              <div class="float-right">
-                <div class="flickr_pagination">
-                  <%= will_paginate @sales, :container => false %>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="tab-pane " id="profile-b1">
-                <%= render 'shared/search_form', {controller: "sales_orders"} %>
-                <table class="table table-bordered table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                <th>Status</th>
-                <th>Order Date</th>
-                <th>Customer Name</th>
-                <th>Delivery Date</th>
-                <th>Delivery Note Reference</th>
-                <th>Delivery Note Attachment</th>
-                <th>Puma Reference</th>
-                <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="">
-                <% @sales.where(status: '2').each do |sale| %>
-                <tr>
-                <td><div class="btn btn-danger btn-rounded w-md waves-effect waves-light">Pending</div>
-                </td>
-                    <td><%= sale.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-                    <td><%= sale.customer_name %></td>
-                    <td><%= sale.delivered_date %></td>
-                    <td><%= sale.delivery_note_reference %></td>
-                    <td><%= sale.delivery_attachment %></td>
-                    <td><%= sale.puma_reference %></td>
-                    <td>
-                    <div class="btn-group dropdown">
-                      <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <% if can? :read, SalesOrder %>
-                          <%= link_to '<i class="fas fa-eye"></i> View'.html_safe, sale,class: "dropdown-item", data: { turbolinks: false } %>
-                          <% end %>
-                          <% if can? :create, SalesOrder %>
-                          <%= link_to '<i class="fas fa-trash-alt"></i> Delete'.html_safe, sale, method: :delete, data: { confirm: 'Are you sure?' },class: "dropdown-item" %>
-                          <% end %>
-                      </div>
-                  </div>
-                  </td>
-                <% end %>
-                </tr> 
-            </tbody>
-              </table>
-                <div class="clearfix">
-              <div class="float-right">
-                <div class="flickr_pagination">
-                  <%= will_paginate @sales, :container => false %>
-                </div>
-              </div>
-            </div>
-               </div>
         </div>
     </div>
 </div> <!-- end col -->
+
 <script>
 $(document).ready(function() {
     // Responsive Datatable

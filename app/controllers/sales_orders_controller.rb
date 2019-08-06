@@ -1,6 +1,7 @@
 class SalesOrdersController < ApplicationController
   def index
     @sales = SalesOrder.where(user_id: current_user.user_id).search(params[:search]).paginate(page: params[:page], per_page: 50).order('customer_name ASC')
+    @sales1 = sales_sql
   end
 
   def new
@@ -27,7 +28,6 @@ class SalesOrdersController < ApplicationController
   def edit
     @sales_order = SalesOrder.find_by(id: params[:id], user_id: current_user.user_id)
     @customers = Customer.where(user_id: current_user.user_id)
-    
   end
 
   def step2
@@ -56,6 +56,14 @@ class SalesOrdersController < ApplicationController
       format.html { redirect_to sales_orders_path, notice: 'Purchase order was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def sales_sql
+    ::User.find(current_user.user_id).sales_orders.joins(:sales_order_products).select('sales_orders.customer_name as customer_name, sales_orders.status as status, sales_orders.zone as zone, sales_orders.order_date as order_date, sales_orders.payment as payment, sales_orders.zone as zone, sales_orders.invoice as invoice, sales_orders.recon as recon, sales_orders.delivery_date_on_delivery as estimated_delivery_date,
+      sales_order_products.product_name as product_name, sales_order_products.order_rate as order_rate, sales_order_products.order_quantity as order_quantity, sales_order_products.order_value as order_value, sales_order_products.delivered_date as product_delivered_date, sales_orders.id')
+    .group('sales_orders.customer_name, sales_orders.status, sales_orders.zone, sales_orders.order_date, sales_orders.payment, sales_orders.zone, sales_orders.invoice, sales_orders.recon, sales_orders.delivery_date_on_delivery, sales_orders.delivery_date_on_delivery, sales_order_products.product_name, sales_order_products.order_rate, sales_order_products.order_quantity, sales_order_products.order_value, sales_order_products.delivered_date, sales_orders.id')
   end
 
   def customer_rebate_params

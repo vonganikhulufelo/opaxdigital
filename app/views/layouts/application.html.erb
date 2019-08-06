@@ -111,7 +111,11 @@
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Vendors </span>
                                 </a>
-                                <ul class="nav-second-level collapse"  id="vendor" aria-expanded="true">
+                                <% if ['purchase_orders', 'suppliers', 'supplier_rebates'].include?(controller.controller_name) %>
+                                <ul class="nav-second-level collapse show active" id="vendor" aria-expanded="false">
+                                <% else %>
+                                <ul class="nav-second-level collapse" id="vendor" aria-expanded="false">
+                                <% end %>
                                     <li>
                                         <%= link_to '<i class="fas fa-users"></i> Vendor'.html_safe, suppliers_path, data: { turbolinks: false }%>
                                     </li>
@@ -130,7 +134,11 @@
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Customers </span>
                                 </a>
+                                <% if ['sales_orders', 'customers', 'customer_rebates'].include?(controller.controller_name) %>
+                                <ul class="nav-second-level collapse show active" id="customer" aria-expanded="false">
+                                <% else %>
                                 <ul class="nav-second-level collapse" id="customer" aria-expanded="false">
+                                <% end %>
                                     <li>
                                          <%= link_to '<i class="fas fa-users"></i> Customer'.html_safe, customers_path, data: { turbolinks: false } %>
                                     </li>
@@ -150,8 +158,13 @@
                                     <span class="badge badge-success badge-pill float-right"></span>
                                     <span> Parameters </span>
                                 </a>
-                                <ul class="nav-second-level collapse show" id="parameter" aria-expanded="false">
-                                    <li>
+                                <% if ['sites', 'tanks', 'product_descriptions', 'magisterial_districts', 'price_lookups', 'product_prices', 'payment_terms'].include?(controller.controller_name) %>
+                                <ul class="nav-second-level collapse show active" id="parameter" aria-expanded="false">
+                                <% else %>
+                                <ul class="nav-second-level collapse" id="parameter" aria-expanded="false">
+                                <% end %>
+                                
+                                    <li> 
                                         <%= link_to '<i class="fas fa-table"></i> Zones'.html_safe, magisterial_districts_path, data: { turbolinks: false }, class: "waves-effect waves-primary" %>
                                     </li>
                                     <li>
