@@ -24,8 +24,6 @@
 //= require  custombox.min
 //= require  imports
 //= require  toastr.min
-//= require  d3
-//= require  c3
 
 
 

@@ -83,10 +83,12 @@
 
 
  <script>
-  $(document).ready(function () {     
-    $('.customer option').click(function () {
-      var supplier_id = $( ".customer" ).val();
-      var link ='/customer_payment/' + supplier_id
+
+  $(function(){
+  $(document).ready(function(){
+    $(document).on('click', '.customer', function(){
+      var product_id = $( ".customer" ).val();
+      var link = '/customer_payment/' + product_id
 
       $.getJSON(link, function (data) {
         
@@ -108,9 +110,10 @@
           $(".supplier_id option").remove();
         }
       });
-
     });
   });
+});
+
 
     $(document).ready(function () {     
     $('.payment').click(function () {
