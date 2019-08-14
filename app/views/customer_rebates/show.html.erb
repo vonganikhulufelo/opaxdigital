@@ -91,7 +91,9 @@
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Supplier</label>
                     <div class="col-9">
-                       <%= select_tag "supplier_id", options_for_select(""),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id select2', include_blank: true, required: "required"}  %></div>
+                       <%= select_tag "supplier_id", options_for_select(""),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id select2', include_blank: true, required: "required"}  %>
+                         <%#= select_tag "supplier_id1", options_from_collection_for_select( @supplier, "magisterialdistrict_zone", "magisterialdistrict_zone"),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id1', include_blank: true, required: "required"}  %>
+                       </div>
                 </div>
                 <% end %>
                   <%= hidden_field_tag 'product_id', params[:product_id], placeholder: 'Enter puchase price...', class: "form-control",readonly: true %>
@@ -136,6 +138,7 @@
              $('.supplier_id').append($('<option>', { 
                 value: val.supplier_id + '/' + val.product_id + "/" + zone,
                 text : val.name + " " + " " + val.payment + " " + val.net_price + " " + val.zone +" " + val.distirct
+
             }));
           });
 
