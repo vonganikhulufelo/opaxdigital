@@ -37,7 +37,7 @@
                      <% if params[:product_id] == 'n'%>
                         <%= select_tag "product_discription_id", options_from_collection_for_select( @product_descriptions, "id", "productdescription_product", params[:product_id]),{ class: 'form-control form-control-lg m-t-md selectpicker product_id', include_blank: true, required: "required"}  %>
                     <% else %>
-                        <%= select_tag "product_discription_id", options_for_select( [[@product_description.productdescription_product,@product_description.id]]),{ class: 'form-control form-control-lg m-t-md selectpicker'}  %>
+                        <%= select_tag "product_discription_id", options_for_select( [[@product_description.productdescription_product,@product_description.id]]),{ class: 'form-control form-control-lg m-t-md selectpicker product_id'}  %>
                     <% end %>
                     </div>
                 </div>
@@ -65,7 +65,10 @@
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Supplier</label>
                     <div class="col-9">
-                       <%= select_tag "supplier_id", options_for_select([[@supplier_text, @supplier_value]]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', required: "required"}  %></div>
+                      <%= @selected_product_id.zone %>
+                       <%#= select_tag "supplier_id", options_for_select([[@supplier_text, @supplier_value]]),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id', required: "required"}  %>
+                         <%= select_tag "supplier_id", options_from_collection_for_select( @supplier, "product_id", "zone"),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id select2', include_blank: true}  %>
+                       </div>
                 </div>
                 <% else %>
                  <div class="form-group row">
@@ -92,7 +95,6 @@
                     <label for="inputPassword5" class="col-3 col-form-label">Supplier</label>
                     <div class="col-9">
                        <%= select_tag "supplier_id", options_for_select(""),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id select2', include_blank: true, required: "required"}  %>
-                         <%#= select_tag "supplier_id1", options_from_collection_for_select( @supplier, "magisterialdistrict_zone", "magisterialdistrict_zone"),{ class: 'form-control form-control-lg m-t-md selectpicker supplier_id1', include_blank: true, required: "required"}  %>
                        </div>
                 </div>
                 <% end %>

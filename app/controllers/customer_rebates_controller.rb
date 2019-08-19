@@ -31,9 +31,14 @@ class CustomerRebatesController < ApplicationController
       @supplier_value = @product.supplier_id.to_s + '/' + + @product.id.to_s + "/" + @product.s_zone.to_s
       @supplier_text = @product.s_name.to_s + ' ' + @product.s_payment.to_s + " " + @product.s_net_price.to_s + " " + @product.s_zone.to_s
       @supplier = Supplier.joins(supplier_payment_terms: [{ s_pay_m_districts: :s_pay_m_product_prices }])
-    .select('s_pay_m_districts.magisterialdistrict_zone as zone,s_pay_m_districts.magisterialdistrict_district as distirct, suppliers.supplier_name as name,supplier_payment_terms.payment_term_description as payment,s_pay_m_product_prices.id as product_id, suppliers.id as supplier_id, s_pay_m_product_prices.net_price as net_price')
+    .select("concat(suppliers.supplier_name,' ',supplier_payment_terms.payment_term_description,' ',s_pay_m_product_prices.net_price, ' ',s_pay_m_districts.magisterialdistrict_zone,' ',s_pay_m_districts.magisterialdistrict_district) as zone,s_pay_m_districts.magisterialdistrict_district as distirct, suppliers.supplier_name as name,supplier_payment_terms.payment_term_description as payment, concat(suppliers.id, '/', s_pay_m_product_prices.id) as product_id, s_pay_m_product_prices.net_price as net_price")
     .where('s_pay_m_product_prices.product_description_id = ? ',@product_description.id)
     .group('suppliers.id,s_pay_m_districts.magisterialdistrict_district, s_pay_m_product_prices.net_price,suppliers.supplier_name,supplier_payment_terms.payment_term_description,s_pay_m_product_prices.id,s_pay_m_districts.magisterialdistrict_zone')
+    @selected_product_id = Supplier.joins(supplier_payment_terms: [{ s_pay_m_districts: :s_pay_m_product_prices }])
+    .select("concat(suppliers.supplier_name,' ',supplier_payment_terms.payment_term_description,' ',s_pay_m_product_prices.net_price, ' ',s_pay_m_districts.magisterialdistrict_zone,' ',s_pay_m_districts.magisterialdistrict_district) as zone,s_pay_m_districts.magisterialdistrict_district as distirct, suppliers.supplier_name as name,supplier_payment_terms.payment_term_description as payment, concat(suppliers.id, '/', s_pay_m_product_prices.id) as product_id1, s_pay_m_product_prices.net_price as net_price")
+    .where('s_pay_m_product_prices.id = ? ',params[:id])
+    .group('suppliers.id,s_pay_m_districts.magisterialdistrict_district, s_pay_m_product_prices.net_price,suppliers.supplier_name,supplier_payment_terms.payment_term_description,s_pay_m_product_prices.id,s_pay_m_districts.magisterialdistrict_zone').first
+    
     end
 
   end
