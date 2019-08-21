@@ -21,13 +21,13 @@
                 <div class="form-group row">
                     <label for="inputPassword3" class="col-3 col-form-label">Payment</label>
                     <div class="col-9">
-                        <%= f.select :payment_id, options_for_select("yes"), { include_blank: true}, { :class => 'form-control form-control-lg m-t-md selectpicker payment', required: "required" } %>
+                        <%= f.collection_select :payment_id, @payemnts.order(:payment_term_description), :id, :payment_term_description, { include_blank: true}, { :class => 'form-control form-control-lg m-t-md selectpicker payment', required: "required" } %>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputPassword5" class="col-3 col-form-label">Zone</label>
                     <div class="col-9">
-                        <%= f.select :zone_id, options_for_select("yes"), {include_blank: true}, { :class => 'form-control form-control-lg m-t-md selectpicker zone' } %>
+                        <%= f.collection_select :zone_id, @zones.order(:magisterialdistrict_zone),:id, :magisterialdistrict_zone, {include_blank: true}, { :class => 'form-control form-control-lg m-t-md selectpicker zone', required: "required" } %>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -48,8 +48,44 @@
                     </tr>
                   </thead>
                   <tbody class='fields'>
-                    <%= f.fields_for :sales_order_products do |builder| %>
-                      <%= render 'sales_order_product', f: builder %>
+                    <%= f.fields_for :sales_order_products do |f| %>
+                      <tr>
+                        <td>
+                          <%= f.hidden_field :_destroy, as: :hidden %>
+                          <%= link_to 'Delete', '#', class: 'remove_record' %>
+                        </td>
+                        <td>
+                        <div class="form-group row">
+                            <div>
+                              <%= f.collection_select :product_id, @product.order(:product_pescription_product),:id, :product_pescription_product, {include_blank: true}, { :class => 'form-control form-control-lg m-t-md selectpicker product' } %>
+                            </div>
+                        </div>
+                        </td>
+                        <td>
+                        <div class="form-group row">
+                            <div>
+                                 <%= f.text_field :order_rate, class: "form-control", readonly: true  %>
+                                </div>
+                        </div>
+                        </td>
+                        </td>
+                        <td>
+                          <div class="form-group row">
+                            <div>
+                                <%= f.text_field :order_quantity, class: "form-control" %>
+                                </div>
+                                 <%= f.hidden_field :product_name %>
+                        </div>
+                        </td>
+                        
+                        <td>
+                          <div class="form-group row">
+                            <div>
+                                <%= f.text_field :order_value, class: "form-control", readonly: true  %></div>
+                        </div>
+                        </td>
+                      </tr>
+
                     <% end %>
                   </tbody>
                    <tfoot>
@@ -142,35 +178,6 @@
 
   $(document).ready(function () {     
     $('.zone').click(function () {
-      var product_id = $( ".zone" ).val();
-      var link = '/product_name/' + product_id
-
-      $.getJSON(link, function (data) {
-        
-        
-        if(data.products){
-          
-          jQuery.each( data.products, function( i, val ) {
-             $('.product').append($('<option>', { 
-                value: val.id,
-                text : val.product_pescription_product
-            }));
-          });
-
-                    
-        }else{
-          $(".net").val("");
-          $(".rebate").val("");
-          $(".price").val(data.price);
-          $(".supplier_id option").remove();
-        }
-      });
-
-    });
-  });
-
-   $(document).ready(function () {     
-    $('.zone option').click(function () {
       var product_id = $( ".zone" ).val();
       var link = '/product_name/' + product_id
 
