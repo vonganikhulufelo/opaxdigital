@@ -24,6 +24,8 @@
 //= require  custombox.min
 //= require  imports
 //= require  toastr.min
+//= require echarts
+//= require dark
 
 
 

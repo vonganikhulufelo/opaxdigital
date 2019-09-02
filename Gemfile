@@ -40,6 +40,11 @@ gem 'carrierwave', '~> 1.0'
 gem 'jquery-datatables'
 gem 'will_paginate', '~> 3.1.0'
 gem 'resque'
+gem 'echarts-rails'
+
+#Genarate pdf
+gem 'wicked_pdf', '~> 1.1'
+gem 'wkhtmltopdf-binary'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

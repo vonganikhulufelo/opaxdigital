@@ -11,6 +11,19 @@ class CustomersController < ApplicationController
   # GET /customers/1
   # GET /customers/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Customer. #{@customer.id}",
+        page_size: 'A4',
+        template: "customers/show.html.erb",
+        layout: "pdf.html",
+        orientation: "Landscape",
+        lowquality: true,
+        zoom: 1,
+        dpi: 75
+      end
+    end
   end
 
   # GET /customers/new

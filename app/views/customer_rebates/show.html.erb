@@ -160,9 +160,9 @@
      var net = p - ((-$( ".claw_margin" ).val()) + (-$( ".rebate" ).val()));
     if(p){
     if(claw_margin){
-        $(".net").val(net);
+        $(".net").val(net.toFixed(4));
       }else{
-        $(".net").val(net);
+        $(".net").val(net.toFixed(4));
       }
     }
   });
@@ -173,9 +173,9 @@
     var net = p - ((-$( ".claw_margin" ).val()) + (-$( ".rebate" ).val()));
     if(p){
       if(rebate){
-        $(".net").val(net);
+        $(".net").val(net.toFixed(4));
       }else{
-        $(".net").val(net);
+        $(".net").val(net.toFixed(4));
       }
     }
   });

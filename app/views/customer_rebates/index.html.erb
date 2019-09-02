@@ -30,6 +30,8 @@
       <%= link_to '<i class="fas fa-pen"></i>'.html_safe, edit_customer_path(customer.id) %>
       <% end %>
       <a href="#supplier<%= customer.id %>" data-toggle="collapse" class="rebate_name"> | <%= customer.customer_name %></a>
+              <%= link_to 'PRINT', customer_path(::Customer.find(customer.id), format: :pdf), class: "float-right btn btn-outline-success my-2 my-sm-0" %>
+
       <ul>
       <% customer.customer_payment_terms.each do |payment_term| %>
       <li data-icon-cls="treeview-icon icon-folder" data-expanded="true">
